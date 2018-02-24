@@ -1,0 +1,7 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+.trig{
+    display:block!important;
+    width:27px;
+    text-align:center;
+    margin-bottom:5px;
+}
