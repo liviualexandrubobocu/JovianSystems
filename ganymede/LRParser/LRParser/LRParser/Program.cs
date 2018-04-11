@@ -24,6 +24,8 @@ public abstract class LRItem
     public abstract bool hasTerminalAfterPosition(Symbol[] terminals);
 
     public abstract bool hasHandle(Symbol[] nonTerminals);
+
+    public abstract void updatePosition();
 }
 
 // An LR0Item is a production with a dot at some position of the body
@@ -79,6 +81,11 @@ public class LR0Item : LRItem
     public int reduceProduction(Dictionary<int, Symbol> states)
     {
 
+    }
+
+    public override void updatePosition()
+    {
+        this.position++;
     }
 }
 
@@ -248,6 +255,32 @@ public class Grammar: IGrammar
         return terminal;
     }
 
+    public Symbol getMiddleTerminal(string rhs, Form form)
+    {
+        if(form == Form.TNT)
+        {
+            string terminal = rhs[1].ToString();
+            return new Symbol(terminal);
+        }
+        return null;
+    }
+
+    // Returns a list of pairs from grammar terminals
+    public List<Tuple<Symbol, Symbol>> getTerminalPairs()
+    {
+        List<Tuple<Symbol, Symbol>> terminalPairs = new List<Tuple<Symbol, Symbol>>();
+        Symbol[] terminalsArray = this.terminals.ToArray();
+        int i = 0;
+        foreach(Symbol symbol in this.terminals)
+        {
+            for (int j = i; j < terminalsArray.Length; j++) {
+                terminalPairs.Add(Tuple.Create(symbol, terminalsArray[j]));
+            }
+            i++;
+        }
+        return terminalPairs;
+    }
+
 
 }
 
@@ -284,6 +317,11 @@ public enum Action
     Reduce,
     Accept,
     Error
+}
+
+public enum Form
+{
+    TNT,
 }
 
 public class ActionResult {
@@ -394,7 +432,7 @@ public class SLRParser
         List<LR0Item> processedItems = new List<LR0Item>();
         foreach (LR0Item item in items)
         {
-            processedItems.Add(item.MoveDot());
+            processedItems.Add(item.updatePosition());
         }
         return closure(processedItems);
 
@@ -553,7 +591,7 @@ public class LALRParser : ILALRParser
         List<LR1Item> processedItems = new List<LR1Item>();
         foreach(LR1Item item in items)
         {
-            processedItems.Add(item.MoveDot());
+            processedItems.Add(item.updatePosition());
         }
         return closure(processedItems);
 
