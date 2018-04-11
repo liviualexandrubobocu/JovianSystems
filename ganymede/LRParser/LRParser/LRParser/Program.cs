@@ -220,11 +220,32 @@ public class Grammar: IGrammar
     // otherwise return null
     public Symbol getTerminalAfterNonTerminals(Production production)
     {
+        bool foundTerminal = false;
+        int k = 0;
+        Symbol terminal = null;
         foreach(char character in production.rhs)
         {
             Symbol symbol = new Symbol(character.ToString());
-            
+            if (this.hasTerminal(symbol))
+            {
+                foundTerminal = true;
+                terminal = symbol;
+                break;
+            }
+            k++;
         }
+         
+        if (foundTerminal == false) return null;
+        
+        for(int j = 0; j < k; j++)
+        {
+            string lhs = production.rhs[j].ToString();
+            if (!this.hasProduction(lhs, Symbol.getEmptyWord().ToString()))
+            {
+                return null;
+            } 
+        }
+        return terminal;
     }
 
 
