@@ -128,6 +128,11 @@ public class Symbol {
     {
         return new Symbol("$");
     }
+
+    public static Symbol getEmptyWord()
+    {
+        return new Symbol("£");
+    }
 } 
 
 public interface IGrammar
@@ -138,7 +143,7 @@ public interface IGrammar
 
 public class Grammar: IGrammar
 {
-    public List<Symbol> nonterminals;
+    public List<Symbol> nonTerminals;
     public List<Symbol> terminals;
     public List<Production> productions;
     public List<PrecedenceRule> precedenceRules;
@@ -152,14 +157,44 @@ public class Grammar: IGrammar
 
     }
 
-    public setTerminals(string[] terminals)
+    public void setTerminals(string[] terminals)
     {
 
     }
 
-    public setNonTerminals(string[] terminals)
+    public void setNonTerminals(string[] terminals)
     {
 
+    }
+
+    public bool hasTerminal(Symbol symbol)
+    {
+        foreach(Symbol terminal in this.terminals)
+        {
+            if (symbol == terminal) return true;
+        }
+        return false;
+    }
+
+    public bool hasNonTerminal(Symbol symbol)
+    {
+        foreach (Symbol nonTerminal in this.nonTerminals)
+        {
+            if (symbol == nonTerminal) return true;
+        }
+        return false;
+    }
+
+    public bool hasProduction(string lhs, string rhs)
+    {
+        foreach(Production production in this.productions)
+        {
+            if(production.lhs == lhs && production.rhs == rhs)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool isOfType(GrammarType type)
@@ -170,7 +205,26 @@ public class Grammar: IGrammar
 
     public List<Symbol> getAllSymbols()
     {
+        var union = this.nonTerminals;
+        union.AddRange(this.terminals);
 
+        return union;
+    }
+
+
+    // Do first for to find a terminal;
+    // If terminal hasn't been found return;
+    // Do second for to find if all other non terminals before terminal
+    // if all non terminals have productions in which they derive to empty word
+    // return found terminal
+    // otherwise return null
+    public Symbol getTerminalAfterNonTerminals(Production production)
+    {
+        foreach(char character in production.rhs)
+        {
+            Symbol symbol = new Symbol(character.ToString());
+            
+        }
     }
 
 
@@ -337,10 +391,10 @@ public class SLRParser
                     Symbol itemSymbol = item.getTerminalAfterPosition(this.grammar.terminals.ToArray());
                     int goToState = item.getGoToState();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(goToState, Action.Shift));
-                } else if (item.hasHandle(this.grammar.nonterminals.ToArray())) {
+                } else if (item.hasHandle(this.grammar.nonTerminals.ToArray())) {
                     Symbol itemSymbol = item.getNextSymbol();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(item.reduceProduction(this.states), Action.Reduce));
-                } else if (item.isFirstItemInExtendedGrammar(this.grammar.nonterminals.ToArray())) {
+                } else if (item.isFirstItemInExtendedGrammar(this.grammar.nonTerminals.ToArray())) {
                     Symbol itemSymbol = Symbol.getEndMarker();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(Action.Accept));
                 }
@@ -393,11 +447,12 @@ public class SLRParser
 
 
     // This method 
-    public void FOLLOW(Symbol symbol)
+    public List<Symbol> FOLLOW(Symbol symbol)
     {
+        List<Symbol> followSet = new List<Symbol>();
         foreach (Production production in this.grammar.productions)
         {
-            foreach(Symbol nonTerminal in this.grammar.nonterminals)
+            foreach(Symbol nonTerminal in this.grammar.nonTerminals)
             {
                 foreach(List<Symbol> terminals in this.grammar.getTerminalPairs())
                 {
@@ -406,14 +461,41 @@ public class SLRParser
                     if (production.hasForm(nonTerminal, rhs))
                     {
                         Symbol Bterminal = this.grammar.getMiddleTerminal(rhs, Form.TNT);
-                        this.addToSet(this.FOLLOW(Bterminal), this.FIRST(terminals[1]))
+                        followSet.Add(this.FOLLOW(Bterminal), this.FIRST(terminals[1]));
                     }
                 }
                 
             }
-            
         }
+        return followSet;
     }
+
+    public List<Symbol> FIRST(Symbol symbol) {
+
+        List<Symbol> firstSet = new List<Symbol>();
+        if (this.grammar.hasTerminal(symbol))
+        {
+            firstSet.Add(symbol);
+        }
+
+        foreach(Production production in this.grammar.productions)
+        {
+            Symbol symbol = this.grammar.getTerminalAfterNonTerminals(production);
+            if (this.grammar.hasNonTerminal(symbol) && symbol != null) 
+            {
+                firstSet.Add(symbol);
+            }
+        }
+
+        if (this.grammar.hasProduction(symbol.ToString(), Symbol.getEmptyWord().ToString()))
+        {
+            firstSet.Add(Symbol.getEmptyWord());
+        }
+
+        return firstSet;
+
+    }
+    public
 }
 
 public interface ILALRParser
