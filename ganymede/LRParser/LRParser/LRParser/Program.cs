@@ -13,6 +13,16 @@ public class Production
         this.lhs = lhs;
         this.rhs = rhs;
     }
+
+    public Symbol getSymbolicLHS()
+    {
+        return new Symbol(this.lhs);
+    }
+
+    public Symbol getSymbolicRHS()
+    {
+        return new Symbol(this.rhs);
+    }
 }
 
 public abstract class LRItem
@@ -81,6 +91,13 @@ public class LR0Item : LRItem
     public int reduceProduction(Dictionary<int, Symbol> states)
     {
 
+    }
+
+    public Symbol getSymbolAfterPosition()
+    {
+        if (this.position + 1 <= this.production.rhs.Length)
+            return new Symbol(this.production.rhs[this.position + 1].ToString());
+        else return Symbol.getEndMarker();
     }
 
     public override void updatePosition()
@@ -281,6 +298,26 @@ public class Grammar: IGrammar
         return terminalPairs;
     }
 
+    //This method is used to get a TNT string form of 2 terminals and a nonTerminal
+    public string getForm(Tuple<Symbol, Symbol> terminals, Symbol nonTerminal, string form)
+    {
+        if (form.Equals("TNT"))
+        {
+            return terminals.Item1.ToString() + nonTerminal.ToString() + terminals.Item2.ToString();
+        }
+        return String.Empty;
+    }
+
+    //This method is used to get a NT string form of a nonTerminal and a terminal
+    public string getForm(Symbol terminal, Symbol nonTerminal, string form)
+    {
+        if (form.Equals("TN"))
+        {
+            return terminal.ToString() + nonTerminal.ToString();
+        }
+        return String.Empty;
+    }
+
 
 }
 
@@ -351,6 +388,12 @@ public class ParseTable
 
 public class GoToState {
 
+}
+
+public class FollowSet
+{
+    public Symbol NonTerminal { get; set; }
+    public List<Symbol> Terminals { get; set; }
 }
 
 public class SLRParser
@@ -451,7 +494,7 @@ public class SLRParser
                     int goToState = item.getGoToState();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(goToState, Action.Shift));
                 } else if (item.hasHandle(this.grammar.nonTerminals.ToArray())) {
-                    Symbol itemSymbol = item.getNextSymbol();
+                    Symbol itemSymbol = item.getSymbolAfterPosition();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(item.reduceProduction(this.states), Action.Reduce));
                 } else if (item.isFirstItemInExtendedGrammar(this.grammar.nonTerminals.ToArray())) {
                     Symbol itemSymbol = Symbol.getEndMarker();
@@ -505,28 +548,45 @@ public class SLRParser
     }
 
 
-    // This method 
-    public List<Symbol> FOLLOW(Symbol symbol)
+    // This method is used to define follow set algorithm.
+    public FollowSet FOLLOW(Symbol symbol)
     {
-        List<Symbol> followSet = new List<Symbol>();
+        FollowSet followSetBNonTerminal = new FollowSet();
         foreach (Production production in this.grammar.productions)
         {
             foreach(Symbol nonTerminal in this.grammar.nonTerminals)
             {
-                foreach(List<Symbol> terminals in this.grammar.getTerminalPairs())
+                foreach(Tuple<Symbol, Symbol> terminals in this.grammar.getTerminalPairs())
                 {
-                    List<Symbol> rhs = this.grammar.getTNTForm(terminals);
-                    
-                    if (production.hasForm(nonTerminal, rhs))
+                    string TNTRHS = this.grammar.getForm(terminals, nonTerminal, "TNT");
+                    string TNRHS = this.grammar.getForm(terminals.Item1, nonTerminal, "TN");
+
+                    if (nonTerminal.ToString().Equals(TNTRHS))
                     {
-                        Symbol Bterminal = this.grammar.getMiddleTerminal(rhs, Form.TNT);
-                        followSet.Add(this.FOLLOW(Bterminal), this.FIRST(terminals[1]));
+                        followSetBNonTerminal.NonTerminal = nonTerminal;
+                        followSetBNonTerminal.Terminals = this.FIRST(terminals.Item2);
+                    }
+                    
+                    if (nonTerminal.ToString().Equals(TNRHS) || (nonTerminal.ToString().Equals(TNTRHS) && this.FIRST(terminals.Item2).Contains(Symbol.getEmptyWord())))
+                    {
+                        this.addSet(this.FOLLOW(terminals.Item2), this.FOLLOW(production.getSymbolicLHS()));
+                        
                     }
                 }
-                
             }
         }
-        return followSet;
+
+        return followSetBNonTerminal;
+    }
+
+
+    //This method is used to add elements between follow sets
+    public void addSet(FollowSet source, FollowSet target)
+    {
+        foreach(Symbol terminal in source.Terminals)
+        {
+            target.Terminals.Add(terminal);
+        }
     }
 
     public List<Symbol> FIRST(Symbol symbol) {
