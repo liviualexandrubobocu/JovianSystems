@@ -27,6 +27,7 @@ public class Production
 
 public abstract class LRItem
 {
+    public int uid;
     public int productionId;
     public int position;
     public Production production;
@@ -61,11 +62,6 @@ public class LR0Item : LRItem
             if(this.production.rhs.Substring(this.position, (this.production.lhs.Length - this.position)) == nonTerminal.s) return true;
         }
         return false;
-    }
-
-    public int getGoToState()
-    {
-
     }
 
     // This method is used to get the terminal (if it exists) after the dot position.
@@ -106,23 +102,6 @@ public class LR0Item : LRItem
     }
 }
 
-public class LR1Item : LRItem
-{
-    public bool hasHandle()
-    {
-
-    }
-
-    public Symbol getProductionHead()
-    {
-
-    }
-
-    public Symbol getLookahead()
-    {
-
-    }
-}
 
 public enum Association
 {
@@ -161,8 +140,8 @@ public class Symbol {
 
 public interface IGrammar
 {
-    public void derive();
-    private void isOfType();
+    void derive();
+    void isOfType();
 }
 
 public class Grammar: IGrammar
@@ -177,6 +156,11 @@ public class Grammar: IGrammar
     private GrammarType type;
 
     public void derive()
+    {
+
+    }
+
+    public void isOfType()
     {
 
     }
@@ -453,6 +437,11 @@ public class SLRParser
         return -1;
     }
 
+    public GoToState getGoToState(int itemId)
+    {
+        return this.goToStates[itemId];
+    }
+
     public List<LR0Item> closure(List<LR0Item> items)
     {
         foreach(LR0Item item in items)
@@ -475,7 +464,8 @@ public class SLRParser
         List<LR0Item> processedItems = new List<LR0Item>();
         foreach (LR0Item item in items)
         {
-            processedItems.Add(item.updatePosition());
+            item.updatePosition();
+            processedItems.Add(item);
         }
         return closure(processedItems);
 
@@ -491,8 +481,9 @@ public class SLRParser
                 if (item.hasTerminalAfterPosition(this.grammar.terminals.ToArray()) && this.hasGoToState(itemsList.Value, item.getTerminalAfterPosition(this.grammar.terminals.ToArray())))
                 {
                     Symbol itemSymbol = item.getTerminalAfterPosition(this.grammar.terminals.ToArray());
-                    int goToState = item.getGoToState();
-                    this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(goToState, Action.Shift));
+                    GoToState goToState = this.getGoToState(item.uid);
+                    int goToStateId = this.getGoToStateId(goToState);
+                    this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(goToStateId, Action.Shift));
                 } else if (item.hasHandle(this.grammar.nonTerminals.ToArray())) {
                     Symbol itemSymbol = item.getSymbolAfterPosition();
                     this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(item.reduceProduction(this.states), Action.Reduce));
@@ -515,13 +506,15 @@ public class SLRParser
     private Dictionary<int, List<LR0Item>> items(Grammar extendedGrammar)
     {
         Dictionary<int, List<LR0Item>> canonicalCollection = new Dictionary<int, List<LR0Item>>();
-        List<LR0Item> closureItems = closure(extendedGrammar.productions.first());
-        foreach (LR0Item item in closureItems)
+        List<Production> takeClosureOf = new List<Production>();
+        takeClosureOf.Add(extendedGrammar.productions[0]);
+        List<List<LR0Item>> closureItems = closure(takeClosureOf);
+        foreach (List<LR0Item> itemsList in closureItems)
         {
             foreach (Symbol symbol in this.grammar.getAllSymbols())
             {
-                LR0Item toBeAdded = GOTO(item, symbol);
-                if (!String.Empty(toBeAdded) && !closureItems.Contains(toBeAdded))
+                List<LR0Item> toBeAdded = GOTO(itemsList, symbol);
+                if (toBeAdded != null && !closureItems.Contains(toBeAdded))
                 {
                     closureItems.Add(toBeAdded);
                 }
@@ -614,103 +607,9 @@ public class SLRParser
         return firstSet;
 
     }
-    public
-}
-
-public interface ILALRParser
-{
-    public LR1Item[] closure();
-    LR1Item[] GOTO();
-    LR1Item[] FIRST();
-    LR1Item[] FOLLOW();
-
-}
-
-public class LALRParser : ILALRParser
-{
-    public Grammar grammar;
-    public Grammar extendedGrammar;
-
-    public List<LR1Item> closure(List<LR1Item> items)
-    {
-        foreach (LR1Item item in items)
-        {
-            foreach (Production production in this.grammar.productions)
-            {
-                foreach(Symbol terminal in FIRST(symbols))
-                {
-                    items.Add(new LR0Item(production));
-                }
-            }
-        }
-        return items;
-    }
-
-    public LR1Item[] GOTO(List<LR1Item> items, GrammarSymbol symbol)
-    {
-        List<LR1Item> processedItems = new List<LR1Item>();
-        foreach(LR1Item item in items)
-        {
-            processedItems.Add(item.updatePosition());
-        }
-        return closure(processedItems);
-
-    }
-
-    void items(Grammar extendedGrammar)
-    {
-        Dictionary<int, List<LR0Item>> canonicalCollection = new Dictionary<int, List<LR0Item>>();
-        foreach (LR1Item item in closureItems) {
-            foreach(GrammarSymbol symbol in grammar.symbols)
-            {
-                LR1Item toBeAdded = GOTO(item, symbol);
-                if (!String.Empty(toBeAdded) && !closureItems.Contains(toBeAdded)){
-                    closureItems.Add(toBeAdded);
-                }
-            }
-        }
-    }
     
-    public LR1Item[] FIRST()
-    {
-
-    }
-
-    public LR1Item[] FOLLOW()
-    {
-
-    }
-
-    public void setParsingTable(Grammar extendedGrammar)
-    {
-        Dictionary<int, List<LR1Item>> canonicalCollection = this.items(extendedGrammar);
-        foreach (var itemsList in canonicalCollection)
-        {
-            foreach (LR1Item item in itemsList.Value)
-            {
-                if (item.hasTerminalAfterPosition() && this.hasGoToState())
-                {
-                    Symbol itemSymbol = item.getTerminalAfterPosition(this.grammar.terminals.ToArray());
-                    int goToState = item.getGoToState();
-                    this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(goToState, Action.Shift));
-                }
-                else if (item.hasHandle() && item.getProductionHead() !== this.extendedGrammar.getStartSymbol())
-                {
-                    Symbol itemSymbol = item.getLookahead();
-                    this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(item.reduceProduction(this.states), Action.Reduce));
-                }
-                else if (item.isFirstItemInExtendedGrammar())
-                {
-                    Symbol itemSymbol = Symbol.getEndMarker();
-                    this.parseTable.parseActions.Add(new ActionInput(itemsList.Key, itemSymbol), new ActionResult(Action.Accept));
-                }
-            }
-        }
-
-    }
-
-
 }
+
 
 namespace LRParser
 {
