@@ -531,10 +531,10 @@ public class SLRParser
             int state = this.states.last();
             if (ACTION(state, current) == Action.Shift)
             {
-                states.Push(t);
+                states.Add(t);
             } else if (ACTION(state, current) == Action.Reduce)
             {
-                states.Push(t);
+                states.Add(t);
             } else if (ACTION(state, current) == Action.Accept) break;
             else ErrorRecovery();
         }
@@ -592,8 +592,8 @@ public class SLRParser
 
         foreach(Production production in this.grammar.productions)
         {
-            Symbol symbol = this.grammar.getTerminalAfterNonTerminals(production);
-            if (this.grammar.hasNonTerminal(symbol) && symbol != null) 
+            Symbol terminal = this.grammar.getTerminalAfterNonTerminals(production);
+            if (this.grammar.hasNonTerminal() && symbol != null) 
             {
                 firstSet.Add(symbol);
             }
