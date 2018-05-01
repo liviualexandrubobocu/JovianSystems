@@ -1,0 +1,7 @@
+<div class="center-block">
+    <form>
+        <div *ngFor="let control of form.get('trigFunctions').controls; let i = index;">
+            <input  type="button" class="form-control" style="display:block;width:100px;height:40px;" [formControl]="control" value="{{ control.value }}">
+        </div>
+    </form>
+</div>

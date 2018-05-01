@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { KatexOptions } from 'ng-katex';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
