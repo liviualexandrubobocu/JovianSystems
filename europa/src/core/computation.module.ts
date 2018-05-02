@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { KatexModule } from 'ng-katex';
 
 import { ComputationComponent } from './computation.component';
 
@@ -14,7 +15,8 @@ import { ComputationComponent } from './computation.component';
     FormsModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    KatexModule
   ],
   providers: [],
   //bootstrap: [ComputationComponent],

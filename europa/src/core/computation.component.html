@@ -1,7 +1,21 @@
 <div class="center-block">
-    <form>
-        <div *ngFor="let control of form.get('trigFunctions').controls; let i = index;">
-            <input  type="button" class="form-control" style="display:block;width:100px;height:40px;" [formControl]="control" value="{{ control.value }}">
+    <form *ngIf="symbolicDictionary">
+        <div *ngFor="let trigFunction of symbolicDictionary['TrigFunctions']; let i = index;">
+            <button class="form-control" style="display:block;width:100px;height:40px;">
+                <ng-katex [equation]="trigFunction" [options]="options"></ng-katex>
+            </button>
+        </div>
+
+        <div *ngFor="let operation of symbolicDictionary['Operations']; let i = index;">
+            <button class="form-control" style="display:block;width:100px;height:40px;">
+                <ng-katex [equation]="operation" [options]="options"></ng-katex>
+            </button>
+        </div>
+
+        <div *ngFor="let mathFunction of symbolicDictionary['MathFunctions']; let i = index;">
+            <button class="form-control" style="display:block;width:100px;height:40px;">
+                <ng-katex [equation]="mathFunction" [options]="options"></ng-katex>
+            </button>
         </div>
     </form>
 </div>
