@@ -1,19 +1,20 @@
 <div class="center-block">
     <form *ngIf="symbolicDictionary">
+        <app-katex #expressionCarrier [expression]="expressionToSolve" (click)="basiteas($event)"></app-katex>
         <div *ngFor="let trigFunction of symbolicDictionary['TrigFunctions']; let i = index;">
-            <button class="form-control" style="display:block;width:100px;height:40px;">
+            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(trigFunction, null, null)">
                 <ng-katex [equation]="trigFunction" [options]="options"></ng-katex>
             </button>
         </div>
 
         <div *ngFor="let operation of symbolicDictionary['Operations']; let i = index;">
-            <button class="form-control" style="display:block;width:100px;height:40px;">
+            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(operation, null, null)">
                 <ng-katex [equation]="operation" [options]="options"></ng-katex>
             </button>
         </div>
 
         <div *ngFor="let mathFunction of symbolicDictionary['MathFunctions']; let i = index;">
-            <button class="form-control" style="display:block;width:100px;height:40px;">
+            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(mathFunction, null, null)">
                 <ng-katex [equation]="mathFunction" [options]="options"></ng-katex>
             </button>
         </div>

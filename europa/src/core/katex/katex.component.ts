@@ -17,7 +17,7 @@ import { FormArray } from '@angular/forms/src/model';
 
 export class KatexComponent implements OnInit {
 
-    @Input() equation: string = '\\sum_{i=1}^nx_i';
+    @Input() expression: string;
     @Input() options: KatexOptions = {
         displayMode: true,
     };
