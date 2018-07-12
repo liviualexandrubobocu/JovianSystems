@@ -1,3 +1,30 @@
+# Instructions to Dev Build
+
+Please install Node.js prior to project build.
+
+To clone:
+
+https://github.com/liviualexandrubobocu/JovianSystems.git
+
+To install packages:
+
+npm install
+
+To run project:
+
+ng serve
+
+Styles will be compiled automatically from src/assets/sass/styles.scss.
+
+# Pushing to GIT
+
+git stash
+git pull origin master
+git stash apply
+git add .
+git commit -m "Commit Message"
+git push origin master
+
 # Europa
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
