@@ -19,10 +19,15 @@ Styles will be compiled automatically from src/assets/sass/styles.scss.
 # Pushing to GIT
 
 git stash
+
 git pull origin master
+
 git stash apply
+
 git add .
+
 git commit -m "Commit Message"
+
 git push origin master
 
 # Europa
