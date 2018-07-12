@@ -1,12 +1,16 @@
 # Instructions to Dev Build
 
-Please install Node.js prior to project build.
+Please install Node.js and Git bash prior to project build.
 
 To clone:
 
 https://github.com/liviualexandrubobocu/JovianSystems.git
 
 To install packages:
+
+Right Click Jovian Systems folder -> Git bash here
+
+Go to europa folder in git bash console. (Command: cd europa)
 
 npm install
 
