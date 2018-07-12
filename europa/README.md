@@ -4,7 +4,7 @@ Please install Node.js and Git bash prior to project build.
 
 To clone:
 
-https://github.com/liviualexandrubobocu/JovianSystems.git
+git clone https://github.com/liviualexandrubobocu/JovianSystems.git
 
 To install packages:
 
