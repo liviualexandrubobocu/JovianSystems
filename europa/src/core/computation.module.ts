@@ -22,7 +22,7 @@ import { KatexComponent } from './katex/katex.component';
     JovKatexModule
   ],
   providers: [],
-  //bootstrap: [ComputationComponent],
+  bootstrap: [ComputationComponent],
   exports: [ComputationComponent],
   entryComponents: [KatexComponent]
 })

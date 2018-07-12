@@ -1,5 +1,5 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, ComponentFactoryResolver, ApplicationRef, Injector, EmbeddedViewRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, ComponentFactoryResolver, ApplicationRef, Injector, EmbeddedViewRef, Renderer } from '@angular/core';
 import { ValidatorFn, Validator, AbstractControl, FormControl, NG_VALIDATORS, FormArray, FormGroup } from '@angular/forms';
 import { KatexOptions } from 'ng-katex';
 import { KatexComponent } from './katex/katex.component';
@@ -10,8 +10,7 @@ import { Operations, MathFunctions, TrigFunctions, Digits } from '../shared/inde
 @Component({
     selector: 'app-computation',
     templateUrl: './computation.component.html',
-    styleUrls: ['./computation.component.css'],
-    entryComponents: [KatexComponent]
+    entryComponents: [KatexComponent],
 })
 
 export class ComputationComponent implements OnInit {
@@ -20,6 +19,7 @@ export class ComputationComponent implements OnInit {
     public symbolicDictionary: any;
     public clientX: number;
     public clientY: number;
+    public host: any;
 
     public expressionToSolve: string = '\\int^b_a';
     public options: KatexOptions = {
@@ -32,7 +32,8 @@ export class ComputationComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef,
         private componentFactoryResolver: ComponentFactoryResolver,
         private appRef: ApplicationRef,
-        private injector: Injector) {
+        private injector: Injector,
+        private renderer: Renderer) {
 
     }
 
@@ -73,13 +74,10 @@ export class ComputationComponent implements OnInit {
     }
 
     addSymbol(key: string, positionNode: any, subtree: string) {
-        console.log(key);
-        (this.el as any).innerHTML += '<ng-katex [equation]='"\\sqrt{x}"'></ng-katex>';
-        this.changeDetectorRef.detectChanges();
+        this.insertNewComponent(key);
         // (this.el as any).innerHTML +=  "<ng-katex [equation]="'\\sin'" [options]='options'></ng-katex>";
-        console.log('expression to solve === ' + this.expressionToSolve);
+        // console.log('expression to solve === ' + this.expressionToSolve);
         // this.insertAtCursor(this.el.nativeElement, key);
-        // this.expressionToSolve += key;l
     }
 
     /**
@@ -91,37 +89,18 @@ export class ComputationComponent implements OnInit {
         });
     }
 
-    public insertAtCursor(myField, myValue) {
-        //IE support
-        // if (document.selection) {
-        //     myField.focus();
-        //     sel = document.selection.createRange();
-        //     sel.text = myValue;
-        // }
-        //MOZILLA and others
 
-        if (myField.selectionStart || myField.selectionStart == '0') {
-            var startPos = myField.selectionStart;
-            var endPos = myField.selectionEnd;
-            myField.value = myField.value.substring(0, startPos)
-                + myValue
-                + myField.value.substring(endPos, myField.value.length);
-        } else {
-            myField.value += myValue;
-        }
+    public selectHost(event) {
+        this.host = event.path[0];
     }
 
-    public basiteas(event) {
-        console.log(event);
-        this.el = event.path[0];
-        console.log('elementul ======= ' + (this.el as any).innerText);
-
+    public insertNewComponent(expression: string) {
         // 1. Create a component reference from the component 
         const componentRef = this.componentFactoryResolver
             .resolveComponentFactory(KatexComponent)
             .create(this.injector);
 
-        (componentRef as any).instance.expression = '\\sqrt{x}';
+        (componentRef as any).instance.expression = expression;
 
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(componentRef.hostView);
@@ -129,16 +108,28 @@ export class ComputationComponent implements OnInit {
         // 3. Get DOM element from component
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
             .rootNodes[0] as HTMLElement;
+        
+        (domElem as any).focus();
 
         // 4. Append DOM element to the body
-        (this.el as any).appendChild(domElem);
+        (this.host as any).appendChild(domElem);
+        
         this.changeDetectorRef.detectChanges();
 
+        this.refocusHost();
+    }
 
-        this.changeDetectorRef.detectChanges();
+    private refocusHost(){
+        // console.log(this.host.children[0]);
+        console.log('--------');
+        // this.el.nativeElement.querySelector('app-katex').focus();
 
-        this.clientX = event.clientX;
-        this.clientY = event.clientY;
+        // this.host.focus();
+        // this.host.children[0].focus();
+        // this.host.children[0].children[0].focus();
+        // const element = this.renderer.selectRootElement('.host-carrier');
+        // console.log('this is my element ===========' + element);
+        
     }
 
     private getCaretPosition(editableDiv) {
