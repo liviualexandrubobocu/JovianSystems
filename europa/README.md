@@ -10,6 +10,8 @@ To install packages:
 
 Right Click Jovian Systems folder -> Git bash here
 
+npm install -g @angular/cli
+
 Go to europa folder in git bash console. (Command: cd europa)
 
 npm install
