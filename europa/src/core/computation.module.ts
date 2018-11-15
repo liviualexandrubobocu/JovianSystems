@@ -5,8 +5,7 @@ import { HttpModule } from '@angular/http';
 import { KatexModule } from 'ng-katex';
 
 import { ComputationComponent } from './computation.component';
-import { JovKatexModule } from './katex/jov.katex.module';
-import { KatexComponent } from './katex/katex.component';
+import { MathquillModule } from './mathquill/mathquill.module';
 
 @NgModule({
   declarations: [
@@ -18,12 +17,10 @@ import { KatexComponent } from './katex/katex.component';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    KatexModule,
-    JovKatexModule
+    MathquillModule
   ],
   providers: [],
   bootstrap: [ComputationComponent],
   exports: [ComputationComponent],
-  entryComponents: [KatexComponent]
 })
 export class ComputationModule { }

@@ -1,25 +1,28 @@
 <div class="center-block">
-    <form *ngIf="symbolicDictionary">
+
+    <form>
         <div class="computation-container">
-            <app-katex #expressionCarrier [expression]="expressionToSolve" (click)="selectHost($event)" contenteditable="true"></app-katex>
+            <span #editor></span>
+        </div>
+        <div *ngIf="symbolicDictionary">
+            <div *ngFor="let trigFunction of symbolicDictionary['TrigFunctions']; let i = index;">
+                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(trigFunction, null, null)">
+                    <app-mathquill [symbols]="trigFunction"></app-mathquill>
+                </button>
+            </div>
+
+            <div *ngFor="let operation of symbolicDictionary['Operations']; let i = index;">
+                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(operation, null, null)">
+                    <app-mathquill [symbols]="operation"></app-mathquill>
+                </button>
+            </div>
+
+            <div *ngFor="let mathFunction of symbolicDictionary['MathFunctions']; let i = index;">
+                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(mathFunction, null, null)">
+                    <app-mathquill [symbols]="mathFunction"></app-mathquill>
+                </button>
+            </div>
         </div>
 
-        <div *ngFor="let trigFunction of symbolicDictionary['TrigFunctions']; let i = index;">
-            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(trigFunction, null, null)">
-                <ng-katex [equation]="trigFunction" [options]="options"></ng-katex>
-            </button>
-        </div>
-
-        <div *ngFor="let operation of symbolicDictionary['Operations']; let i = index;">
-            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(operation, null, null)">
-                <ng-katex [equation]="operation" [options]="options"></ng-katex>
-            </button>
-        </div>
-
-        <div *ngFor="let mathFunction of symbolicDictionary['MathFunctions']; let i = index;">
-            <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(mathFunction, null, null)">
-                <ng-katex [equation]="mathFunction" [options]="options"></ng-katex>
-            </button>
-        </div>
     </form>
 </div>

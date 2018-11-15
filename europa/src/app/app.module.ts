@@ -7,8 +7,6 @@ import { MatChipsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ComputationModule } from 'core/computation.module';
-import { KatexModule } from 'ng-katex';
-import { JovKatexModule } from 'core/katex/jov.katex.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +19,6 @@ import { JovKatexModule } from 'core/katex/jov.katex.module';
     HttpModule,
     MatChipsModule,
     ComputationModule,
-    KatexModule,
-    JovKatexModule
   ],
   providers: [],
   bootstrap: [AppComponent],
