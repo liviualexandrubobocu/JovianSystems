@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import '../../../node_modules/node-mathquill/build/mathquill.js';
+import { ComputationUtils } from 'shared/libraries/computation-utils';
 
 declare var MathQuill: any;
 @Component({
@@ -15,8 +16,10 @@ export class MathquillComponent {
     }
 
     initMathElement(){
-        const MQ = MathQuill.getInterface(2);
-        this.mathButton.nativeElement.innerText = this.symbols;
-        MQ.StaticMath(this.mathButton.nativeElement);
+        ComputationUtils.addSymbols(this.mathButton, this.symbols)
+    }
+
+    updateSymbol(){
+
     }
 }
