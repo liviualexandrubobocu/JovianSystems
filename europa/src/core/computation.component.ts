@@ -1,5 +1,5 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Injector, EmbeddedViewRef, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Injector, EmbeddedViewRef, Renderer2 } from '@angular/core';
 import { ValidatorFn, Validator, AbstractControl, FormControl, NG_VALIDATORS, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import '../../node_modules/node-mathquill/build/mathquill.js';
@@ -25,20 +25,21 @@ export class ComputationComponent implements OnInit {
     public clientY: number;
     public host: any;
     public answerMathField;
-    public resultField;
+    public resultFields: any[] = [];
     public subscriptions: Subscription[] = [];
     public expressionToSolve: string = '\\int^b_a';
 
+    private STEP_CLASS = 'step';
     private PARSER_ENDPOINT: string = '/parse';
 
     @ViewChild('editor') editor: ElementRef;
+    @ViewChild('answerZone') answerZone: ElementRef;
 
     constructor(
-        private httpService: HttpService
-    ) {
+        private httpService: HttpService,
+        private renderer: Renderer2
+    ) { }
 
-    }
-    
     get trigFunctions() {
         return this.form.get('trigFunctions') as FormArray;
     }
@@ -49,7 +50,7 @@ export class ComputationComponent implements OnInit {
         this.initMathField();
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         ComponentUtils.unsubscribeAll(this.subscriptions);
     }
 
@@ -75,11 +76,26 @@ export class ComputationComponent implements OnInit {
 
     /**
      * This method is used to create new result components with dedicated math fields.
-     * @param results
+     * @param step
      */
-    private initResultFields(results: string[]){
-        for(let result of results){
-            this.applyMath(this.resultField, result);
+    private initResultFields(steps: string[]) {
+        steps = [
+            '\\sqrt[n]{x}',
+            '\\sqrt[n]{x}',
+            '\\sqrt[n]{x}'
+        ];
+
+        const MQ = MathQuill.getInterface(2);
+        if (this.answerZone && this.answerZone.nativeElement) {
+            var answerSpan = this.answerZone.nativeElement;
+            for (let step of steps) {
+                let stepSpan = this.renderer.createElement('span');
+                this.renderer.addClass(stepSpan, this.STEP_CLASS);
+                this.renderer.appendChild(answerSpan, stepSpan);
+                let resultField = MQ.StaticMath(answerSpan);
+                resultField.latex(step);
+                this.resultFields.push(resultField);
+            }
         }
     }
 
@@ -114,12 +130,13 @@ export class ComputationComponent implements OnInit {
     /**
      * This method is used to send the request to the parser.
      */
-    private sendRequest() {
-        this.subscriptions.push(
-            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((results: string[]) => {
-                this.initResultFields(results);
-            })
-        );
+    private getParsedInformation() {
+        this.initResultFields([]);
+        // this.subscriptions.push(
+        //     this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: string[]) => {
+        //         this.initResultFields(steps);
+        //     })
+        // );
     }
 
     /**
@@ -130,7 +147,7 @@ export class ComputationComponent implements OnInit {
         this.answerMathField.write(symbol);
     }
 
-    private applyMath(mathField, mathSymbol: string){
+    private applyMath(mathField, mathSymbol: string) {
         mathField.write(mathSymbol);
     }
 
@@ -143,10 +160,8 @@ export class ComputationComponent implements OnInit {
         });
     }
 
-
     public selectHost(event) {
         this.host = event.path[0];
     }
-
 
 }

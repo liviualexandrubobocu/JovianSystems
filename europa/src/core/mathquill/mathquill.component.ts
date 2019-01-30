@@ -16,7 +16,7 @@ export class MathquillComponent {
     }
 
     initMathElement(){
-        ComputationUtils.addSymbols(this.mathButton, this.symbols)
+        ComputationUtils.addSymbols(this.mathButton, this.symbols);
     }
 
     updateSymbol(){
