@@ -30,7 +30,7 @@ export class ComputationComponent implements OnInit {
     public expressionToSolve: string = '\\int^b_a';
 
     private STEP_CLASS = 'step';
-    private PARSER_ENDPOINT: string = '/parse';
+    private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
 
     @ViewChild('editor') editor: ElementRef;
     @ViewChild('answerZone') answerZone: ElementRef;
@@ -79,22 +79,24 @@ export class ComputationComponent implements OnInit {
      * @param step
      */
     private initResultFields(steps: string[]) {
-        steps = [
-            '\\sqrt[n]{x}',
-            '\\sqrt[n]{x}',
-            '\\sqrt[n]{x}'
-        ];
-
         const MQ = MathQuill.getInterface(2);
         if (this.answerZone && this.answerZone.nativeElement) {
             var answerSpan = this.answerZone.nativeElement;
             for (let step of steps) {
+
+                // Create element for step
                 let stepSpan = this.renderer.createElement('span');
-                this.renderer.addClass(stepSpan, this.STEP_CLASS);
-                this.renderer.appendChild(answerSpan, stepSpan);
-                let resultField = MQ.StaticMath(answerSpan);
+
+                // Create latex based on html element
+                let resultField = MQ.StaticMath(stepSpan);
                 resultField.latex(step);
-                this.resultFields.push(resultField);
+
+                // Add class to step html
+                this.renderer.addClass(stepSpan, this.STEP_CLASS);
+
+                // Attach node to DOM
+                this.renderer.appendChild(answerSpan, stepSpan);
+                this.resultFields.push(stepSpan);
             }
         }
     }
@@ -131,12 +133,22 @@ export class ComputationComponent implements OnInit {
      * This method is used to send the request to the parser.
      */
     private getParsedInformation() {
-        this.initResultFields([]);
-        // this.subscriptions.push(
-        //     this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: string[]) => {
-        //         this.initResultFields(steps);
-        //     })
-        // );
+        this.answerMathField = '\\sin()';
+        this.subscriptions.push(
+            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField).subscribe((steps: string[]) => {
+                this.clearResultField();
+                this.initResultFields(steps);
+            })
+        );
+    }
+
+    private clearResultField() {
+        for (let result of this.resultFields) {
+            console.log(this.resultFields);
+            this.renderer.removeChild(this.renderer.parentNode(result), result);
+            // this.resultFields.splice(this.resultFields.indexOf(result));
+        }
+        this.resultFields = [];
     }
 
     /**
