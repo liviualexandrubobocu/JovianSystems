@@ -13,4 +13,20 @@ export class HttpService {
     sendToParser(endpoint: string, mathSymbols: string) {
         return this.http.post(endpoint, mathSymbols);
     }
+
+    get(endpoint: string) {
+        return this.http.get(endpoint);
+    }
+
+    post(endpoint: string, data: any) {
+        return this.http.post(endpoint, data);
+    }
+
+    put(endpoint: string, data: any){
+        return this.http.put(endpoint, data);
+    }
+
+    delete(endpoint: string, data: any){
+        return this.http.delete(endpoint, data);
+    }
 }

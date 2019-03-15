@@ -1,0 +1,18 @@
+<a class="hamburger-menu"
+ (click)="toggleMenuState($event)">Toggle State</a>
+<div class="menu-container">
+    <p>Menu</p>
+    <ul>
+        <li *ngFor="let menuItem of menuItems; index = i">
+            <a ngClass="{menuItem.guid: true}" href="{{menuItem.url}}">{{ menuItem.label }}</a>
+        </li>
+        <li>
+            <a href="">Dark Mode</a>
+            <div class="toggler">
+                <a 
+                href=""
+                (click)="toggleTheme($event)">Toggle Theme</a>
+            </div>
+        </li>
+    </ul>
+</div>
