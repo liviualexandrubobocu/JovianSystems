@@ -1,20 +1,28 @@
 // External
+import { RouterModule, Route } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { KatexModule } from 'ng-katex';
 
 // Internal
 import { ComputationComponent } from './computation.component';
 import { MathquillModule } from '../../mathquill/mathquill.module';
-
-// Services
-import { HttpService } from 'shared/services/http.service';
 import { ComputationCalculatorComponent } from './calculator/calculator.component';
 import { ComputationGraphComponent } from './graph/graph.component';
 import { ComputationResultComponent } from './result/result.component';
 import { ComputationStepsComponent } from './steps/steps.component';
+
+// Services
+import { HttpService } from 'shared/services/http.service';
+import { ComputationService } from './computation.service';
+import { RouterService } from 'shared/services/router.service';
+import { GlobalContainerComponent } from 'core/global-container/global-container.component';
+
+const routes: Route[] = <any>{
+  path: '',
+  component: GlobalContainerComponent
+};
 
 @NgModule({
   declarations: [
@@ -30,9 +38,14 @@ import { ComputationStepsComponent } from './steps/steps.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MathquillModule
+    MathquillModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [HttpService],
+  providers: [
+    ComputationService,
+    HttpService,
+    RouterService
+  ],
   bootstrap: [ComputationComponent],
   exports: [ComputationComponent],
 })

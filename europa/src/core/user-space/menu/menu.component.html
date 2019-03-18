@@ -3,7 +3,7 @@
 <div class="menu-container">
     <p>Menu</p>
     <ul>
-        <li *ngFor="let menuItem of menuItems; index = i">
+        <li *ngFor="let menuItem of menuItems;">
             <a ngClass="{menuItem.guid: true}" href="{{menuItem.url}}">{{ menuItem.label }}</a>
         </li>
         <li>

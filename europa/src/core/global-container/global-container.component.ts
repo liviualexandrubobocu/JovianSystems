@@ -8,8 +8,7 @@ import { Kernel } from 'shared/entities/kernel';
 
 @Component({
     selector: 'app-global-container',
-    templateUrl: './global-container.component.html',
-    styleUrls: ['./global-container.component.css'],
+    templateUrl: './global-container.component.html'
 })
 export class GlobalContainerComponent implements OnInit, OnDestroy {
 

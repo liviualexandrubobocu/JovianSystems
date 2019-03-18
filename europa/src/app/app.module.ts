@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ComputationModule } from 'core/user-space/computation/computation.module';
+import { GlobalContainerModule } from 'core/global-container/global-container.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ComputationModule } from 'core/user-space/computation/computation.modul
     FormsModule,
     HttpClientModule,
     MatChipsModule,
-    ComputationModule,
+    GlobalContainerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

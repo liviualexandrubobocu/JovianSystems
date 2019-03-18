@@ -1,34 +1,4 @@
-<div class="center-block">
-    <app-menu></app-menu>
-    <form>
-        <div class="computation-container">
-            <span #editor></span>
-        </div>
-
-        <div class="computation-container">
-            <span #answerZone></span>
-        </div>
-        <div class="send">
-            <button class="" style="display:block;width:100px;height:40px;" (click)="getParsedInformation()">Send</button>
-        </div>
-        <div *ngIf="symbolicDictionary">
-            <div *ngFor="let trigFunction of symbolicDictionary['TrigFunctions']; let i = index;">
-                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(trigFunction, null, null)">
-                    <app-mathquill [symbols]="trigFunction"></app-mathquill>
-                </button>
-            </div>
-
-            <div *ngFor="let operation of symbolicDictionary['Operations']; let i = index;">
-                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(operation, null, null)">
-                    <app-mathquill [symbols]="operation"></app-mathquill>
-                </button>
-            </div>
-
-            <div *ngFor="let mathFunction of symbolicDictionary['MathFunctions']; let i = index;">
-                <button class="" style="display:block;width:100px;height:40px;" (click)="addSymbol(mathFunction, null, null)">
-                    <app-mathquill [symbols]="mathFunction"></app-mathquill>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+<app-computation-calculator></app-computation-calculator>
+<app-computation-steps></app-computation-steps>
+<app-computation-result></app-computation-result>
+<app-computation-graph></app-computation-graph>

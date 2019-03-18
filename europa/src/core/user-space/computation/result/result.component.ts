@@ -1,6 +1,5 @@
 // External
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 
 // Internal
 import { NAVIGATION_ROUTES } from '../../../../shared/entities/navigation-routes';
@@ -11,7 +10,7 @@ import { RouterService } from '../../../../shared/services/router.service';
 
 @Component({
     selector: 'app-computation-result',
-    templateUrl: './computation-result.component.html'
+    templateUrl: './result.component.html'
 })
 export class ComputationResultComponent {
 
