@@ -20,7 +20,7 @@ export class PageService {
 
     }
 
-    getPage(): Observable<Page> {
+    getContent(): Observable<Page> {
         return <any>this.httpService.get(this.PAGES_ENDPOINT);
     }
 }

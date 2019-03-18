@@ -2,11 +2,11 @@
 import { Component, OnInit, ViewChild, ElementRef, Injector, EmbeddedViewRef, Renderer2 } from '@angular/core';
 import { ValidatorFn, Validator, AbstractControl, FormControl, NG_VALIDATORS, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import '../../node_modules/node-mathquill/build/mathquill.js';
+import 'node-mathquill/build/mathquill';
 
 //Internal
-import { Operations, MathFunctions, TrigFunctions, Digits } from '../shared/index';
-import { ComponentUtils } from '../shared/libraries/component-utils';
+import { Operations, MathFunctions, TrigFunctions, Digits } from '../../../shared/index';
+import { ComponentUtils } from '../../../shared/libraries/component-utils';
 
 //Services
 import { HttpService } from 'shared/services/http.service';
@@ -14,8 +14,7 @@ import { HttpService } from 'shared/services/http.service';
 declare var MathQuill: any;
 @Component({
     selector: 'app-computation',
-    templateUrl: './computation.component.html',
-    styleUrls: ['./computation.component.css'],
+    templateUrl: './computation.component.html'
 })
 export class ComputationComponent implements OnInit {
 

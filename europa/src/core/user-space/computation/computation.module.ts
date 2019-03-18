@@ -7,14 +7,22 @@ import { KatexModule } from 'ng-katex';
 
 // Internal
 import { ComputationComponent } from './computation.component';
-import { MathquillModule } from './mathquill/mathquill.module';
+import { MathquillModule } from '../../mathquill/mathquill.module';
 
 // Services
 import { HttpService } from 'shared/services/http.service';
+import { ComputationCalculatorComponent } from './calculator/calculator.component';
+import { ComputationGraphComponent } from './graph/graph.component';
+import { ComputationResultComponent } from './result/result.component';
+import { ComputationStepsComponent } from './steps/steps.component';
 
 @NgModule({
   declarations: [
-    ComputationComponent
+    ComputationComponent,
+    ComputationCalculatorComponent,
+    ComputationGraphComponent,
+    ComputationResultComponent,
+    ComputationStepsComponent
   ],
   imports: [
     BrowserModule,

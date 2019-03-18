@@ -20,7 +20,7 @@ export class PageComponent implements OnInit {
 
     private subscriptions: Subscription[];
 
-    constructor() {
+    constructor(private pageService: PageService) {
 
     }
 
@@ -29,11 +29,17 @@ export class PageComponent implements OnInit {
     }
 
     ngOnDestroy() {
+        this.unsubscribeAll();
+    }
+
+    private getPageContent() {
+        this.subscriptions.push(this.pageService.getContent().subscribe((page) => {
+            this.pageTitle = page.pageTitle;
+            this.pageContent = page.pageContent;
+        }));
+    }
+
+    private unsubscribeAll(){
         ComponentUtils.unsubscribeAll(this.subscriptions);
     }
-
-    private getPageContent(){
-        
-    }
-
 }

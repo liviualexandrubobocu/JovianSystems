@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        ComponentUtils.unsubscribeAll(this.subscriptions);
+        this.unsubscribeAll();
     }
 
     public toggleMenuState(event): void {
@@ -52,5 +52,9 @@ export class MenuComponent implements OnInit {
                 this.menuItems = data;
             }
         }));
+    }
+    
+    private unsubscribeAll(){
+        ComponentUtils.unsubscribeAll(this.subscriptions);
     }
 }

@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ComputationModule } from 'core/computation.module';
+import { ComputationModule } from 'core/user-space/computation/computation.module';
 
 @NgModule({
   declarations: [
