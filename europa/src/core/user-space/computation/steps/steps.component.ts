@@ -16,7 +16,7 @@ import { ComputationService } from '../computation.service';
 export class ComputationStepsComponent implements OnInit {
 
     public computationSteps: ComputationStep[];
-    private OPEN: string = 'uiOpen';
+    public isShown: boolean = true;
     private subscriptions: Subscription[] = [];
 
     constructor(private computationService: ComputationService) { }
@@ -32,7 +32,7 @@ export class ComputationStepsComponent implements OnInit {
     }
 
     public toggleStep(step) {
-        step[this.OPEN] = !step[this.OPEN];
+        step.isOpen = !step.isOpen;
     }
 
     private initSteps(): void {
@@ -41,13 +41,13 @@ export class ComputationStepsComponent implements OnInit {
 
     private initViewModelProperties(): void {
         for (let computationStep of this.computationSteps) {
-            computationStep[this.OPEN] = false;
+            computationStep.isOpen = false;
         }
     }
 
     private initStepsToggling(): void {
         this.subscriptions.push(this.computationService.toggleSteps.subscribe(type => {
-            this[type] = true;
+            this.isShown = (type === 'steps' && this.isShown === false);
         }));
     }
 

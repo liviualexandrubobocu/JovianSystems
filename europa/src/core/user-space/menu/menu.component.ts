@@ -52,8 +52,8 @@ export class MenuComponent implements OnInit {
             }
         }));
     }
-    
-    private unsubscribeAll(){
+
+    private unsubscribeAll() {
         ComponentUtils.unsubscribeAll(this.subscriptions);
     }
 }

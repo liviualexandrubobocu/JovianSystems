@@ -1,0 +1,35 @@
+@import "../variables";
+
+.result-container {
+  width: 100%;
+  height: 170px;
+  .result-math {
+    height: 94px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $medium-gray;
+  }
+}
+
+.result-btn {
+  color: white;
+  border: none;
+  border-radius: 20px;
+  background: $btn-gray;
+  outline: none;
+  width: 80px;
+  height: 30px;
+  font-size: 12px;
+  margin: 0 10px 0 0;
+  &.active {
+    background: $light-green;
+  }
+  &.edit {
+    background: $edit;
+    float: right;
+    margin-right: 0;
+  }
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}

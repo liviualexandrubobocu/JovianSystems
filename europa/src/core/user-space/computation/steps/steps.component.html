@@ -1,8 +1,9 @@
-<div class="computation-steps-container">
+<div class="computation-steps-container" *ngIf="isShown">
+    <p>Steps</p>
     <ul class="computation-steps">
         <li *ngFor="let step of computationSteps">
             <div class="mathematical-step"></div>
-            <button class="more" (click)="toggleStep()"></button>
+            <button class="more" (click)="toggleStep()">X</button>
         </li>
     </ul>
 </div>

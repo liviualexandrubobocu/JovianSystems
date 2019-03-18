@@ -1,5 +1,6 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "../mathquill/mathquill.css";
+@import "./computation/_result";
 @import "./variables";
 @import "./mixins";
 @import "functions", "variables", "mixins";
@@ -23,17 +24,4 @@
     width:$global-width;
     margin: 0 auto;
     padding: 0;
-}
-
-.result-btn {
-  color: white;
-  border: none;
-  border-radius: 50%;
-  background: $btn-gray;
-  &.active {
-    background: $light-green;
-  }
-  &.edit {
-    background: $edit;
-  }
 }
