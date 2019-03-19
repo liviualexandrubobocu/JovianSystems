@@ -6,12 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ComputationModule } from 'core/user-space/computation/computation.module';
 import { GlobalContainerModule } from 'core/global-container/global-container.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

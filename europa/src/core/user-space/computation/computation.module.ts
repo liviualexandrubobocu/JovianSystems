@@ -17,12 +17,13 @@ import { ComputationStepsComponent } from './steps/steps.component';
 import { HttpService } from 'shared/services/http.service';
 import { ComputationService } from './computation.service';
 import { RouterService } from 'shared/services/router.service';
-import { GlobalContainerComponent } from 'core/global-container/global-container.component';
 
-const routes: Route[] = <any>{
-  path: '',
-  component: GlobalContainerComponent
-};
+const routes: Route[] = [
+  {
+    path: '',
+    component: ComputationComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ const routes: Route[] = <any>{
     FormsModule,
     ReactiveFormsModule,
     MathquillModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forChild(routes)
   ],
   providers: [
     ComputationService,
