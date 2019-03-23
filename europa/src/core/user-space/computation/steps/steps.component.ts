@@ -47,7 +47,7 @@ export class ComputationStepsComponent implements OnInit {
 
     private initStepsToggling(): void {
         this.subscriptions.push(this.computationService.toggleSteps.subscribe(type => {
-            this.isShown = (type === 'steps' && this.isShown === false);
+            this.isShown = (type === 'steps');
         }));
     }
 

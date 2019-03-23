@@ -37,7 +37,7 @@ export class ComputationGraphComponent implements OnInit, OnDestroy {
 
     private initGraphToggling(): void {
         this.subscriptions.push(this.computationService.toggleSteps.subscribe(type => {
-            this.isShown = (type === 'graph' && this.isShown === false);
+            this.isShown = (type === 'graph');
         }));
     }
 

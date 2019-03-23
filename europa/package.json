@@ -25,7 +25,6 @@
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/platform-server": "^5.2.6",
     "@angular/router": "^5.2.6",
-    "bootstrap": "^4.3.1",
     "core-js": "^2.4.1",
     "ng-katex": "^1.0.3",
     "node-mathquill": "^0.10.2",
