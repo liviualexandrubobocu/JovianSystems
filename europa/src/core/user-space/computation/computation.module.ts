@@ -20,7 +20,7 @@ import { RouterService } from 'shared/services/router.service';
 
 const routes: Route[] = [
   {
-    path: '',
+    path: 'computation',
     component: ComputationComponent
   }
 ];

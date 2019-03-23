@@ -33,10 +33,10 @@ export class PageComponent implements OnInit {
     }
 
     private getPageContent() {
-        this.subscriptions.push(this.pageService.getContent().subscribe((page) => {
-            this.pageTitle = page.pageTitle;
-            this.pageContent = page.pageContent;
-        }));
+        // this.subscriptions.push(this.pageService.getContent().subscribe((page) => {
+        //     this.pageTitle = page.pageTitle;
+        //     this.pageContent = page.pageContent;
+        // }));
     }
 
     private unsubscribeAll(){

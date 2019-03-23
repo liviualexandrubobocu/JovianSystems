@@ -46,11 +46,11 @@ export class MenuComponent implements OnInit {
     }
 
     private getMenuItems(): void {
-        this.subscriptions.push(this.menuService.getMenuItems().subscribe((data) => {
-            if (data && data.length > 0) {
-                this.menuItems = data;
-            }
-        }));
+        // this.subscriptions.push(this.menuService.getMenuItems().subscribe((data) => {
+        //     if (data && data.length > 0) {
+        //         this.menuItems = data;
+        //     }
+        // }));
     }
 
     private unsubscribeAll() {

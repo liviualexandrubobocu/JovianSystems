@@ -1,4 +1,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<div class="app-container">
-    <app-global-container></app-global-container>
+<div class="global-container">
+    <h1>
+        <a routerLink='/'><span>{{ titleFirstPart }} </span><span>{{ titleSecondPart }}</span></a>
+    </h1>
+    <app-menu></app-menu>
+    <router-outlet></router-outlet>
 </div>

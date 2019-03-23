@@ -1,51 +1,27 @@
 // External
-import { Route, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 // Internal
 import { MenuModule } from 'core/user-space/menu/menu.module';
-import { ComputationModule } from 'core/user-space/computation/computation.module';
 import { EntryScreenComponent } from 'core/user-space/entry-screen/entry-screen.component';
-import { CameraComponent } from 'core/user-space/camera/camera.component';
-import { AttachFileComponent } from 'core/user-space/attach-file/attach-file.component';
-import { ComputationComponent } from 'core/user-space/computation/computation.component';
-
-const routes: Route[] = [
-  {
-    path: '',
-    component: EntryScreenComponent
-  },
-  {
-    path: 'computation',
-    component: ComputationComponent
-  },
-  {
-    path: 'use-your-camera',
-    component: CameraComponent
-  },
-  {
-    path: 'attach-file',
-    component: AttachFileComponent
-  }
-];
+import { GlobalContainerComponent } from './global-container.component';
 
 @NgModule({
   declarations: [
-    EntryScreenComponent,
-    CameraComponent,
-    AttachFileComponent
+    GlobalContainerComponent,
+    EntryScreenComponent
   ],
   imports: [
     BrowserModule,
-    ComputationModule,
     MenuModule,
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule
   ],
   providers: [],
-  bootstrap: [EntryScreenComponent],
-  exports: [EntryScreenComponent],
+  bootstrap: [GlobalContainerComponent],
+  exports: [GlobalContainerComponent],
 })
 export class GlobalContainerModule { }
