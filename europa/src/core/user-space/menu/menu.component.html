@@ -1,6 +1,6 @@
 <a class="hamburger-menu"
- (click)="toggleMenuState($event)">Toggle State</a>
-<div class="menu-container">
+ (click)="toggleMenuState($event)">Toggle Menu</a>
+<div class="menu-container" *ngIf="menuStateOpen">
     <p>Menu</p>
     <ul>
         <li *ngFor="let menuItem of menuItems;">

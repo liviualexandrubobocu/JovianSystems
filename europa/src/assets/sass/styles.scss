@@ -3,7 +3,6 @@
 @import "./computation/_result";
 @import "./variables";
 @import "./mixins";
-@import "functions", "variables", "mixins";
 
 .trig {
   display: block !important;
@@ -18,8 +17,8 @@
 
 .app-container {
   background: $background;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   background-attachment: fixed;
 }
 .global-container {
@@ -28,15 +27,17 @@
   margin: 0 auto;
   padding: 0;
   &.entry-screen-container {
-    height:100px;
-    width:100%;
+    height: 100px;
+    width: 100%;
     .option-link {
-      color:#fff;
-      &:hover{
-        cursor:pointer;
+      color: #fff;
+      &:hover {
+        cursor: pointer;
       }
     }
   }
-  
-}
 
+  .hamburger-menu {
+    color: #fff;
+  }
+}

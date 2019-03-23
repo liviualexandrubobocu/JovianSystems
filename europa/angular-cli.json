@@ -17,12 +17,10 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
         "./assets/sass/styles.scss"
       ],
       "stylePreprocessorOptions": {
         "includePaths": [
-          "../node_modules/bootstrap/scss"
         ]
       },
       "scripts": [],

@@ -13,18 +13,18 @@ import { AttachFileComponent } from 'core/user-space/attach-file/attach-file.com
 
 import { AppRoutingModule } from './app-routing.module';
 import { ComputationModule } from 'core/user-space/computation/computation.module';
-import { GlobalContainerModule } from 'core/global-container/global-container.module';
 import { MenuModule } from 'core/user-space/menu/menu.module';
+import { EntryScreenComponent } from 'core/user-space/entry-screen/entry-screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CameraComponent,
     AttachFileComponent,
+    EntryScreenComponent,
   ],
   imports: [
     AppRoutingModule,
-    GlobalContainerModule,
     MenuModule,
     ComputationModule,
     BrowserModule,
