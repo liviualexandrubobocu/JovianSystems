@@ -1,5 +1,6 @@
 // External
 import { RouterModule, Route } from '@angular/router';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,10 +32,11 @@ const routes: Route[] = [
     ComputationCalculatorComponent,
     ComputationGraphComponent,
     ComputationResultComponent,
-    ComputationStepsComponent
+    ComputationStepsComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     FormsModule,

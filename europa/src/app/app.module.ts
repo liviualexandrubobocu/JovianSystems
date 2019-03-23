@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ComputationModule } from 'core/user-space/computation/computation.module';
 import { MenuModule } from 'core/user-space/menu/menu.module';
 import { EntryScreenComponent } from 'core/user-space/entry-screen/entry-screen.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [

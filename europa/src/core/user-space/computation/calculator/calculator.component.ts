@@ -1,12 +1,15 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Injector, EmbeddedViewRef, Renderer2 } from '@angular/core';
-import { ValidatorFn, Validator, AbstractControl, FormControl, NG_VALIDATORS, FormArray, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { FormControl, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import 'node-mathquill/build/mathquill';
 
 //Internal
 import { Operations, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
+import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
+import { CALCULATOR_BUTTON_CLASSES } from '../../../../shared/entities/calculator-button-classes';
+import { CalculatorButton } from '../../../../shared/entities/calculator-button';
 
 //Services
 import { HttpService } from 'shared/services/http.service';
@@ -27,6 +30,10 @@ export class ComputationCalculatorComponent implements OnInit {
     public resultFields: any[] = [];
     public subscriptions: Subscription[] = [];
     public expressionToSolve: string = '\\int^b_a';
+    public basicStateCalculatorButtons: CalculatorButton[];
+
+    public calculatorType: string = CALCULATOR_STATES.BASIC;
+    public calculatorStates: any = {};
 
     private STEP_CLASS = 'step';
     private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
@@ -44,6 +51,9 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initCalculatorStates();
+        this.initCalculator(CALCULATOR_STATES.BASIC);
+        this.initCalculator(CALCULATOR_STATES.ADVANCED);
         this.createSymbolDictionary();
         this.initializeControls();
         this.initMathField();
@@ -71,6 +81,92 @@ export class ComputationCalculatorComponent implements OnInit {
                 }
             });
         }
+    }
+
+    toggleCalculatorState() {
+        this.calculatorStates[CALCULATOR_STATES.BASIC] = !this.calculatorStates[CALCULATOR_STATES.BASIC];
+        this.calculatorStates[CALCULATOR_STATES.ADVANCED] = !this.calculatorStates[CALCULATOR_STATES.ADVANCED];
+        this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === true)
+            ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
+    }
+
+    private initCalculatorStates() {
+        this.calculatorStates[CALCULATOR_STATES.BASIC] = true;
+        this.calculatorStates[CALCULATOR_STATES.ADVANCED] = false;
+    }
+
+    private initCalculator(state: string) {
+        switch (state) {
+            case CALCULATOR_STATES.BASIC:
+                this.initCalculatorButtons();
+                break;
+            case CALCULATOR_STATES.ADVANCED:
+                this.initCalculatorButtons();
+                break;
+            default:
+                this.initCalculatorButtons();
+        }
+    }
+
+    private initCalculatorButtons() {
+        this.basicStateCalculatorButtons = [];
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        this.basicStateCalculatorButtons.push(
+            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
+                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
     }
 
     /**
