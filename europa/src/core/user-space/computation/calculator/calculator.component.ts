@@ -13,6 +13,7 @@ import { CalculatorButton } from '../../../../shared/entities/calculator-button'
 
 //Services
 import { HttpService } from 'shared/services/http.service';
+import { KernelService } from 'core/kernel/kernel.service';
 
 declare var MathQuill: any;
 @Component({
@@ -42,6 +43,7 @@ export class ComputationCalculatorComponent implements OnInit {
     @ViewChild('answerZone') answerZone: ElementRef;
 
     constructor(
+        private kernelService: KernelService,
         private httpService: HttpService,
         private renderer: Renderer2
     ) { }
@@ -110,63 +112,17 @@ export class ComputationCalculatorComponent implements OnInit {
 
     private initCalculatorButtons() {
         this.basicStateCalculatorButtons = [];
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
-        this.basicStateCalculatorButtons.push(
-            new CalculatorButton(CALCULATOR_BUTTON_TYPES.CLEAR, CALCULATOR_BUTTON_SYMBOLS.CLEAR,
-                [CALCULATOR_BUTTON_CLASSES.RED, CALCULATOR_BUTTON_CLASSES.NORMAL]));
+        if (this.kernelService.classMatrix &&
+            this.kernelService.classMatrix.length > 0 &&
+            this.kernelService.classMatrix.buttons &&
+            this.kernelService.classMatrix.buttons.length > 0) {
+            for (let button of this.kernelService.classMatrix.buttons[this.kernelService.state]) {
+                this.basicStateCalculatorButtons.push(
+                    this.kernelService.generateElement(HTML_ELEMENT.CALCULATOR_BUTTON, CALCULATOR_BUTTON_TYPES.CLEAR);
+                    //new CalculatorButton(, this.kernelService.device, this.kernelService.state));
+            }
+        }
+
     }
 
     /**

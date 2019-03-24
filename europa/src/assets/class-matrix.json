@@ -1,0 +1,40 @@
+{
+    "buttons": {
+        "basic": {
+            "clear": {
+                "dark": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                },
+                "light": {
+                    "desktop": {},
+                    "mobile": {}
+                }
+            },
+            "round-brackets": {},
+            "percent": {},
+            "divide": {},
+            "multiply": {},
+            "subtract": {},
+            "add": {},
+            "equals": {},
+            "zero": {},
+            "one": {},
+            "two": {},
+            "three": {},
+            "four": {},
+            "five": {},
+            "six": {},
+            "seven": {},
+            "eight": {},
+            "nine": {},
+            "dot": {}
+        },
+        "advanced": {}
+    }
+}
