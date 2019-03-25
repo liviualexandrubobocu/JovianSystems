@@ -11,7 +11,7 @@ export class KernelService {
 
     }
 
-    public generateElement() {
+    public generateElement(elementType: string, elementId: string) {
 
     }
 }
