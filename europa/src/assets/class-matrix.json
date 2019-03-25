@@ -15,24 +15,258 @@
                     "native": {}
                 }
             },
-            "round-brackets": {},
-            "percent": {},
-            "divide": {},
-            "multiply": {},
-            "subtract": {},
-            "add": {},
-            "equals": {},
-            "zero": {},
-            "one": {},
-            "two": {},
-            "three": {},
-            "four": {},
-            "five": {},
-            "six": {},
-            "seven": {},
-            "eight": {},
-            "nine": {},
-            "dot": {}
+            "round-brackets": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "percent": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "divide": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "multiply": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "subtract": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "add": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "equals": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "zero": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "one": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "two": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "three": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "four": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "five": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "six": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "seven": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "eight": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "nine": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            },
+            "dot": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
+                    "desktop": [
+                        "normal",
+                        "red",
+                        "white-text"
+                    ],
+                    "mobile-web": {},
+                    "native": {}
+                }
+            }
         },
         "advanced": {}
     }

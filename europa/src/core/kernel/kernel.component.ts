@@ -13,10 +13,5 @@ export class KernelComponent implements OnInit {
     }
 
     ngOnInit(){
-        this.kernelService.initClassMatrix().subscribe((classMatrix) => {
-            if(classMatrix){
-                Reflect.defineProperty(this.kernelService, 'classMatrix', {value: JSON.parse(classMatrix)});
-            }
-        });
     }
 }

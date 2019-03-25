@@ -168,9 +168,9 @@ export class ComputationCalculatorComponent implements OnInit {
             }
         });
 
-        Object.keys(Operations).filter(key => {
+        Object.keys(BASIC_OPERATIONS).filter(key => {
             if (isNaN(+key)) {
-                this.symbolicDictionary['Operations'].push(Operations[key]);
+                this.symbolicDictionary['Operations'].push(BASIC_OPERATIONS[key]);
             }
         });
 
