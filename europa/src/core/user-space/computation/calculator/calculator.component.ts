@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs/Subscription';
 import 'node-mathquill/build/mathquill';
 
 //Internal
-import { Operations, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
-import { CALCULATOR_BUTTON_CLASSES } from '../../../../shared/entities/calculator-button-classes';
+import { CALCULATOR_BUTTON_TYPES } from '../../../../shared/entities/calculator-button-types';
 import { CalculatorButton } from '../../../../shared/entities/calculator-button';
+import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 
 //Services
 import { HttpService } from 'shared/services/http.service';
@@ -118,8 +119,8 @@ export class ComputationCalculatorComponent implements OnInit {
             this.kernelService.classMatrix.buttons.length > 0) {
             for (let button of this.kernelService.classMatrix.buttons[this.kernelService.state]) {
                 this.basicStateCalculatorButtons.push(
-                    this.kernelService.generateElement(HTML_ELEMENT.CALCULATOR_BUTTON, CALCULATOR_BUTTON_TYPES.CLEAR);
-                    //new CalculatorButton(, this.kernelService.device, this.kernelService.state));
+                    this.kernelService.generateElement(HTML_ELEMENTS.CALCULATOR_BUTTON, CALCULATOR_BUTTON_TYPES.CLEAR)
+                );
             }
         }
 

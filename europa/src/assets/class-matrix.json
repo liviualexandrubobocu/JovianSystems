@@ -2,7 +2,10 @@
     "buttons": {
         "basic": {
             "clear": {
-                "dark": {
+                "id": "clear",
+                "symbol": "C",
+                "interfaceSymbol": "C",
+                "cssClasses": {
                     "desktop": [
                         "normal",
                         "red",
@@ -10,10 +13,6 @@
                     ],
                     "mobile-web": {},
                     "native": {}
-                },
-                "light": {
-                    "desktop": {},
-                    "mobile": {}
                 }
             },
             "round-brackets": {},

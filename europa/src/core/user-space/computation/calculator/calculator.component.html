@@ -12,7 +12,7 @@
 
         <div class="basic-computer-container" *ngIf="calculatorStates['basic']">
             <div *ngFor="let button of basicStateCalculatorButtons; let i = index;">
-                <button [ngClass]="button.class" (click)="addSymbol(button.symbol, null, null)">
+                <button [ngClass]="button.cssClasses" (click)="addSymbol(button.symbol, null, null)">
                     <app-mathquill [symbols]="button.symbol"></app-mathquill>
                 </button>
             </div>

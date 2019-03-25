@@ -1,12 +1,21 @@
-export enum Operations {
-    OPEN_BRACKETS = '()',
-    CLOSED_BRACKETS = '[]',
-    BRACES = '{}',
-    MODULO = '%',
+export enum BASIC_OPERATIONS {
+    CLEAR = 'C',
+    ROUND_BRACKETS = '()',
+    PERCENT = '%',
     DIVIDE = '/',
+    MULTIPLY = '*',
     SUBTRACT = '-',
     ADD = '+',
     EQUALS = '=',
+    ZERO = '0',
+    ONE = '1',
+    TWO = '2',
+    THREE = '3',
+    FOUR = '4',
+    FIVE = '5',
+    SIX = '6',
+    SEVEN = '7',
+    EIGHT = '8',
+    NINE = '9',
     DOT = '.',
-    CLEAR = 'C'
 }
