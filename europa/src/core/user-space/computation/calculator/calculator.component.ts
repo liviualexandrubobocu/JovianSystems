@@ -55,8 +55,10 @@ export class ComputationCalculatorComponent implements OnInit {
 
     ngOnInit() {
         this.initCalculatorStates();
-        this.initCalculator(CALCULATOR_STATES.BASIC);
-        this.initCalculator(CALCULATOR_STATES.ADVANCED);
+        this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
+            this.initCalculator(CALCULATOR_STATES.BASIC);
+            this.initCalculator(CALCULATOR_STATES.ADVANCED);
+        });
         this.createSymbolDictionary();
         this.initializeControls();
         this.initMathField();
@@ -114,16 +116,13 @@ export class ComputationCalculatorComponent implements OnInit {
     private initCalculatorButtons() {
         this.basicStateCalculatorButtons = [];
         if (this.kernelService.classMatrix &&
-            this.kernelService.classMatrix.length > 0 &&
-            this.kernelService.classMatrix.buttons &&
-            this.kernelService.classMatrix.buttons.length > 0) {
-            for (let button of this.kernelService.classMatrix.buttons[this.kernelService.state]) {
+            this.kernelService.classMatrix.buttons) {
+            for (let buttonId in this.kernelService.classMatrix.buttons[this.kernelService.state]) {
                 this.basicStateCalculatorButtons.push(
-                    this.kernelService.generateElement(HTML_ELEMENTS.CALCULATOR_BUTTON, CALCULATOR_BUTTON_TYPES.CLEAR)
+                    this.kernelService.generateElement(HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
                 );
             }
         }
-
     }
 
     /**
@@ -196,7 +195,6 @@ export class ComputationCalculatorComponent implements OnInit {
 
     private clearResultField() {
         for (let result of this.resultFields) {
-            console.log(this.resultFields);
             this.renderer.removeChild(this.renderer.parentNode(result), result);
             // this.resultFields.splice(this.resultFields.indexOf(result));
         }

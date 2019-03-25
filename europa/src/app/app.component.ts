@@ -22,8 +22,10 @@ export class AppComponent {
 
   private initClassMatrix() {
     this.kernelService.initClassMatrix().subscribe((classMatrix: string) => {
+
       if (classMatrix) {
-        Reflect.defineProperty(this.kernelService, 'classMatrix', { value: JSON.parse(classMatrix) });
+        Reflect.defineProperty(this.kernelService, 'classMatrix', { value: classMatrix });
+        this.kernelService.notifyUpdatedClassMatrix.next(true);
       }
     });
   }
