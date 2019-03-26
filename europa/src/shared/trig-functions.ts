@@ -3,9 +3,12 @@ export enum TrigFunctions {
     COS = '\\cos()',
     TAN = '\\tan()',
     COT = '\\cot()',
-    ARCSIN = '\\arcsin()',
-    ARCTAN = '\\arctan()',
-    ARCCOS = '\\arccos()',
     SEC = '\\sec()',
-    CSC = '\\csc()'
+    CSC = '\\csc()',
+    ARCSIN = '\\arcsin()',
+    ARCCOS = '\\arccos()',
+    ARCTAN = '\\arctan()',
+    ARCCOT = '\\arccot()',
+    ARCSEC = '\\arcsec()',
+    ARCCSC = '\\arccsc()'
 }
