@@ -380,6 +380,188 @@
                         "native": []
                     }
                 }
+            },
+            "mathematic" : {
+                "squareRoot": {
+                    "id": "squareRoot",
+                    "symbol": "\\sqrt{x}",
+                    "interfaceSymbol": "\\sqrt{x}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "nthRoot": {
+                    "id": "nthRoot",
+                    "symbol": "\\sqrt[n]{x}",
+                    "interfaceSymbol": "\\sqrt[n]{x}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "naturalLog": {
+                    "id": "naturalLog",
+                    "symbol": "\\ln x",
+                    "interfaceSymbol": "\\ln x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "log": {
+                    "id": "log",
+                    "symbol": "\\log x",
+                    "interfaceSymbol": "\\log x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "factorial": {
+                    "id": "factorial",
+                    "symbol": "x!",
+                    "interfaceSymbol": "x!",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "power": {
+                    "id": "power",
+                    "symbol": "x^n",
+                    "interfaceSymbol": "x^n",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "epsilonToPower": {
+                    "id": "epsilonToPower",
+                    "symbol": "e^x",
+                    "interfaceSymbol": "e^x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "undefinedIntegral": {
+                    "id": "undefinedIntegral",
+                    "symbol": "\\int",
+                    "interfaceSymbol": "\\int",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "definedIntegral": {
+                    "id": "definedIntegral",
+                    "symbol": "\\int",
+                    "interfaceSymbol": "\\int",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "derivative": {
+                    "id": "derivative",
+                    "symbol": "\\frac{dy}{dx}",
+                    "interfaceSymbol": "\\frac{dy}{dx}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "squareFunction": {
+                    "id": "derivative",
+                    "symbol": "x^2",
+                    "interfaceSymbol": "x^2",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "modulus": {
+                    "id": "modulus",
+                    "symbol": "|x|",
+                    "interfaceSymbol": "|x|",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "theta": {
+                    "id": "theta",
+                    "symbol": "\\theta",
+                    "interfaceSymbol": "\\theta",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "infinity": {
+                    "id": "infinity",
+                    "symbol": "\\infty",
+                    "interfaceSymbol": "\\infty",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "pi": {
+                    "id": "pi",
+                    "symbol": "\\pi",
+                    "interfaceSymbol": "\\pi",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                }
             }
         }
     }
