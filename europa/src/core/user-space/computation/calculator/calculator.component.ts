@@ -24,7 +24,6 @@ declare var MathQuill: any;
 export class ComputationCalculatorComponent implements OnInit {
 
     public form: FormGroup;
-    public symbolicDictionary: any;
     public clientX: number;
     public clientY: number;
     public host: any;
@@ -33,9 +32,12 @@ export class ComputationCalculatorComponent implements OnInit {
     public subscriptions: Subscription[] = [];
     public expressionToSolve: string = '\\int^b_a';
     public basicStateCalculatorButtons: CalculatorButton[];
+    public advancedStateCalculatorButtons: any[][];
 
-    public calculatorType: string = CALCULATOR_STATES.BASIC;
+    public calculatorType: string = CALCULATOR_STATES.ADVANCED;
     public calculatorStates: any = {};
+    public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
+    public MATHEMATICAL_FUNCTIONS = 'mathematic';
 
     private STEP_CLASS = 'step';
     private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
@@ -49,19 +51,14 @@ export class ComputationCalculatorComponent implements OnInit {
         private renderer: Renderer2
     ) { }
 
-    get trigFunctions() {
-        return this.form.get('trigFunctions') as FormArray;
-    }
-
     ngOnInit() {
         this.initCalculatorStates();
+        this.initCalculatorButtonsLists();
         this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
             this.initCalculator(CALCULATOR_STATES.BASIC);
             this.initCalculator(CALCULATOR_STATES.ADVANCED);
+            this.initMathField();
         });
-        this.createSymbolDictionary();
-        this.initializeControls();
-        this.initMathField();
     }
 
     ngOnDestroy() {
@@ -91,7 +88,7 @@ export class ComputationCalculatorComponent implements OnInit {
     toggleCalculatorState() {
         this.calculatorStates[CALCULATOR_STATES.BASIC] = !this.calculatorStates[CALCULATOR_STATES.BASIC];
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = !this.calculatorStates[CALCULATOR_STATES.ADVANCED];
-        this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === true)
+        this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === false)
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
     }
 
@@ -100,26 +97,35 @@ export class ComputationCalculatorComponent implements OnInit {
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = false;
     }
 
+    private initCalculatorButtonsLists(){
+        this.basicStateCalculatorButtons = [];
+        this.advancedStateCalculatorButtons = [];
+        this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS] = [];
+        this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS] = [];
+    }
+
     private initCalculator(state: string) {
         switch (state) {
             case CALCULATOR_STATES.BASIC:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
                 break;
             case CALCULATOR_STATES.ADVANCED:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS], this.TRIGONOMETRIC_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
+                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS], this.MATHEMATICAL_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
                 break;
             default:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
         }
     }
 
-    private initCalculatorButtons() {
-        this.basicStateCalculatorButtons = [];
+    private initCalculatorButtons(buttonsList: CalculatorButton[], type: null | string, state: string) {
+        let calculatorButtons: CalculatorButton[] = [];
         if (this.kernelService.classMatrix &&
             this.kernelService.classMatrix.buttons) {
-            for (let buttonId in this.kernelService.classMatrix.buttons[this.kernelService.state]) {
-                this.basicStateCalculatorButtons.push(
-                    this.kernelService.generateElement(HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
+            calculatorButtons = (type === null) ? this.kernelService.classMatrix.buttons[state]: this.kernelService.classMatrix.buttons[state][type];
+            for (let buttonId in calculatorButtons) {
+                buttonsList.push(
+                    this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
                 );
             }
         }
@@ -153,40 +159,11 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     /**
-     * This method is used to create symbol dictionary.
-     */
-    private createSymbolDictionary() {
-        this.symbolicDictionary = new Object();
-        this.symbolicDictionary['TrigFunctions'] = [];
-        this.symbolicDictionary['Operations'] = [];
-        this.symbolicDictionary['MathFunctions'] = [];
-
-        Object.keys(TrigFunctions).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['TrigFunctions'].push(TrigFunctions[key]);
-            }
-        });
-
-        Object.keys(BASIC_OPERATIONS).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['Operations'].push(BASIC_OPERATIONS[key]);
-            }
-        });
-
-        Object.keys(MathFunctions).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['MathFunctions'].push(MathFunctions[key]);
-            }
-        });
-    }
-
-    /**
      * This method is used to send the request to the parser.
      */
     private getParsedInformation() {
-        this.answerMathField = '\\sin()';
         this.subscriptions.push(
-            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField).subscribe((steps: string[]) => {
+            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: string[]) => {
                 this.clearResultField();
                 this.initResultFields(steps);
             })
@@ -206,24 +183,21 @@ export class ComputationCalculatorComponent implements OnInit {
      * @param symbol 
      */
     private addSymbol(symbol) {
-        this.answerMathField.write(symbol);
+        if(symbol === BASIC_OPERATIONS.EQUALS){
+            this.getParsedInformation();
+            return;
+        }
+
+        if(this.answerMathField){
+            this.answerMathField.write(symbol);
+        }
     }
 
     private applyMath(mathField, mathSymbol: string) {
         mathField.write(mathSymbol);
     }
 
-    /**
-     * Aceasta metoda este creata pentru a initializa controalele pentru butoanele calculatorului.
-     */
-    private initializeControls() {
-        this.form = new FormGroup({
-            query: new FormControl('query')
-        });
-    }
-
     public selectHost(event) {
         this.host = event.path[0];
     }
-
 }
