@@ -8,11 +8,15 @@
             <span #answerZone></span>
         </div>
 
-        <button class="calculator-toggler" (click)="toggleCalculatorState()">{{ calculatorType | titlecase }}</button>
+        <div class="calculator-middle-section">
+            <button class="calculator-toggler" (click)="toggleCalculatorState()">{{ calculatorType | titlecase }}</button>
+            <span [ngClass]="{ 'clearResult': true, 'clearInterfaceHighlight' : clearInterfaceHighlight }">x</span>
+        </div>
+        
 
         <div class="basic-computer-container" *ngIf="calculatorStates['basic']">
             <div *ngFor="let button of basicStateCalculatorButtons; let i = index;">
-                <button [ngClass]="button.cssClasses" (click)="addSymbol(button.mathSymbol, null, null)">
+                <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol, null, null)">
                     <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                 </button>
             </div>
@@ -20,19 +24,19 @@
 
         <div class="advanced-computer-container" *ngIf="calculatorStates['advanced']">
             <div *ngFor="let button of basicStateCalculatorButtons; let i = index;">
-                <button [ngClass]="button.cssClasses" (click)="addSymbol(button.mathSymbol, null, null)">
+                <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol, null, null)">
                     <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                 </button>
             </div>
 
             <div *ngFor="let button of advancedStateCalculatorButtons[TRIGONOMETRIC_FUNCTIONS]; let i = index;">
-                <button [ngClass]="button.cssClasses" (click)="addSymbol(button.mathSymbol, null, null)">
+                <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol, null, null)">
                     <app-mathquill [symbols]="button.interfaceSymbol"></app-mathquill>
                 </button>
             </div>
 
             <div *ngFor="let button of advancedStateCalculatorButtons[MATHEMATICAL_FUNCTIONS]; let i = index;">
-                <button [ngClass]="button.cssClasses" (click)="addSymbol(button.mathSymbol, null, null)">
+                <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol, null, null)">
                     <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                 </button>
             </div>

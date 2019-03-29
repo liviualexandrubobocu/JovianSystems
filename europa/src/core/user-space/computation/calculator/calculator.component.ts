@@ -40,6 +40,7 @@ export class ComputationCalculatorComponent implements OnInit {
     public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
     public showCalculator: boolean = true;
+    public clearInterfaceHighlight: boolean = false;
 
     private STEP_CLASS = 'step';
     private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
@@ -77,15 +78,7 @@ export class ComputationCalculatorComponent implements OnInit {
         const MQ = MathQuill.getInterface(2);
         if (this.editor && this.editor.nativeElement) {
             var answerSpan = this.editor.nativeElement;
-            const _this = this;
-            this.answerMathField = MQ.MathField(answerSpan, {
-                handlers: {
-                    edit: function () {
-                        var enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
-                        this.enteredSymbols = enteredMath;
-                    }
-                }
-            });
+            this.setResultField(MQ, answerSpan);
         }
     }
 
@@ -133,6 +126,18 @@ export class ComputationCalculatorComponent implements OnInit {
                 );
             }
         }
+    }
+
+    private setResultField(MQLibrary: any, answerSpan: any) {
+        const _this = this;
+        this.answerMathField = MQLibrary.MathField(answerSpan, {
+            handlers: {
+                edit: function () {
+                    var enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
+                    this.enteredSymbols = enteredMath;
+                }
+            }
+        });
     }
 
     /**
@@ -183,41 +188,39 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     private clearResultField() {
-        for (let result of this.resultFields) {
-            this.renderer.removeChild(this.renderer.parentNode(result), result);
-            // this.resultFields.splice(this.resultFields.indexOf(result));
+        if(this.editor){
+            this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', '');
+            this.initMathField();
         }
-        this.resultFields = [];
+        this.clearInterfaceHighlight = false;
     }
 
     /**
      * Method used to add symbol on editable math field cursor
      * @param symbol 
      */
-    private addSymbol(symbol) {
-        if (symbol === BASIC_OPERATIONS.EQUALS) {
-            this.getParsedInformation();
-            return;
+    private onClick(symbol) {
+        switch (symbol) {
+            case BASIC_OPERATIONS.EQUALS:
+                this.getParsedInformation();
+                this.clearInterfaceHighlight = true;
+                break;
+            case BASIC_OPERATIONS.CLEAR:
+                this.clearResultField();
+                break;
+            default:
+                if (this.answerMathField) {
+                    this.answerMathField.write(symbol);
+                }
+                this.clearInterfaceHighlight = true;
         }
-
-        if (this.answerMathField) {
-            this.answerMathField.write(symbol);
-        }
-    }
-
-    private applyMath(mathField, mathSymbol: string) {
-        mathField.write(mathSymbol);
     }
 
     private showCalculatorInterface() {
         this.userSpaceService.showCalculator.subscribe((showCalculator) => {
-            if(showCalculator){
+            if (showCalculator) {
                 this.showCalculator = true;
             }
         });
-    }
-
-    public selectHost(event) {
-        this.host = event.path[0];
     }
 }
