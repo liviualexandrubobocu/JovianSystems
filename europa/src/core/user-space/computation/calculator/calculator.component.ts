@@ -15,6 +15,7 @@ import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 //Services
 import { HttpService } from 'shared/services/http.service';
 import { KernelService } from 'core/kernel/kernel.service';
+import { UserSpaceService } from 'core/user-space/user-space.service';
 
 declare var MathQuill: any;
 @Component({
@@ -47,6 +48,7 @@ export class ComputationCalculatorComponent implements OnInit {
 
     constructor(
         private kernelService: KernelService,
+        private userSpaceService: UserSpaceService,
         private httpService: HttpService,
         private renderer: Renderer2
     ) { }
@@ -97,7 +99,7 @@ export class ComputationCalculatorComponent implements OnInit {
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = false;
     }
 
-    private initCalculatorButtonsLists(){
+    private initCalculatorButtonsLists() {
         this.basicStateCalculatorButtons = [];
         this.advancedStateCalculatorButtons = [];
         this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS] = [];
@@ -122,7 +124,7 @@ export class ComputationCalculatorComponent implements OnInit {
         let calculatorButtons: CalculatorButton[] = [];
         if (this.kernelService.classMatrix &&
             this.kernelService.classMatrix.buttons) {
-            calculatorButtons = (type === null) ? this.kernelService.classMatrix.buttons[state]: this.kernelService.classMatrix.buttons[state][type];
+            calculatorButtons = (type === null) ? this.kernelService.classMatrix.buttons[state] : this.kernelService.classMatrix.buttons[state][type];
             for (let buttonId in calculatorButtons) {
                 buttonsList.push(
                     this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
@@ -168,6 +170,13 @@ export class ComputationCalculatorComponent implements OnInit {
                 this.initResultFields(steps);
             })
         );
+        this.showResults();
+    }
+
+    private showResults() {
+        if(this.userSpaceService.showComputationResults){
+            this.userSpaceService.showComputationResults.next(true);
+        }
     }
 
     private clearResultField() {
@@ -183,12 +192,12 @@ export class ComputationCalculatorComponent implements OnInit {
      * @param symbol 
      */
     private addSymbol(symbol) {
-        if(symbol === BASIC_OPERATIONS.EQUALS){
+        if (symbol === BASIC_OPERATIONS.EQUALS) {
             this.getParsedInformation();
             return;
         }
 
-        if(this.answerMathField){
+        if (this.answerMathField) {
             this.answerMathField.write(symbol);
         }
     }

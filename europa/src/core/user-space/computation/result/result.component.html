@@ -1,4 +1,4 @@
-<div class="result-container">
+<div class="result-container" *ngIf="showComputationResultsInterface">
     <div class="result-math"></div>
     <div class="result-buttons">
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['steps'] }" (click)="toggleResult('steps')">Steps</button>
