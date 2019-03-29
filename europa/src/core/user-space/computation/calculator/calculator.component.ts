@@ -39,6 +39,7 @@ export class ComputationCalculatorComponent implements OnInit {
     public calculatorStates: any = {};
     public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
+    public showCalculator: boolean = true;
 
     private STEP_CLASS = 'step';
     private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
@@ -61,6 +62,7 @@ export class ComputationCalculatorComponent implements OnInit {
             this.initCalculator(CALCULATOR_STATES.ADVANCED);
             this.initMathField();
         });
+        this.showCalculatorInterface();
     }
 
     ngOnDestroy() {
@@ -174,9 +176,10 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     private showResults() {
-        if(this.userSpaceService.showComputationResults){
+        if (this.userSpaceService.showComputationResults) {
             this.userSpaceService.showComputationResults.next(true);
         }
+        this.showCalculator = false;
     }
 
     private clearResultField() {
@@ -204,6 +207,14 @@ export class ComputationCalculatorComponent implements OnInit {
 
     private applyMath(mathField, mathSymbol: string) {
         mathField.write(mathSymbol);
+    }
+
+    private showCalculatorInterface() {
+        this.userSpaceService.showCalculator.subscribe((showCalculator) => {
+            if(showCalculator){
+                this.showCalculator = true;
+            }
+        });
     }
 
     public selectHost(event) {

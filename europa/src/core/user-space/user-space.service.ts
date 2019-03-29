@@ -9,6 +9,7 @@ import { CalculatorButton } from '../../shared/entities/calculator-button';
 export class UserSpaceService {
 
     public showComputationResults: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public showCalculator: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor() { }
 

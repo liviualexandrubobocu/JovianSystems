@@ -3,6 +3,6 @@
     <div class="result-buttons">
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['steps'] }" (click)="toggleResult('steps')">Steps</button>
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['graph'] }" (click)="toggleResult('graph')">Graph</button>
-        <button class="result-btn edit" (click)="navigate()">Edit</button>
+        <button class="result-btn edit" (click)="showCalculator()">Edit</button>
     </div>
 </div>

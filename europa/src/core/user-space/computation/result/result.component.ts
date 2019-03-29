@@ -34,8 +34,9 @@ export class ComputationResultComponent implements OnInit {
         this.computationService.toggleSteps.next(type);
     }
 
-    navigate(): void {
-        this.routerService.navigate(NAVIGATION_ROUTES.COMPUTATION);
+    showCalculator(): void {
+        this.userSpaceService.showCalculator.next(true);
+        this.userSpaceService.showComputationResults.next(false);
     }
 
     private initButtons(): void {
@@ -57,6 +58,8 @@ export class ComputationResultComponent implements OnInit {
         this.userSpaceService.showComputationResults.subscribe((showComputation) => {
             if(showComputation){
                 this.showComputationResultsInterface = true;
+            } else {
+                this.showComputationResultsInterface = false;
             }
         })
     }
