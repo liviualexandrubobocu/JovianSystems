@@ -2,8 +2,17 @@
     <p>Steps</p>
     <ul class="computation-steps">
         <li *ngFor="let step of computationSteps">
-            <div class="mathematical-step"></div>
+            <div class="mathematical-step" [ngClass]="{ 'open': step.isOpen }">
+                <app-mathquill [symbols]="step.step"></app-mathquill>
+            </div>
             <button class="more" (click)="toggleStep()">X</button>
+            <ul class="children" [ngClass]="{ 'isOpen': step.isOpen }">
+                <li *ngFor="let childStep of step.children">
+                    <div class="mathematical-step child" [ngClass]="{ 'open': step.isOpen }">
+                        <app-mathquill [symbols]="childStep.step"></app-mathquill>
+                    </div>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

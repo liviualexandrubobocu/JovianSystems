@@ -1,11 +1,12 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import 'node-mathquill/build/mathquill';
 
 //Internal
 import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
 import { CALCULATOR_BUTTON_TYPES } from '../../../../shared/entities/calculator-button-types';
@@ -41,9 +42,11 @@ export class ComputationCalculatorComponent implements OnInit {
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
     public showCalculator: boolean = true;
     public clearInterfaceHighlight: boolean = false;
+    public computationSteps: ComputationStep[];
 
     private STEP_CLASS = 'step';
-    private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    private PARSER_ENDPOINT: string = '../assets/steps.json';
 
     @ViewChild('editor') editor: ElementRef;
     @ViewChild('answerZone') answerZone: ElementRef;
@@ -52,7 +55,8 @@ export class ComputationCalculatorComponent implements OnInit {
         private kernelService: KernelService,
         private userSpaceService: UserSpaceService,
         private httpService: HttpService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -144,40 +148,46 @@ export class ComputationCalculatorComponent implements OnInit {
      * This method is used to create new result components with dedicated math fields.
      * @param step
      */
-    private initResultFields(steps: string[]) {
+    private initResultFields(steps: ComputationStep[]) {
         const MQ = MathQuill.getInterface(2);
-        if (this.answerZone && this.answerZone.nativeElement) {
-            var answerSpan = this.answerZone.nativeElement;
-            for (let step of steps) {
+        this.computationSteps = steps;
+        console.log(this.computationSteps);
+        // if (this.answerZone && this.answerZone.nativeElement) {
+        //     var answerSpan = this.answerZone.nativeElement;
+        //     for (let step of steps) {
 
-                // Create element for step
-                let stepSpan = this.renderer.createElement('span');
+        //         // Create element for step
+        //         let stepSpan = this.renderer.createElement('span');
 
-                // Create latex based on html element
-                let resultField = MQ.StaticMath(stepSpan);
-                resultField.latex(step);
+        //         // Create latex based on html element
+        //         let resultField = MQ.StaticMath(stepSpan);
+        //         resultField.latex(step);
 
-                // Add class to step html
-                this.renderer.addClass(stepSpan, this.STEP_CLASS);
+        //         // Add class to step html
+        //         this.renderer.addClass(stepSpan, this.STEP_CLASS);
 
-                // Attach node to DOM
-                this.renderer.appendChild(answerSpan, stepSpan);
-                this.resultFields.push(stepSpan);
-            }
-        }
+        //         // Attach node to DOM
+        //         this.renderer.appendChild(answerSpan, stepSpan);
+        //         this.resultFields.push(stepSpan);
+        //     }
+        // }
     }
 
     /**
      * This method is used to send the request to the parser.
      */
     private getParsedInformation() {
-        this.subscriptions.push(
-            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: string[]) => {
-                this.clearResultField();
-                this.initResultFields(steps);
-            })
-        );
-        this.showResults();
+        if(this.answerMathField){
+            this.subscriptions.push(
+                this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: ComputationStep[]) => {
+                    this.clearResultField();
+                    this.showResults();
+                    this.initResultFields(steps);
+                    this.cdr.detectChanges();
+                    this.cdr.markForCheck();
+                })
+            );
+        }
     }
 
     private showResults() {

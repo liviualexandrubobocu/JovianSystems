@@ -1,11 +1,12 @@
 // External
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // Internal
 import { NAVIGATION_ROUTES } from '../../../../shared/entities/navigation-routes';
 
 // Services
 import { ComputationService } from '../computation.service';
+import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { RouterService } from '../../../../shared/services/router.service';
 import { UserSpaceService } from '../../../../core/user-space/user-space.service';
 
@@ -14,6 +15,8 @@ import { UserSpaceService } from '../../../../core/user-space/user-space.service
     templateUrl: './result.component.html'
 })
 export class ComputationResultComponent implements OnInit {
+
+    @Input() computationSteps: ComputationStep[];
 
     public buttons: any = {};
     public showComputationResultsInterface: boolean = false;
@@ -28,6 +31,10 @@ export class ComputationResultComponent implements OnInit {
         this.initButtons();
         this.initToggleResult();
         this.showComputationResults();
+    }
+
+    ngOnChanges(){
+        console.log(this.computationSteps);
     }
 
     toggleResult(type: string): void {
@@ -56,7 +63,7 @@ export class ComputationResultComponent implements OnInit {
 
     private showComputationResults() {
         this.userSpaceService.showComputationResults.subscribe((showComputation) => {
-            if(showComputation){
+            if (showComputation) {
                 this.showComputationResultsInterface = true;
             } else {
                 this.showComputationResultsInterface = false;

@@ -1,5 +1,5 @@
 // External
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 // Internal
@@ -15,20 +15,24 @@ import { ComputationService } from '../computation.service';
 })
 export class ComputationStepsComponent implements OnInit {
 
-    public computationSteps: ComputationStep[];
+    @Input() computationSteps: ComputationStep[];
+
     public isShown: boolean = true;
     private subscriptions: Subscription[] = [];
 
-    constructor(private computationService: ComputationService) { }
-
-    ngOnInit() {
-        this.initSteps();
-        this.initViewModelProperties();
-        this.initStepsToggling();
-    }
+    constructor(
+        private computationService: ComputationService,
+        private cdr: ChangeDetectorRef
+    ) { }
 
     ngOnDestroy() {
         this.unsubscribeAll();
+    }
+
+    ngOnInit(){
+        this.initSteps();
+        this.initViewModelProperties();
+        this.initStepsToggling();
     }
 
     public toggleStep(step) {

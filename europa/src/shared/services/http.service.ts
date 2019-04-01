@@ -11,7 +11,7 @@ export class HttpService {
     }
 
     sendToParser(endpoint: string, mathSymbols: string) {
-        return this.http.post(endpoint, mathSymbols);
+        return this.http.get(endpoint, mathSymbols);
     }
 
     get(endpoint: string) {
