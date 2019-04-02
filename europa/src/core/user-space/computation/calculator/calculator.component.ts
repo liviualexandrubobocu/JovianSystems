@@ -17,6 +17,7 @@ import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 import { HttpService } from 'shared/services/http.service';
 import { KernelService } from 'core/kernel/kernel.service';
 import { UserSpaceService } from 'core/user-space/user-space.service';
+import { ComputationService } from 'core/user-space/computation/computation.service';
 
 declare var MathQuill: any;
 @Component({
@@ -54,12 +55,14 @@ export class ComputationCalculatorComponent implements OnInit {
     constructor(
         private kernelService: KernelService,
         private userSpaceService: UserSpaceService,
+        private computationService: ComputationService,
         private httpService: HttpService,
         private renderer: Renderer2,
         private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
+        this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
         this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
@@ -150,44 +153,25 @@ export class ComputationCalculatorComponent implements OnInit {
      */
     private initResultFields(steps: ComputationStep[]) {
         const MQ = MathQuill.getInterface(2);
-        this.computationSteps = steps;
-        console.log(this.computationSteps);
-        // if (this.answerZone && this.answerZone.nativeElement) {
-        //     var answerSpan = this.answerZone.nativeElement;
-        //     for (let step of steps) {
-
-        //         // Create element for step
-        //         let stepSpan = this.renderer.createElement('span');
-
-        //         // Create latex based on html element
-        //         let resultField = MQ.StaticMath(stepSpan);
-        //         resultField.latex(step);
-
-        //         // Add class to step html
-        //         this.renderer.addClass(stepSpan, this.STEP_CLASS);
-
-        //         // Attach node to DOM
-        //         this.renderer.appendChild(answerSpan, stepSpan);
-        //         this.resultFields.push(stepSpan);
-        //     }
-        // }
+        this.computationService.steps = steps;
     }
 
     /**
      * This method is used to send the request to the parser.
      */
-    private getParsedInformation() {
-        if(this.answerMathField){
-            this.subscriptions.push(
-                this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: ComputationStep[]) => {
-                    this.clearResultField();
-                    this.showResults();
-                    this.initResultFields(steps);
-                    this.cdr.detectChanges();
-                    this.cdr.markForCheck();
-                })
-            );
-        }
+    private triggerParsingAction() {
+        this.subscriptions.push(
+            this.userSpaceService.triggerParserAction.subscribe(() => {
+                if (this.answerMathField) {
+                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: ComputationStep[]) => {
+                        this.initResultFields(steps);
+                        this.cdr.markForCheck();
+                        this.clearResultField();
+                        this.showResults();
+                    });
+                }
+            })
+        );
     }
 
     private showResults() {
@@ -198,7 +182,7 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     private clearResultField() {
-        if(this.editor){
+        if (this.editor) {
             this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', '');
             this.initMathField();
         }
@@ -212,7 +196,7 @@ export class ComputationCalculatorComponent implements OnInit {
     private onClick(symbol) {
         switch (symbol) {
             case BASIC_OPERATIONS.EQUALS:
-                this.getParsedInformation();
+                this.userSpaceService.triggerParserAction.next(true);
                 this.clearInterfaceHighlight = true;
                 break;
             case BASIC_OPERATIONS.CLEAR:

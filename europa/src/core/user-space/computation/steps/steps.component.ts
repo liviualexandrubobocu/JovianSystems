@@ -8,6 +8,7 @@ import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 
 // Services
 import { ComputationService } from '../computation.service';
+import { UserSpaceService } from '../../../../core/user-space/user-space.service';
 
 @Component({
     selector: 'app-computation-steps',
@@ -15,7 +16,7 @@ import { ComputationService } from '../computation.service';
 })
 export class ComputationStepsComponent implements OnInit {
 
-    @Input() computationSteps: ComputationStep[];
+    @Input() computationSteps: ComputationStep[] = [];
 
     public isShown: boolean = true;
     private subscriptions: Subscription[] = [];
@@ -33,6 +34,10 @@ export class ComputationStepsComponent implements OnInit {
         this.initSteps();
         this.initViewModelProperties();
         this.initStepsToggling();
+    }
+    
+    ngDoCheck(){
+        this.initSteps();
     }
 
     public toggleStep(step) {

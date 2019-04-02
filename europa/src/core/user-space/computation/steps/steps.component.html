@@ -1,7 +1,7 @@
-<div class="computation-steps-container" *ngIf="isShown">
+<div class="computation-steps-container">
     <p>Steps</p>
     <ul class="computation-steps">
-        <li *ngFor="let step of computationSteps">
+        <li *ngFor="let step of computationSteps; index as i">
             <div class="mathematical-step" [ngClass]="{ 'open': step.isOpen }">
                 <app-mathquill [symbols]="step.step"></app-mathquill>
             </div>

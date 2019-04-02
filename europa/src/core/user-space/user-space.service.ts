@@ -4,12 +4,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 // Internal
 import { HTML_ELEMENTS } from '../../shared/entities/user-space-elements';
 import { CalculatorButton } from '../../shared/entities/calculator-button';
+import { ComputationStep } from '../../shared/entities/computation-step';
 
 @Injectable()
 export class UserSpaceService {
 
     public showComputationResults: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public showCalculator: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public triggerParserAction: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor() { }
 

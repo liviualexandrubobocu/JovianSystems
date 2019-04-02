@@ -1,5 +1,5 @@
 // External
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 // Internal
 import { NAVIGATION_ROUTES } from '../../../../shared/entities/navigation-routes';
@@ -24,7 +24,8 @@ export class ComputationResultComponent implements OnInit {
     constructor(
         private computationService: ComputationService,
         private userSpaceService: UserSpaceService,
-        private routerService: RouterService
+        private routerService: RouterService,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -33,8 +34,8 @@ export class ComputationResultComponent implements OnInit {
         this.showComputationResults();
     }
 
-    ngOnChanges(){
-        console.log(this.computationSteps);
+    ngDoCheck(){
+        this.cdr.detectChanges();
     }
 
     toggleResult(type: string): void {
