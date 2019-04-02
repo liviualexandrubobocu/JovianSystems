@@ -16,8 +16,7 @@ import { UserSpaceService } from '../../../../core/user-space/user-space.service
 })
 export class ComputationStepsComponent implements OnInit {
 
-    @Input() computationSteps: ComputationStep[] = [];
-
+    public computationSteps: ComputationStep[] = [];
     public isShown: boolean = true;
     private subscriptions: Subscription[] = [];
 

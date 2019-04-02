@@ -1,11 +1,11 @@
-<div class="computation-steps-container">
+<div class="computation-steps-container" *ngIf="isShown">
     <p>Steps</p>
     <ul class="computation-steps">
         <li *ngFor="let step of computationSteps; index as i">
             <div class="mathematical-step" [ngClass]="{ 'open': step.isOpen }">
                 <app-mathquill [symbols]="step.step"></app-mathquill>
             </div>
-            <button class="more" (click)="toggleStep()">X</button>
+            <button class="more" (click)="toggleStep(step)">X</button>
             <ul class="children" [ngClass]="{ 'isOpen': step.isOpen }">
                 <li *ngFor="let childStep of step.children">
                     <div class="mathematical-step child" [ngClass]="{ 'open': step.isOpen }">

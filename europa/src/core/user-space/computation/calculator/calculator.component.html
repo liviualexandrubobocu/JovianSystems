@@ -4,10 +4,6 @@
             <span #editor></span>
         </div>
 
-        <div class="computation-container">
-            <span #answerZone></span>
-        </div>
-
         <div class="calculator-middle-section">
             <button class="calculator-toggler" (click)="toggleCalculatorState()">{{ calculatorType | titlecase }}</button>
             <span [ngClass]="{ 'clearResult': true, 'clearInterfaceHighlight' : clearInterfaceHighlight }">x</span>
@@ -42,5 +38,5 @@
             </div>
         </div>
     </div>
-    <app-computation-result [computationSteps]="computationSteps"></app-computation-result>
+    <app-computation-result></app-computation-result>
 </div>

@@ -48,9 +48,11 @@ export class ComputationCalculatorComponent implements OnInit {
     private STEP_CLASS = 'step';
     // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
     private PARSER_ENDPOINT: string = '../assets/steps.json';
+    private editor: ElementRef;
 
-    @ViewChild('editor') editor: ElementRef;
-    @ViewChild('answerZone') answerZone: ElementRef;
+    @ViewChild('editor') set content(content: ElementRef) {
+        this.editor = content;
+    }
 
     constructor(
         private kernelService: KernelService,
@@ -205,6 +207,7 @@ export class ComputationCalculatorComponent implements OnInit {
             default:
                 if (this.answerMathField) {
                     this.answerMathField.write(symbol);
+                    this.computationService.mathQuery = this.answerMathField.latex();
                 }
                 this.clearInterfaceHighlight = true;
         }
@@ -214,6 +217,14 @@ export class ComputationCalculatorComponent implements OnInit {
         this.userSpaceService.showCalculator.subscribe((showCalculator) => {
             if (showCalculator) {
                 this.showCalculator = true;
+                this.cdr.detectChanges();
+                console.log('test');
+                console.log(this.editor);
+                console.log(this.answerMathField.latex());
+                if (this.editor && this.editor.nativeElement) {
+                    this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
+                    this.initMathField();
+                }
             }
         });
     }
