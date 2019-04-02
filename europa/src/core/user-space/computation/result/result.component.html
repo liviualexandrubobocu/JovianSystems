@@ -1,5 +1,8 @@
 <div class="result-container" *ngIf="showComputationResultsInterface">
-    <div class="result-math"></div>
+    <div class="result-math" style="color:white;">
+        <p>Result</p>
+        <app-mathquill [symbols]="computationResult"></app-mathquill>
+    </div>
     <div class="result-buttons">
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['steps'] }" (click)="toggleResult('steps')">Steps</button>
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['graph'] }" (click)="toggleResult('graph')">Graph</button>

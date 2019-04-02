@@ -18,6 +18,7 @@ export class ComputationResultComponent implements OnInit {
 
     public buttons: any = {};
     public showComputationResultsInterface: boolean = false;
+    public computationResult: string = '';
 
     constructor(
         private computationService: ComputationService,
@@ -33,6 +34,7 @@ export class ComputationResultComponent implements OnInit {
     }
 
     ngDoCheck(){
+        this.initResult();
         this.cdr.detectChanges();
     }
 
@@ -43,6 +45,10 @@ export class ComputationResultComponent implements OnInit {
     showCalculator(): void {
         this.userSpaceService.showCalculator.next(true);
         this.userSpaceService.showComputationResults.next(false);
+    }
+
+    private initResult(){
+        this.computationResult = this.computationService.result;
     }
 
     private initButtons(): void {
