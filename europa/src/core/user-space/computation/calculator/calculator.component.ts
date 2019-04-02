@@ -1,11 +1,12 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import 'node-mathquill/build/mathquill';
 
 //Internal
 import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
 import { CALCULATOR_BUTTON_TYPES } from '../../../../shared/entities/calculator-button-types';
@@ -16,6 +17,7 @@ import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 import { HttpService } from 'shared/services/http.service';
 import { KernelService } from 'core/kernel/kernel.service';
 import { UserSpaceService } from 'core/user-space/user-space.service';
+import { ComputationService } from 'core/user-space/computation/computation.service';
 
 declare var MathQuill: any;
 @Component({
@@ -41,9 +43,11 @@ export class ComputationCalculatorComponent implements OnInit {
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
     public showCalculator: boolean = true;
     public clearInterfaceHighlight: boolean = false;
+    public computationSteps: ComputationStep[];
 
     private STEP_CLASS = 'step';
-    private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    private PARSER_ENDPOINT: string = '../assets/steps.json';
 
     @ViewChild('editor') editor: ElementRef;
     @ViewChild('answerZone') answerZone: ElementRef;
@@ -51,11 +55,14 @@ export class ComputationCalculatorComponent implements OnInit {
     constructor(
         private kernelService: KernelService,
         private userSpaceService: UserSpaceService,
+        private computationService: ComputationService,
         private httpService: HttpService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
+        this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
         this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
@@ -144,40 +151,27 @@ export class ComputationCalculatorComponent implements OnInit {
      * This method is used to create new result components with dedicated math fields.
      * @param step
      */
-    private initResultFields(steps: string[]) {
+    private initResultFields(steps: ComputationStep[]) {
         const MQ = MathQuill.getInterface(2);
-        if (this.answerZone && this.answerZone.nativeElement) {
-            var answerSpan = this.answerZone.nativeElement;
-            for (let step of steps) {
-
-                // Create element for step
-                let stepSpan = this.renderer.createElement('span');
-
-                // Create latex based on html element
-                let resultField = MQ.StaticMath(stepSpan);
-                resultField.latex(step);
-
-                // Add class to step html
-                this.renderer.addClass(stepSpan, this.STEP_CLASS);
-
-                // Attach node to DOM
-                this.renderer.appendChild(answerSpan, stepSpan);
-                this.resultFields.push(stepSpan);
-            }
-        }
+        this.computationService.steps = steps;
     }
 
     /**
      * This method is used to send the request to the parser.
      */
-    private getParsedInformation() {
+    private triggerParsingAction() {
         this.subscriptions.push(
-            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: string[]) => {
-                this.clearResultField();
-                this.initResultFields(steps);
+            this.userSpaceService.triggerParserAction.subscribe(() => {
+                if (this.answerMathField) {
+                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: ComputationStep[]) => {
+                        this.initResultFields(steps);
+                        this.cdr.markForCheck();
+                        this.clearResultField();
+                        this.showResults();
+                    });
+                }
             })
         );
-        this.showResults();
     }
 
     private showResults() {
@@ -188,7 +182,7 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     private clearResultField() {
-        if(this.editor){
+        if (this.editor) {
             this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', '');
             this.initMathField();
         }
@@ -202,7 +196,7 @@ export class ComputationCalculatorComponent implements OnInit {
     private onClick(symbol) {
         switch (symbol) {
             case BASIC_OPERATIONS.EQUALS:
-                this.getParsedInformation();
+                this.userSpaceService.triggerParserAction.next(true);
                 this.clearInterfaceHighlight = true;
                 break;
             case BASIC_OPERATIONS.CLEAR:

@@ -5,4 +5,6 @@
         <button [ngClass]="{ 'result-btn': true, 'active': buttons['graph'] }" (click)="toggleResult('graph')">Graph</button>
         <button class="result-btn edit" (click)="showCalculator()">Edit</button>
     </div>
+    <app-computation-steps [computationSteps]="computationSteps"></app-computation-steps>
+    <app-computation-graph></app-computation-graph>
 </div>
