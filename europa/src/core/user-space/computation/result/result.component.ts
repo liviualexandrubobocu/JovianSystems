@@ -16,8 +16,6 @@ import { UserSpaceService } from '../../../../core/user-space/user-space.service
 })
 export class ComputationResultComponent implements OnInit {
 
-    @Input() computationSteps: ComputationStep[];
-
     public buttons: any = {};
     public showComputationResultsInterface: boolean = false;
 
