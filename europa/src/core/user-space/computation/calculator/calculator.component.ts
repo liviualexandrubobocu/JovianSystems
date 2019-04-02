@@ -7,6 +7,7 @@ import 'node-mathquill/build/mathquill';
 //Internal
 import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
 import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
+import { ComputationResult } from '../../../../shared/entities/computation-result';
 import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
@@ -48,7 +49,7 @@ export class ComputationCalculatorComponent implements OnInit {
 
     private STEP_CLASS = 'step';
     // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
-    private PARSER_ENDPOINT: string = '../assets/steps.json';
+    private PARSER_ENDPOINT: string = '../assets/result.json';
     private editor: ElementRef;
 
     @ViewChild('editor') set content(content: ElementRef) {
@@ -97,6 +98,31 @@ export class ComputationCalculatorComponent implements OnInit {
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = !this.calculatorStates[CALCULATOR_STATES.ADVANCED];
         this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === false)
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
+    }
+
+    
+    /**
+     * This method is used to handle key press for latex field
+     * @param event 
+     */
+    keyPress(event) {
+        if (event && event.key) {
+            switch (event.key) {
+                case BASIC_OPERATIONS.EQUALS, KEY_OPERATIONS.ENTER:
+                    this.userSpaceService.triggerParserAction.next(true);
+                    this.clearInterfaceHighlight = true;
+                    break;
+                case BASIC_OPERATIONS.CLEAR, KEY_OPERATIONS.CLEAR:
+                    this.clearResultField();
+                    break;
+                default:
+                    if (this.answerMathField) {
+                        this.answerMathField.write(event.key);
+                        this.computationService.mathQuery = this.answerMathField.latex();
+                    }
+                    this.clearInterfaceHighlight = true;
+            }
+        }
     }
 
     private initCalculatorStates() {
@@ -154,9 +180,12 @@ export class ComputationCalculatorComponent implements OnInit {
      * This method is used to create new result components with dedicated math fields.
      * @param step
      */
-    private initResultFields(steps: ComputationStep[]) {
+    private initResultFields(result: ComputationResult) {
         const MQ = MathQuill.getInterface(2);
-        this.computationService.steps = steps;
+        if(result && result.answer && result.steps){
+            this.computationService.result = result.answer;
+            this.computationService.steps = result.steps;
+        }
     }
 
     /**
@@ -166,8 +195,8 @@ export class ComputationCalculatorComponent implements OnInit {
         this.subscriptions.push(
             this.userSpaceService.triggerParserAction.subscribe(() => {
                 if (this.answerMathField) {
-                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((steps: ComputationStep[]) => {
-                        this.initResultFields(steps);
+                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((result: ComputationResult) => {
+                        this.initResultFields(result);
                         this.cdr.markForCheck();
                         this.clearResultField();
                         this.showResults();
@@ -190,30 +219,6 @@ export class ComputationCalculatorComponent implements OnInit {
             this.initMathField();
         }
         this.clearInterfaceHighlight = false;
-    }
-
-    /**
-     * This method is used to handle key press for latex field
-     * @param event 
-     */
-    keyPress(event) {
-        if (event && event.key) {
-            switch (event.key) {
-                case BASIC_OPERATIONS.EQUALS, KEY_OPERATIONS.ENTER:
-                    this.userSpaceService.triggerParserAction.next(true);
-                    this.clearInterfaceHighlight = true;
-                    break;
-                case BASIC_OPERATIONS.CLEAR, KEY_OPERATIONS.CLEAR:
-                    this.clearResultField();
-                    break;
-                default:
-                    if (this.answerMathField) {
-                        this.answerMathField.write(event.key);
-                        this.computationService.mathQuery = this.answerMathField.latex();
-                    }
-                    this.clearInterfaceHighlight = true;
-            }
-        }
     }
 
     /**
