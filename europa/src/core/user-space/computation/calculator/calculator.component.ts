@@ -6,6 +6,7 @@ import 'node-mathquill/build/mathquill';
 
 //Internal
 import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
 import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
@@ -192,6 +193,30 @@ export class ComputationCalculatorComponent implements OnInit {
     }
 
     /**
+     * This method is used to handle key press for latex field
+     * @param event 
+     */
+    keyPress(event) {
+        if (event && event.key) {
+            switch (event.key) {
+                case BASIC_OPERATIONS.EQUALS, KEY_OPERATIONS.ENTER:
+                    this.userSpaceService.triggerParserAction.next(true);
+                    this.clearInterfaceHighlight = true;
+                    break;
+                case BASIC_OPERATIONS.CLEAR, KEY_OPERATIONS.CLEAR:
+                    this.clearResultField();
+                    break;
+                default:
+                    if (this.answerMathField) {
+                        this.answerMathField.write(event.key);
+                        this.computationService.mathQuery = this.answerMathField.latex();
+                    }
+                    this.clearInterfaceHighlight = true;
+            }
+        }
+    }
+
+    /**
      * Method used to add symbol on editable math field cursor
      * @param symbol 
      */
@@ -218,9 +243,6 @@ export class ComputationCalculatorComponent implements OnInit {
             if (showCalculator) {
                 this.showCalculator = true;
                 this.cdr.detectChanges();
-                console.log('test');
-                console.log(this.editor);
-                console.log(this.answerMathField.latex());
                 if (this.editor && this.editor.nativeElement) {
                     this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
                     this.initMathField();
