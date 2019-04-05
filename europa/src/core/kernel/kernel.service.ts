@@ -27,12 +27,17 @@ export class KernelService {
         return this.httpService.get(this.CLASS_MATRIX_ENDPOINT);
     }
 
-    public generateElement(elementType: string, elementId: string): any {
+    public generateElement(calculatorButtons: any, elementType: string, elementId: string): any {
         switch (elementType) {
             case HTML_ELEMENTS.CALCULATOR_BUTTON:
-                const cssClasses = (this.classMatrix && this.classMatrix.buttons) ? this.classMatrix.buttons[this.state][elementId].cssClasses : [];
-                const interfaceSymbol = (this.classMatrix && this.classMatrix.buttons) ? this.classMatrix.buttons[this.state][elementId].interfaceSymbol : '';
-                const mathSymbol = (this.classMatrix && this.classMatrix.buttons) ? this.classMatrix.buttons[this.state][elementId].symbol : '';
+                let cssClasses = [];
+                let interfaceSymbol = '';
+                let mathSymbol = '';
+                if (calculatorButtons) {
+                    cssClasses = calculatorButtons[elementId].cssClasses.desktop;
+                    interfaceSymbol = calculatorButtons[elementId].interfaceSymbol;
+                    mathSymbol = calculatorButtons[elementId].symbol;
+                }
                 return this.userSpaceService.generateCalculatorButton(elementId, interfaceSymbol, mathSymbol, cssClasses);
             default:
                 return;

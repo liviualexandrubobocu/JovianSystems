@@ -10,5 +10,6 @@ export class ComputationService {
 
     public steps: ComputationStep[] = [];
     public toggleSteps: Subject<string> = new Subject();
-
+    public mathQuery: string = '';
+    public result: string = '';
 }

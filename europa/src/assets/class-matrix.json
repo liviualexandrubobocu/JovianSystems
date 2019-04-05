@@ -11,263 +11,558 @@
                         "red",
                         "white-text"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "round-brackets": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "round-brackets",
+                "symbol": "()",
+                "interfaceSymbol": "()",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "percent": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "percent",
+                "symbol": "%",
+                "interfaceSymbol": "%",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "divide": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "divide",
+                "symbol": "/",
+                "interfaceSymbol": "/",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "multiply": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "multiply",
+                "symbol": "*",
+                "interfaceSymbol": "*",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "subtract": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "subtract",
+                "symbol": "-",
+                "interfaceSymbol": "-",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "add": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "add",
+                "symbol": "+",
+                "interfaceSymbol": "+",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "equals": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "equals",
+                "symbol": "=",
+                "interfaceSymbol": "=",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "zero": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "zero",
+                "symbol": "0",
+                "interfaceSymbol": "0",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "one": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "one",
+                "symbol": "1",
+                "interfaceSymbol": "1",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "two": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "two",
+                "symbol": "2",
+                "interfaceSymbol": "2",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "three": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "three",
+                "symbol": "3",
+                "interfaceSymbol": "3",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "four": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "four",
+                "symbol": "4",
+                "interfaceSymbol": "4",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "five": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "five",
+                "symbol": "5",
+                "interfaceSymbol": "5",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "six": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "six",
+                "symbol": "6",
+                "interfaceSymbol": "6",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "seven": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "seven",
+                "symbol": "7",
+                "interfaceSymbol": "7",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "eight": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "eight",
+                "symbol": "8",
+                "interfaceSymbol": "8",
                 "cssClasses": {
                     "desktop": [
                         "normal",
                         "red",
                         "white-text"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "nine": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "nine",
+                "symbol": "9",
+                "interfaceSymbol": "9",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             },
             "dot": {
-                "id": "clear",
-                "symbol": "C",
-                "interfaceSymbol": "C",
+                "id": "dot",
+                "symbol": ".",
+                "interfaceSymbol": ".",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "normal"
                     ],
-                    "mobile-web": {},
-                    "native": {}
+                    "mobile-web": [],
+                    "native": []
                 }
             }
         },
-        "advanced": {}
+        "advanced": {
+            "trigonometric" : {
+                "sin": {
+                    "id": "sin",
+                    "symbol": "\\sin()",
+                    "interfaceSymbol": "sin",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "cos": {
+                    "id": "cos",
+                    "symbol": "\\cos()",
+                    "interfaceSymbol": "cos",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "tan": {
+                    "id": "tan",
+                    "symbol": "\\tan()",
+                    "interfaceSymbol": "tan",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "cot": {
+                    "id": "cot",
+                    "symbol": "\\cot()",
+                    "interfaceSymbol": "cot",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "sec": {
+                    "id": "sec",
+                    "symbol": "\\sec()",
+                    "interfaceSymbol": "sec",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "csc": {
+                    "id": "csc",
+                    "symbol": "\\csc()",
+                    "interfaceSymbol": "csc",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arcsin": {
+                    "id": "arcsin",
+                    "symbol": "\\arcsin()",
+                    "interfaceSymbol": "arcsin",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arccos": {
+                    "id": "arccos",
+                    "symbol": "\\arccos()",
+                    "interfaceSymbol": "arccos",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arctan": {
+                    "id": "arctan",
+                    "symbol": "\\arctan()",
+                    "interfaceSymbol": "arctan",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arccot": {
+                    "id": "arccot",
+                    "symbol": "\\arccot()",
+                    "interfaceSymbol": "arccot",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arcsec": {
+                    "id": "arcsec",
+                    "symbol": "\\arcsec()",
+                    "interfaceSymbol": "arcsec",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "arccsc": {
+                    "id": "arccsc",
+                    "symbol": "\\arccsc()",
+                    "interfaceSymbol": "arccsc",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                }
+            },
+            "mathematic" : {
+                "squareRoot": {
+                    "id": "squareRoot",
+                    "symbol": "\\sqrt{x}",
+                    "interfaceSymbol": "\\sqrt{x}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "nthRoot": {
+                    "id": "nthRoot",
+                    "symbol": "\\sqrt[n]{x}",
+                    "interfaceSymbol": "\\sqrt[n]{x}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "naturalLog": {
+                    "id": "naturalLog",
+                    "symbol": "\\ln x",
+                    "interfaceSymbol": "\\ln x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "log": {
+                    "id": "log",
+                    "symbol": "\\log x",
+                    "interfaceSymbol": "\\log x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "factorial": {
+                    "id": "factorial",
+                    "symbol": "x!",
+                    "interfaceSymbol": "x!",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "power": {
+                    "id": "power",
+                    "symbol": "x^n",
+                    "interfaceSymbol": "x^n",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "epsilonToPower": {
+                    "id": "epsilonToPower",
+                    "symbol": "e^x",
+                    "interfaceSymbol": "e^x",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "undefinedIntegral": {
+                    "id": "undefinedIntegral",
+                    "symbol": "\\int",
+                    "interfaceSymbol": "\\int",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "definedIntegral": {
+                    "id": "definedIntegral",
+                    "symbol": "\\int",
+                    "interfaceSymbol": "\\int",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "derivative": {
+                    "id": "derivative",
+                    "symbol": "\\frac{dy}{dx}",
+                    "interfaceSymbol": "\\frac{dy}{dx}",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "squareFunction": {
+                    "id": "derivative",
+                    "symbol": "x^2",
+                    "interfaceSymbol": "x^2",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "modulus": {
+                    "id": "modulus",
+                    "symbol": "|x|",
+                    "interfaceSymbol": "|x|",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "theta": {
+                    "id": "theta",
+                    "symbol": "\\theta",
+                    "interfaceSymbol": "\\theta",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "infinity": {
+                    "id": "infinity",
+                    "symbol": "\\infty",
+                    "interfaceSymbol": "\\infty",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                },
+                "pi": {
+                    "id": "pi",
+                    "symbol": "\\pi",
+                    "interfaceSymbol": "\\pi",
+                    "cssClasses": {
+                        "desktop": [
+                            "normal"
+                        ],
+                        "mobile-web": [],
+                        "native": []
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,11 +1,14 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import 'node-mathquill/build/mathquill';
 
 //Internal
 import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
+import { ComputationResult } from '../../../../shared/entities/computation-result';
+import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
 import { CALCULATOR_BUTTON_TYPES } from '../../../../shared/entities/calculator-button-types';
@@ -15,6 +18,8 @@ import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 //Services
 import { HttpService } from 'shared/services/http.service';
 import { KernelService } from 'core/kernel/kernel.service';
+import { UserSpaceService } from 'core/user-space/user-space.service';
+import { ComputationService } from 'core/user-space/computation/computation.service';
 
 declare var MathQuill: any;
 @Component({
@@ -24,7 +29,6 @@ declare var MathQuill: any;
 export class ComputationCalculatorComponent implements OnInit {
 
     public form: FormGroup;
-    public symbolicDictionary: any;
     public clientX: number;
     public clientY: number;
     public host: any;
@@ -33,35 +37,44 @@ export class ComputationCalculatorComponent implements OnInit {
     public subscriptions: Subscription[] = [];
     public expressionToSolve: string = '\\int^b_a';
     public basicStateCalculatorButtons: CalculatorButton[];
+    public advancedStateCalculatorButtons: any[][];
 
-    public calculatorType: string = CALCULATOR_STATES.BASIC;
+    public calculatorType: string = CALCULATOR_STATES.ADVANCED;
     public calculatorStates: any = {};
+    public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
+    public MATHEMATICAL_FUNCTIONS = 'mathematic';
+    public showCalculator: boolean = true;
+    public clearInterfaceHighlight: boolean = false;
+    public computationSteps: ComputationStep[];
 
     private STEP_CLASS = 'step';
-    private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
+    private PARSER_ENDPOINT: string = '../assets/result.json';
+    private editor: ElementRef;
 
-    @ViewChild('editor') editor: ElementRef;
-    @ViewChild('answerZone') answerZone: ElementRef;
+    @ViewChild('editor') set content(content: ElementRef) {
+        this.editor = content;
+    }
 
     constructor(
         private kernelService: KernelService,
+        private userSpaceService: UserSpaceService,
+        private computationService: ComputationService,
         private httpService: HttpService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private cdr: ChangeDetectorRef
     ) { }
 
-    get trigFunctions() {
-        return this.form.get('trigFunctions') as FormArray;
-    }
-
     ngOnInit() {
+        this.triggerParsingAction();
         this.initCalculatorStates();
+        this.initCalculatorButtonsLists();
         this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
             this.initCalculator(CALCULATOR_STATES.BASIC);
             this.initCalculator(CALCULATOR_STATES.ADVANCED);
+            this.initMathField();
         });
-        this.createSymbolDictionary();
-        this.initializeControls();
-        this.initMathField();
+        this.showCalculatorInterface();
     }
 
     ngOnDestroy() {
@@ -76,23 +89,40 @@ export class ComputationCalculatorComponent implements OnInit {
         const MQ = MathQuill.getInterface(2);
         if (this.editor && this.editor.nativeElement) {
             var answerSpan = this.editor.nativeElement;
-            const _this = this;
-            this.answerMathField = MQ.MathField(answerSpan, {
-                handlers: {
-                    edit: function () {
-                        var enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
-                        this.enteredSymbols = enteredMath;
-                    }
-                }
-            });
+            this.setResultField(MQ, answerSpan);
         }
     }
 
     toggleCalculatorState() {
         this.calculatorStates[CALCULATOR_STATES.BASIC] = !this.calculatorStates[CALCULATOR_STATES.BASIC];
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = !this.calculatorStates[CALCULATOR_STATES.ADVANCED];
-        this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === true)
+        this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === false)
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
+    }
+
+    
+    /**
+     * This method is used to handle key press for latex field
+     * @param event 
+     */
+    keyPress(event) {
+        if (event && event.key) {
+            switch (event.key) {
+                case BASIC_OPERATIONS.EQUALS, KEY_OPERATIONS.ENTER:
+                    this.userSpaceService.triggerParserAction.next(true);
+                    this.clearInterfaceHighlight = true;
+                    break;
+                case BASIC_OPERATIONS.CLEAR, KEY_OPERATIONS.CLEAR:
+                    this.clearResultField();
+                    break;
+                default:
+                    if (this.answerMathField) {
+                        this.answerMathField.write(event.key);
+                        this.computationService.mathQuery = this.answerMathField.latex();
+                    }
+                    this.clearInterfaceHighlight = true;
+            }
+        }
     }
 
     private initCalculatorStates() {
@@ -100,130 +130,129 @@ export class ComputationCalculatorComponent implements OnInit {
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = false;
     }
 
+    private initCalculatorButtonsLists() {
+        this.basicStateCalculatorButtons = [];
+        this.advancedStateCalculatorButtons = [];
+        this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS] = [];
+        this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS] = [];
+    }
+
     private initCalculator(state: string) {
         switch (state) {
             case CALCULATOR_STATES.BASIC:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
                 break;
             case CALCULATOR_STATES.ADVANCED:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS], this.TRIGONOMETRIC_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
+                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS], this.MATHEMATICAL_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
                 break;
             default:
-                this.initCalculatorButtons();
+                this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
         }
     }
 
-    private initCalculatorButtons() {
-        this.basicStateCalculatorButtons = [];
+    private initCalculatorButtons(buttonsList: CalculatorButton[], type: null | string, state: string) {
+        let calculatorButtons: CalculatorButton[] = [];
         if (this.kernelService.classMatrix &&
             this.kernelService.classMatrix.buttons) {
-            for (let buttonId in this.kernelService.classMatrix.buttons[this.kernelService.state]) {
-                this.basicStateCalculatorButtons.push(
-                    this.kernelService.generateElement(HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
+            calculatorButtons = (type === null) ? this.kernelService.classMatrix.buttons[state] : this.kernelService.classMatrix.buttons[state][type];
+            for (let buttonId in calculatorButtons) {
+                buttonsList.push(
+                    this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
                 );
             }
         }
+    }
+
+    private setResultField(MQLibrary: any, answerSpan: any) {
+        const _this = this;
+        this.answerMathField = MQLibrary.MathField(answerSpan, {
+            handlers: {
+                edit: function () {
+                    var enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
+                    this.enteredSymbols = enteredMath;
+                }
+            }
+        });
     }
 
     /**
      * This method is used to create new result components with dedicated math fields.
      * @param step
      */
-    private initResultFields(steps: string[]) {
+    private initResultFields(result: ComputationResult) {
         const MQ = MathQuill.getInterface(2);
-        if (this.answerZone && this.answerZone.nativeElement) {
-            var answerSpan = this.answerZone.nativeElement;
-            for (let step of steps) {
-
-                // Create element for step
-                let stepSpan = this.renderer.createElement('span');
-
-                // Create latex based on html element
-                let resultField = MQ.StaticMath(stepSpan);
-                resultField.latex(step);
-
-                // Add class to step html
-                this.renderer.addClass(stepSpan, this.STEP_CLASS);
-
-                // Attach node to DOM
-                this.renderer.appendChild(answerSpan, stepSpan);
-                this.resultFields.push(stepSpan);
-            }
+        if(result && result.answer && result.steps){
+            this.computationService.result = result.answer;
+            this.computationService.steps = result.steps;
         }
-    }
-
-    /**
-     * This method is used to create symbol dictionary.
-     */
-    private createSymbolDictionary() {
-        this.symbolicDictionary = new Object();
-        this.symbolicDictionary['TrigFunctions'] = [];
-        this.symbolicDictionary['Operations'] = [];
-        this.symbolicDictionary['MathFunctions'] = [];
-
-        Object.keys(TrigFunctions).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['TrigFunctions'].push(TrigFunctions[key]);
-            }
-        });
-
-        Object.keys(BASIC_OPERATIONS).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['Operations'].push(BASIC_OPERATIONS[key]);
-            }
-        });
-
-        Object.keys(MathFunctions).filter(key => {
-            if (isNaN(+key)) {
-                this.symbolicDictionary['MathFunctions'].push(MathFunctions[key]);
-            }
-        });
     }
 
     /**
      * This method is used to send the request to the parser.
      */
-    private getParsedInformation() {
-        this.answerMathField = '\\sin()';
+    private triggerParsingAction() {
         this.subscriptions.push(
-            this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField).subscribe((steps: string[]) => {
-                this.clearResultField();
-                this.initResultFields(steps);
+            this.userSpaceService.triggerParserAction.subscribe(() => {
+                if (this.answerMathField) {
+                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((result: ComputationResult) => {
+                        this.initResultFields(result);
+                        this.cdr.markForCheck();
+                        this.clearResultField();
+                        this.showResults();
+                    });
+                }
             })
         );
     }
 
-    private clearResultField() {
-        for (let result of this.resultFields) {
-            this.renderer.removeChild(this.renderer.parentNode(result), result);
-            // this.resultFields.splice(this.resultFields.indexOf(result));
+    private showResults() {
+        if (this.userSpaceService.showComputationResults) {
+            this.userSpaceService.showComputationResults.next(true);
         }
-        this.resultFields = [];
+        this.showCalculator = false;
+    }
+
+    private clearResultField() {
+        if (this.editor) {
+            this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', '');
+            this.initMathField();
+        }
+        this.clearInterfaceHighlight = false;
     }
 
     /**
      * Method used to add symbol on editable math field cursor
      * @param symbol 
      */
-    private addSymbol(symbol) {
-        this.answerMathField.write(symbol);
+    private onClick(symbol) {
+        switch (symbol) {
+            case BASIC_OPERATIONS.EQUALS:
+                this.userSpaceService.triggerParserAction.next(true);
+                this.clearInterfaceHighlight = true;
+                break;
+            case BASIC_OPERATIONS.CLEAR:
+                this.clearResultField();
+                break;
+            default:
+                if (this.answerMathField) {
+                    this.answerMathField.write(symbol);
+                    this.computationService.mathQuery = this.answerMathField.latex();
+                }
+                this.clearInterfaceHighlight = true;
+        }
     }
 
-    private applyMath(mathField, mathSymbol: string) {
-        mathField.write(mathSymbol);
-    }
-
-    /**
-     * Aceasta metoda este creata pentru a initializa controalele pentru butoanele calculatorului.
-     */
-    private initializeControls() {
-        this.form = new FormGroup({
-            query: new FormControl('query')
+    private showCalculatorInterface() {
+        this.userSpaceService.showCalculator.subscribe((showCalculator) => {
+            if (showCalculator) {
+                this.showCalculator = true;
+                this.cdr.detectChanges();
+                if (this.editor && this.editor.nativeElement) {
+                    this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
+                    this.initMathField();
+                }
+            }
         });
     }
-
-    public selectHost(event) {
-        this.host = event.path[0];
-    }
-
 }
