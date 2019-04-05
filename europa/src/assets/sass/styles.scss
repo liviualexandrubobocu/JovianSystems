@@ -1,50 +1,8 @@
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "../mathquill/mathquill.css";
-@import "./computation/_result";
-@import "./variables";
-@import "./mixins";
-
-.trig {
-  display: block !important;
-  width: 27px;
-  text-align: center;
-  margin-bottom: 5px;
-}
-.computation-container {
-  width: 100%;
-  height: 100px;
-}
-
-.app-container {
-  background: $background;
-  width: 100%;
-  height: 100%;
-  background-attachment: fixed;
-}
-.global-container {
-  background: $background;
-  width: $global-width;
-  margin: 0 auto;
-  padding: 0;
-  &.entry-screen-container {
-    height: 100px;
-    width: 100%;
-    .option-link {
-      color: #fff;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .hamburger-menu {
-    color: #fff;
-  }
-
-  .computation-steps-container,
-  .computation-graph-container {
-    p {
-      color: #fff;
-    }
-  }
-}
+// @import "../mathquill/mathquill.css";
+@import "normalize";
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "grid";
+@import "global";
+@import "header";

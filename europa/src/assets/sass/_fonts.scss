@@ -1,0 +1,331 @@
+// Glyphicons
+@font-face {
+    font-family: '#{$glyphicons-font-family}';
+    src:  url('#{$glyphicons-font-path}/#{$glyphicons-font-family}.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+.glyph {
+    font-family: '#{$glyphicons-font-family}' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+.glyph-arrow-back {
+    &:before {
+        content: "\e900";
+    }
+}
+.glyph-arrow-forward {
+    &:before {
+        content: "\e901";
+    }
+}
+.glyph-arrow-drop-up {
+    &:before {
+        content: "\e902";
+    }
+}
+.glyph-arrow-drop-down {
+    &:before {
+        content: "\e903";
+    }
+}
+.glyph-arrow-left {
+    &:before {
+        content: "\e904";
+    }
+}
+.glyph-arrow-right {
+    &:before {
+        content: "\e905";
+    }
+}
+.glyph-keyboard-arrow-up {
+    &:before {
+        content: "\e906";
+    }
+}
+.glyph-keyboard-arrow-down {
+    &:before {
+        content: "\e907";
+    }
+}
+.glyph-keyboard-arrow-left {
+    &:before {
+        content: "\e908";
+    }
+}
+.glyph-keyboard-arrow-right {
+    &:before {
+        content: "\e909";
+    }
+}
+.glyph-add {
+    &:before {
+        content: "\e910";
+    }
+}
+.glyph-close {
+    &:before {
+        content: "\e911";
+    }
+}
+.glyph-check {
+    &:before {
+        content: "\e912";
+    }
+}
+.glyph-menu {
+    &:before {
+        content: "\e913";
+    }
+}
+.glyph-filter-list {
+    &:before {
+        content: "\e914";
+    }
+}
+.glyph-more-vert {
+    &:before {
+        content: "\e915";
+    }
+}
+.glyph-refresh {
+    &:before {
+        content: "\e916";
+    }
+}
+.glyph-search {
+    &:before {
+        content: "\e917";
+    }
+}
+.glyph-fullscreen {
+    &:before {
+        content: "\e918";
+    }
+}
+.glyph-fullscreen-exit {
+    &:before {
+        content: "\e919";
+    }
+}
+.glyph-settings {
+    &:before {
+        content: "\e920";
+    }
+}
+.glyph-help {
+    &:before {
+        content: "\e921";
+    }
+}
+.glyph-info {
+    &:before {
+        content: "\e922";
+    }
+}
+.glyph-query-builder {
+    &:before {
+        content: "\e923";
+    }
+}
+.glyph-mic {
+    &:before {
+        content: "\e924";
+    }
+}
+.glyph-attach {
+    &:before {
+        content: "\e925";
+    }
+}
+.glyph-share {
+    &:before {
+        content: "\e926";
+    }
+}
+.glyph-backspace {
+    &:before {
+        content: "\e927";
+    }
+}
+.glyph-calculator {
+    &:before {
+        content: "\e928";
+    }
+}
+.glyph-camera {
+    &:before {
+        content: "\e929";
+    }
+}
+.glyph-contact {
+    &:before {
+        content: "\e930";
+    }
+}
+.glyph-faq {
+    &:before {
+        content: "\e931";
+    }
+}
+.glyph-favorite {
+    &:before {
+        content: "\e932";
+    }
+}
+.glyph-headset-mic {
+    &:before {
+        content: "\e933";
+    }
+}
+.glyph-home {
+    &:before {
+        content: "\e934";
+    }
+}
+.glyph-privacy {
+    &:before {
+        content: "\e935";
+    }
+}
+.glyph-theme {
+    &:before {
+        content: "\e936";
+    }
+}
+
+// Roboto Thin
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Thin-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-ThinItalic-webfont.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+}
+
+// Roboto Light
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-LightItalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+// Roboto Regular
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+// Roboto Medium
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Medium-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-MediumItalic-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+// Roboto Bold
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-BoldItalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+// Roboto Black
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-Black-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}';
+    src: url('#{$global-font-path}/#{$global-font-family}-BlackItalic-webfont.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+}
+
+// Roboto Condensed Light
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-Light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-LightItalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+// Roboto Condensed Regular
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-Regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-Italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+// Roboto Condensed Bold
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-Bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: '#{$global-font-family}Condensed';
+    src: url('#{$global-font-path}/#{$global-font-family}Condensed-BoldItalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
