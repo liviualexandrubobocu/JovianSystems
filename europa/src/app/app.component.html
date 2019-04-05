@@ -1,7 +1,21 @@
 <div class="global-container">
-    <h1>
-        <a routerLink='/'><span>{{ titleFirstPart }} </span><span>{{ titleSecondPart }}</span></a>
-    </h1>
-    <app-menu></app-menu>
+    <header class="row">
+        <div class="col">
+            <app-menu></app-menu>
+        </div>
+        <div class="col text-center">
+            <h1 routerLink='/'>
+                <span>{{ titleFirstPart }}</span>
+                <span>{{ titleSecondPart }}</span>
+            </h1>
+        </div>
+        <div class="col">
+            <ul>
+                <li routerLink="computation">Calculator</li>
+                <li routerLink="use-your-camera">Use Your Camera</li>
+                <li routerLink="attach-file">Attach a file</li>
+            </ul>
+        </div>
+    </header>    
     <router-outlet></router-outlet>
 </div>

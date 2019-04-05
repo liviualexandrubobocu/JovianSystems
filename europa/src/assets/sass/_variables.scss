@@ -1,6 +1,23 @@
-$background: #000000;
-$light-green: #01BABC;
-$btn-gray: #171717;
-$edit: #E9B104;
-$global-width: 745px;
-$medium-gray: #333;
+// Fills
+$black:             #000000;
+$black-white-9:     #171717;
+$black-white-13:    #222222;
+$black-white-20:    #333333;
+$black-white-40:    #666666;
+$black-white-87:    #DFDFDF;
+$black-white-92:    #ECECEC;
+$black-white-96:    #F5F5F5;
+$black-white-99:    #FCFCFC;
+$white:             #FFFFFF;
+$orange:            #E9B104;
+$red:               #D64343;
+$cyan:              #00A9AB;
+
+// Fonts
+$global-font-family: "Roboto" !default;
+$global-font-path: "/assets/fonts/global-fonts" !default;
+$global-font-size: 16px !default;
+
+// Glyphicons
+$glyphicons-font-family: "JovianSystemsGlyphicons" !default;
+$glyphicons-font-path: "/assets/fonts/global-glyphicons" !default;

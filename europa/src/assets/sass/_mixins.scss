@@ -1,0 +1,42 @@
+// Clearfix
+%clearfix {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: ' ';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+// Border radius
+@mixin border-radius($radius) {
+    border-radius: $radius;    
+}
+
+// Border radius - individual sides
+@mixin border-top-left-radius($radius) {
+    border-top-left-radius: $radius;    
+}
+@mixin border-top-right-radius($radius) {
+    border-top-right-radius: $radius;    
+}
+@mixin border-bottom-left-radius($radius) {
+    border-bottom-left-radius: $radius;    
+}
+@mixin border-bottom-right-radius($radius) {
+    border-bottom-right-radius: $radius;    
+}
+
+// Transition
+@mixin transition($args...) {
+    transition: $args;
+}
+
+// Opacity
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    filter: alpha(opacity=$opacity * 100);
+}
