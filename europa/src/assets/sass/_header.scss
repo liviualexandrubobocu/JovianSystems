@@ -1,57 +1,88 @@
-.hamburger-menu {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: 0 none;
-    .bar {
-        display: block;
-        width: 24px;
-        height: 2px;
-        margin: 0 auto;
-        background: $white;
-        transition: all .4s ease;
-        &.top,
-        &.bottom {
-            position: absolute;
-            left: 6px;
-        }
-        &.top {
-            top: 10px;
-        }
-        &.bottom {
-            bottom: 10px;
-        }
-    }
-    &.active {
-        .middle {
-            width: 0;
-            @include opacity(0);
-        }
-        .top {
-            top: 17px;
-            transform: rotateZ(45deg);
-        }
-        .bottom {
-            bottom: 17px;
-            transform: rotateZ(-45deg);
-        }
-    }
-}
+header {
+    height: 90px;
+    padding: 0 27px;
+    align-items: center;
 
-h1 {
-    font-size: 26px;
-    font-weight: 700;
-    > span {
-        color: $cyan;
-        text-transform: uppercase;
+    // Hamburger menu
+    .hamburger-menu {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: 0 none;
+        .bar {
+            display: block;
+            width: 24px;
+            height: 2px;
+            margin: 0 auto;
+            background: $white;
+            transition: all .4s ease;
+            &.top,
+            &.bottom {
+                position: absolute;
+                left: 4px;
+            }
+            &.top {
+                top: 8px;
+            }
+            &.bottom {
+                bottom: 8px;
+            }
+        }
+        &.active {
+            .middle {
+                width: 0;
+                @include opacity(0);
+            }
+            .top {
+                top: 15px;
+                transform: rotateZ(45deg);
+            }
+            .bottom {
+                bottom: 15px;
+                transform: rotateZ(-45deg);
+            }
+        }
     }
-    span + span {
-        color: $white;
-        font-weight: 300;
-        text-transform: none;
+
+    // Container menu
+    .container-menu {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+
+    // Logo
+    h1 {
+        display: inline-block;
+        font-size: 26px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        outline: 0 none;
+        cursor: pointer;
+        > span {
+            color: $cyan;
+            text-transform: uppercase;
+        }
+        span + span {
+            color: $white;
+            font-weight: 300;
+            text-transform: none;
+        }
+    }
+
+    // Nav menu
+    .nav-menu {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        li {
+            display: inline-block;
+            outline: 0 none;
+        }
     }
 }
