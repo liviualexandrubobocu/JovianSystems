@@ -1,6 +1,6 @@
 // External
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 // Internal
 import { ComputationStep } from '../../../../shared/entities/computation-step';

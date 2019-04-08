@@ -1,7 +1,7 @@
 // External
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormArray, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import 'node-mathquill/build/mathquill';
 
 //Internal

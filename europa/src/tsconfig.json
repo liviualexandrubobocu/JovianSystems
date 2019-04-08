@@ -18,7 +18,8 @@
       "../node_modules/@types"
     ],
     "types": [
-      "plotly.js"
+      "plotly.js",
+      "jasmine"
     ],
     "paths": {
       "plotly.js": [
