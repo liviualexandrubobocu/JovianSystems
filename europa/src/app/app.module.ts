@@ -6,6 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
+import { PlotlyModule } from 'angular-plotly.js';
 
 // External
 import { AppComponent } from './app.component';
@@ -17,7 +18,7 @@ import { ComputationModule } from 'core/user-space/computation/computation.modul
 import { MenuModule } from 'core/user-space/menu/menu.module';
 import { EntryScreenComponent } from 'core/user-space/entry-screen/entry-screen.component';
 import { KernelService } from 'core/kernel/kernel.service';
-import { UserSpaceService } from 'core/user-space/user-space.service'; 
+import { UserSpaceService } from 'core/user-space/user-space.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserSpaceService } from 'core/user-space/user-space.service';
     BrowserModule,
     RouterModule,
     HttpClientModule,
-    MatChipsModule
+    MatChipsModule,
+    PlotlyModule
   ],
   providers: [KernelService, UserSpaceService],
   bootstrap: [AppComponent],

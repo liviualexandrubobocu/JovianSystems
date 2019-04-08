@@ -1,6 +1,6 @@
 // External
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 // Internal
 import { ComponentUtils } from 'shared/libraries/component-utils';
@@ -18,6 +18,19 @@ export class ComputationGraphComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
+    //https://stackoverflow.com/questions/48347425/angular-4-with-plotly
+    //https://mathjs.org/examples/browser/plot.html.html
+    //https://plot.ly/javascript/bar-charts/#customizing-individual-bar-colors
+    //https://medium.freecodecamp.org/an-introduction-to-plotly-js-an-open-source-graphing-library-c036a1876e2e
+
+    public graph = {
+        data: [
+            { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points', marker: { color: 'red' } },
+            { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
+        ],
+        layout: { width: 320, height: 240, title: 'A Fancy Plot' }
+    };
+
     constructor(
         private computationService: ComputationService
     ) { }
@@ -27,7 +40,7 @@ export class ComputationGraphComponent implements OnInit, OnDestroy {
         this.initGraphToggling();
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.unsubscribeAll();
     }
 
@@ -41,7 +54,7 @@ export class ComputationGraphComponent implements OnInit, OnDestroy {
         }));
     }
 
-    private unsubscribeAll(){
+    private unsubscribeAll() {
         ComponentUtils.unsubscribeAll(this.subscriptions);
     }
 }

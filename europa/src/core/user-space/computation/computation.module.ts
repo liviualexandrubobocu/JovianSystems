@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PlotlyModule } from 'angular-plotly.js';
 
 // Internal
 import { ComputationComponent } from './computation.component';
@@ -42,6 +43,7 @@ const routes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     MathquillModule,
+    PlotlyModule,
     RouterModule.forChild(routes)
   ],
   providers: [
