@@ -9,9 +9,6 @@ import { KernelService } from '../core/kernel/kernel.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  titleFirstPart = 'Jovian';
-  titleSecondPart = 'Systems';
-
   constructor(
     private kernelService: KernelService
   ) { }

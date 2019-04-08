@@ -23,12 +23,21 @@ export class ComputationGraphComponent implements OnInit, OnDestroy {
     //https://plot.ly/javascript/bar-charts/#customizing-individual-bar-colors
     //https://medium.freecodecamp.org/an-introduction-to-plotly-js-an-open-source-graphing-library-c036a1876e2e
 
+    public graphState = {
+        x: [1, 2, 3, 4, 5],
+        y: [6, 8, 7, 8, 6],
+        mode: 'lines+markers',
+        name: 'spline',
+        text: ['Results for:' + this.computationService.result],
+        line: { shape: 'spline' },
+        type: 'scatter'
+    };
+
     public graph = {
         data: [
-            { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points', marker: { color: 'red' } },
-            { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
+            this.graphState
         ],
-        layout: { width: 320, height: 240, title: 'A Fancy Plot' }
+        layout: { width: 640, height: 480, title: 'Plotting Results for: ' + this.computationService.result }
     };
 
     constructor(

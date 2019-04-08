@@ -12,6 +12,7 @@ import { PlotlyModule } from 'angular-plotly.js';
 import { AppComponent } from './app.component';
 import { CameraComponent } from 'core/user-space/camera/camera.component';
 import { AttachFileComponent } from 'core/user-space/attach-file/attach-file.component';
+import { HeaderComponent } from 'core/user-space/header/header.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ComputationModule } from 'core/user-space/computation/computation.module';
@@ -23,6 +24,7 @@ import { UserSpaceService } from 'core/user-space/user-space.service';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     CameraComponent,
     AttachFileComponent,
     EntryScreenComponent,
