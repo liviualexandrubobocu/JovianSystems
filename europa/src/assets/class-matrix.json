@@ -7,9 +7,8 @@
                 "interfaceSymbol": "C",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "btn",
+                        "btn-reset"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -21,7 +20,8 @@
                 "interfaceSymbol": "()",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
+                        "btn",
+                        "btn-operator"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -33,7 +33,8 @@
                 "interfaceSymbol": "%",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
+                        "btn",
+                        "btn-operator"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -41,143 +42,12 @@
             },
             "divide": {
                 "id": "divide",
-                "symbol": "/",
+                "symbol": "÷",
                 "interfaceSymbol": "/",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "multiply": {
-                "id": "multiply",
-                "symbol": "*",
-                "interfaceSymbol": "*",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "subtract": {
-                "id": "subtract",
-                "symbol": "-",
-                "interfaceSymbol": "-",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "add": {
-                "id": "add",
-                "symbol": "+",
-                "interfaceSymbol": "+",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "equals": {
-                "id": "equals",
-                "symbol": "=",
-                "interfaceSymbol": "=",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "zero": {
-                "id": "zero",
-                "symbol": "0",
-                "interfaceSymbol": "0",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "one": {
-                "id": "one",
-                "symbol": "1",
-                "interfaceSymbol": "1",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "two": {
-                "id": "two",
-                "symbol": "2",
-                "interfaceSymbol": "2",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "three": {
-                "id": "three",
-                "symbol": "3",
-                "interfaceSymbol": "3",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "four": {
-                "id": "four",
-                "symbol": "4",
-                "interfaceSymbol": "4",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "five": {
-                "id": "five",
-                "symbol": "5",
-                "interfaceSymbol": "5",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
-                    ],
-                    "mobile-web": [],
-                    "native": []
-                }
-            },
-            "six": {
-                "id": "six",
-                "symbol": "6",
-                "interfaceSymbol": "6",
-                "cssClasses": {
-                    "desktop": [
-                        "normal"
+                        "btn",
+                        "btn-operator"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -189,7 +59,7 @@
                 "interfaceSymbol": "7",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
+                        "btn"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -201,9 +71,7 @@
                 "interfaceSymbol": "8",
                 "cssClasses": {
                     "desktop": [
-                        "normal",
-                        "red",
-                        "white-text"
+                        "btn"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -215,7 +83,131 @@
                 "interfaceSymbol": "9",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "multiply": {
+                "id": "multiply",
+                "symbol": "×",
+                "interfaceSymbol": "*",
+                "cssClasses": {
+                    "desktop": [
+                        "btn",
+                        "btn-operator"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "four": {
+                "id": "four",
+                "symbol": "4",
+                "interfaceSymbol": "4",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "five": {
+                "id": "five",
+                "symbol": "5",
+                "interfaceSymbol": "5",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "six": {
+                "id": "six",
+                "symbol": "6",
+                "interfaceSymbol": "6",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "subtract": {
+                "id": "subtract",
+                "symbol": "−",
+                "interfaceSymbol": "−",
+                "cssClasses": {
+                    "desktop": [
+                        "btn",
+                        "btn-operator"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "one": {
+                "id": "one",
+                "symbol": "1",
+                "interfaceSymbol": "1",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "two": {
+                "id": "two",
+                "symbol": "2",
+                "interfaceSymbol": "2",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "three": {
+                "id": "three",
+                "symbol": "3",
+                "interfaceSymbol": "3",
+                "cssClasses": {
+                    "desktop": [
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "add": {
+                "id": "add",
+                "symbol": "+",
+                "interfaceSymbol": "+",
+                "cssClasses": {
+                    "desktop": [
+                        "btn",
+                        "btn-operator"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "zero": {
+                "id": "zero",
+                "symbol": "0",
+                "interfaceSymbol": "0",
+                "cssClasses": {
+                    "desktop": [
+                        "btn",
+                        "btn-double"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -227,7 +219,20 @@
                 "interfaceSymbol": ".",
                 "cssClasses": {
                     "desktop": [
-                        "normal"
+                        "btn"
+                    ],
+                    "mobile-web": [],
+                    "native": []
+                }
+            },
+            "equals": {
+                "id": "equals",
+                "symbol": "=",
+                "interfaceSymbol": "=",
+                "cssClasses": {
+                    "desktop": [
+                        "btn",
+                        "btn-result"
                     ],
                     "mobile-web": [],
                     "native": []
@@ -242,7 +247,8 @@
                     "interfaceSymbol": "sin",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -254,7 +260,8 @@
                     "interfaceSymbol": "cos",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -266,7 +273,8 @@
                     "interfaceSymbol": "tan",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -278,7 +286,9 @@
                     "interfaceSymbol": "cot",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-default",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -290,7 +300,9 @@
                     "interfaceSymbol": "sec",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-default",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -302,7 +314,9 @@
                     "interfaceSymbol": "csc",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-default",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -314,7 +328,8 @@
                     "interfaceSymbol": "arcsin",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -326,7 +341,8 @@
                     "interfaceSymbol": "arccos",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -338,7 +354,8 @@
                     "interfaceSymbol": "arctan",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -350,7 +367,8 @@
                     "interfaceSymbol": "arccot",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -362,7 +380,8 @@
                     "interfaceSymbol": "arcsec",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -374,7 +393,8 @@
                     "interfaceSymbol": "arccsc",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-trigonometric"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -388,7 +408,8 @@
                     "interfaceSymbol": "\\sqrt{x}",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -400,7 +421,8 @@
                     "interfaceSymbol": "\\sqrt[n]{x}",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -412,7 +434,8 @@
                     "interfaceSymbol": "\\ln x",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -424,7 +447,8 @@
                     "interfaceSymbol": "\\log x",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -436,7 +460,8 @@
                     "interfaceSymbol": "x!",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -448,7 +473,8 @@
                     "interfaceSymbol": "x^n",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -460,7 +486,8 @@
                     "interfaceSymbol": "e^x",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -472,7 +499,8 @@
                     "interfaceSymbol": "\\int",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -484,7 +512,8 @@
                     "interfaceSymbol": "\\int",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -496,7 +525,8 @@
                     "interfaceSymbol": "\\frac{dy}{dx}",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -508,7 +538,8 @@
                     "interfaceSymbol": "x^2",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -520,7 +551,8 @@
                     "interfaceSymbol": "|x|",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -532,7 +564,8 @@
                     "interfaceSymbol": "\\theta",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -544,7 +577,8 @@
                     "interfaceSymbol": "\\infty",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
@@ -556,7 +590,8 @@
                     "interfaceSymbol": "\\pi",
                     "cssClasses": {
                         "desktop": [
-                            "normal"
+                            "btn",
+                            "btn-mathematic"
                         ],
                         "mobile-web": [],
                         "native": []
