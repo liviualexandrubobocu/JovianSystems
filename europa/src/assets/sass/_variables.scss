@@ -4,6 +4,7 @@ $black-white-9:     #171717;
 $black-white-13:    #222222;
 $black-white-20:    #333333;
 $black-white-40:    #666666;
+$black-white-60:    #999999;
 $black-white-87:    #DFDFDF;
 $black-white-92:    #ECECEC;
 $black-white-96:    #F5F5F5;
@@ -21,3 +22,6 @@ $global-font-size: 16px !default;
 // Glyphicons
 $glyphicons-font-family: "JovianSystemsGlyphicons" !default;
 $glyphicons-font-path: "/assets/fonts/global-glyphicons" !default;
+
+// Transitions
+$default-transition: "all .25s ease-in-out";

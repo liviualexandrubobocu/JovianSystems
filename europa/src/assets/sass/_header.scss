@@ -1,5 +1,6 @@
 header {
     height: 90px;
+    margin-bottom: 100px;
     padding: 0 27px;
     align-items: center;
 
@@ -19,7 +20,7 @@ header {
             height: 2px;
             margin: 0 auto;
             background: $white;
-            transition: all .4s ease;
+            @include transition(#{$default-transition});
             &.top,
             &.bottom {
                 position: absolute;
@@ -45,6 +46,9 @@ header {
                 bottom: 15px;
                 transform: rotateZ(-45deg);
             }
+            & + .container-menu {
+                bottom: 0;
+            }
         }
     }
 
@@ -52,7 +56,66 @@ header {
     .container-menu {
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -360px;
+        width: 100%;
+        padding: 30px 0;
+        color: $black;
+        background: $white;
+        @include transition(#{$default-transition});
+        ul {
+            width: 746px;
+            margin: 0 auto;
+            padding: 0;
+            list-style-type: none;
+            li {
+                font: $global-font-size '#{$global-font-family:}', sans-serif;
+                display: block;
+                padding: 14px 14px 14px 58px;
+                cursor: pointer;
+                position: relative;
+                z-index: 1;
+                @include transition(#{$default-transition});
+                &:before {
+                    @extend .glyph;
+                    position: absolute;
+                    top: 13px;
+                    left: 13px;
+                    width: 24px;
+                    height: 24px;
+                    font-size: 24px;
+                    line-height: 24px;
+                    color: $black-white-40;
+                    text-align: center;
+                }
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    z-index: -1;
+                    background: $black-white-96;
+                    @include transition(#{$default-transition});
+                }
+                &:hover {
+                    padding-left: 65px;
+                    &:after {
+                        width: 100%;
+                    }
+                }
+                &.static {
+                    padding-left: 14px;
+                    font-size: 14px;
+                    color: $black-white-40;
+                    text-transform: uppercase;
+                    pointer-events: none;
+                }
+                .switch {
+                    float: right;
+                }
+            }
+        }
     }
 
     // Logo
@@ -72,17 +135,42 @@ header {
             color: $white;
             font-weight: 300;
             text-transform: none;
+            margin-left: 4px;
         }
     }
 
     // Nav menu
     .nav-menu {
+        display: inline-block;
         margin: 0;
         padding: 0;
         list-style-type: none;
+        @extend %clearfix;
         li {
-            display: inline-block;
+            float: left;
             outline: 0 none;
+            margin-left: 40px;
+            font-size: 20px;
+            font-weight: 300;
+            cursor: pointer;
+            &:first-child {
+                margin-left: 0;
+            }
+            &:before {
+                @extend .glyph;
+                display: block;
+                margin: 0 auto;
+                width: 32px;
+                height: 32px;
+                font-size: 32px;
+                line-height: 32px;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    color: $cyan;
+                }
+            }
         }
     }
 }

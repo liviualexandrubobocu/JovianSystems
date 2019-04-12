@@ -1,18 +1,24 @@
-<header class="row">
+<header class="row" role="header">
     <div class="col">
         <app-menu></app-menu>
     </div>
     <div class="col text-center">
-        <h1 routerLink='/'>
-            <span>{{ titleFirstPart }}</span>
-            <span>{{ titleSecondPart }}</span>
+        <h1 routerLink="/">
+            <span>{{ headerLogoFirstPart }}</span>
+            <span>{{ headerLogoSecondPart }}</span>
         </h1>
     </div>
     <div class="col text-right">
         <ul class="nav-menu">
-            <li routerLink="computation">Calculator</li>
-            <li routerLink="use-your-camera">Use Your Camera</li>
-            <li routerLink="attach-file">Attach a file</li>
+            <li class="glyph-calculator" routerLink="computation">
+                <span class="sr-only">{{ headerNavCalculator }}</span>
+            </li>
+            <li class="glyph-camera" routerLink="use-your-camera">
+                <span class="sr-only">{{ headerNavCamera }}</span>
+            </li>
+            <li class="glyph-attach" routerLink="attach-file">
+                <span class="sr-only">{{ headerNavFile }}</span>
+            </li>
         </ul>
     </div>
 </header>

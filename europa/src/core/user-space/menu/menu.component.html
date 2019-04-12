@@ -4,19 +4,30 @@
     <span class="bar bottom"></span>
 </button>
 
-<div class="container-menu" *ngIf="menuStateOpen">
-    <p>Menu</p>
+<div class="container-menu">
     <ul>
-        <li *ngFor="let menuItem of menuItems;">
-            <a ngClass="{menuItem.guid: true}" href="{{menuItem.url}}">{{ menuItem.label }}</a>
-        </li>
-        <li>
-            <a href="">Dark Mode</a>
-            <div class="toggler">
-                <a 
-                href=""
-                (click)="toggleTheme($event)">Toggle Theme</a>
+        <li class="static">Menu</li>
+        <li class="glyph-home">Home</li>
+        <li class="glyph-info">About us</li>
+        <li class="glyph-faq">Faq</li>
+        <li class="glyph-privacy">Privacy policy</li>
+        <li class="glyph-theme">Dark mode
+            <div class="switch">
+                <input type="checkbox" id="switch" value="" checked>
+                <label for="switch"></label>
             </div>
         </li>
     </ul>
 </div>
+
+<!-- <ul *ngIf="menuStateOpen">
+    <li *ngFor="let menuItem of menuItems;">
+        <a ngClass="{menuItem.guid: true}" href="{{menuItem.url}}">{{ menuItem.label }}</a>
+    </li>
+    <li>
+        <a href="">Dark Mode</a>
+        <div class="toggler">
+            <a href="" (click)="toggleTheme($event)">Toggle Theme</a>
+        </div>
+    </li>
+</ul> -->

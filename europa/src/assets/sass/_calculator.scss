@@ -1,0 +1,91 @@
+// Calculator
+.calculator {
+
+    // Header
+    &-header {
+        .calculator-editor {
+            width: 100%;
+            height: 130px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 26px;
+            border: none;
+            border-bottom: 1px solid $black-white-20;
+            @include transition(#{$default-transition});
+            &.mq-focused {
+                box-shadow: none;
+                border-color: $cyan; 
+            }
+            var {
+                font-style: normal;
+                font-weight: 300;
+            }
+            .mq-cursor {
+                border-color: $cyan;
+            }
+        }
+        .calculator-mode {
+            margin-bottom: 40px;
+            @extend %clearfix;
+            .btn-icon {
+                margin-top: 5px;
+            }
+        }
+    }
+    &-body {
+        .basic-container,
+        .advanced-container {
+            margin: -1px;
+            @extend %clearfix;
+        }
+        .basic-container {
+            float: right;
+            width: 248px;
+        }
+        .advanced-container {
+            float: left;
+            width: 492px;
+        }
+        .btn {
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin: 1px;
+            font-size: 20px;
+            line-height: 60px;
+            color: $white;
+            background: $black-white-9;
+            @include border-radius(2px);
+            span {
+                cursor: pointer;
+            }
+            &-double {
+                width: 122px;
+            }
+            &-reset {
+                background: $red;
+            }
+            &-operator {
+                color: $cyan;
+            }
+            &-result {
+                background: $cyan;
+                color: $white;
+                .mq-binary-operator {
+                    color: $white;
+                }
+            }
+            &-mathematic,
+            &-trigonometric {
+                font-size: 18px;
+                width: 80px;
+            }
+            &-mathematic {
+                background: $black-white-20;
+            }
+            &-trigonometric {
+                color: $black-white-60;
+            }
+        }
+    }
+}

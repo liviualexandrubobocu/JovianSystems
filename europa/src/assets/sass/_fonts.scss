@@ -16,6 +16,7 @@
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @include transition(#{$default-transition});
 }
   
 .glyph-arrow-back {
