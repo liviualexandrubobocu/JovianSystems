@@ -1,13 +1,16 @@
-<div class="result-container" *ngIf="showComputationResultsInterface">
-    <div class="result-math" style="color:white;">
-        <p>Result</p>
-        <app-mathquill [symbols]="computationResult"></app-mathquill>
+<div class="results" *ngIf="showComputationResultsInterface">
+    
+    <div class="results-header">
+        <div class="results-math">
+            <app-mathquill [symbols]="computationResult"></app-mathquill>
+        </div>
+        <div class="results-actions">
+            <button [ngClass]="{ 'btn btn-small': true, 'active': buttons['steps'] }" (click)="toggleResult('steps')">Steps</button>
+            <button [ngClass]="{ 'btn btn-small': true, 'active': buttons['graph'] }" (click)="toggleResult('graph')">Graph</button>
+            <button class="btn btn-small btn-orange pull-right" (click)="showCalculator()">Edit</button>
+        </div>
     </div>
-    <div class="result-buttons">
-        <button [ngClass]="{ 'result-btn': true, 'active': buttons['steps'] }" (click)="toggleResult('steps')">Steps</button>
-        <button [ngClass]="{ 'result-btn': true, 'active': buttons['graph'] }" (click)="toggleResult('graph')">Graph</button>
-        <button class="result-btn edit" (click)="showCalculator()">Edit</button>
-    </div>
+
     <app-computation-steps></app-computation-steps>
     <app-computation-graph></app-computation-graph>
 </div>
