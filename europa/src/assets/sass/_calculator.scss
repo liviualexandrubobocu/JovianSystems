@@ -88,4 +88,8 @@
             }
         }
     }
+
+    .igx-button, .igx-button--flat, .igx-button--outlined, .igx-button--raised {
+        min-width:auto;
+    }
 }

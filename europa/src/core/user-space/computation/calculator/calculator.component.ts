@@ -69,11 +69,8 @@ export class ComputationCalculatorComponent implements OnInit {
         this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
-        this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
-            this.initCalculator(CALCULATOR_STATES.BASIC);
-            this.initCalculator(CALCULATOR_STATES.ADVANCED);
-            this.initMathField();
-        });
+        this.initMainCalculator();
+        this.initMathField();
         this.showCalculatorInterface();
     }
 
@@ -100,7 +97,6 @@ export class ComputationCalculatorComponent implements OnInit {
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
     }
 
-    
     /**
      * This method is used to handle key press for latex field
      * @param event 
@@ -123,6 +119,14 @@ export class ComputationCalculatorComponent implements OnInit {
                     this.clearInterfaceHighlight = true;
             }
         }
+    }
+
+    private initMainCalculator() {
+        this.kernelService.notifyUpdatedClassMatrix.subscribe((classMatrixUpdated) => {
+            this.initCalculator(CALCULATOR_STATES.BASIC);
+            this.initCalculator(CALCULATOR_STATES.ADVANCED);
+            this.initMathField();
+        });
     }
 
     private initCalculatorStates() {
@@ -182,7 +186,7 @@ export class ComputationCalculatorComponent implements OnInit {
      */
     private initResultFields(result: ComputationResult) {
         const MQ = MathQuill.getInterface(2);
-        if(result && result.answer && result.steps){
+        if (result && result.answer && result.steps) {
             this.computationService.result = result.answer;
             this.computationService.steps = result.steps;
         }

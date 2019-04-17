@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PlotlyModule } from 'angular-plotly.js';
+import { IgxRippleModule, IgxAvatarModule, IgxIconModule, IgxButtonModule } from 'igniteui-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Internal
 import { ComputationComponent } from './computation.component';
@@ -44,7 +46,12 @@ const routes: Route[] = [
     ReactiveFormsModule,
     MathquillModule,
     PlotlyModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    BrowserAnimationsModule,
+    IgxRippleModule,
+    IgxAvatarModule,
+    IgxIconModule,
+    IgxButtonModule
   ],
   providers: [
     ComputationService,
