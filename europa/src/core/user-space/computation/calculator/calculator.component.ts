@@ -1,17 +1,16 @@
 // External
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormArray, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import 'node-mathquill/build/mathquill';
 
 //Internal
-import { BASIC_OPERATIONS, MathFunctions, TrigFunctions, Digits } from '../../../../shared/index';
+import { BASIC_OPERATIONS } from '../../../../shared/index';
 import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
 import { ComputationResult } from '../../../../shared/entities/computation-result';
 import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
-import { CALCULATOR_BUTTON_TYPES } from '../../../../shared/entities/calculator-button-types';
 import { CalculatorButton } from '../../../../shared/entities/calculator-button';
 import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 
@@ -40,6 +39,7 @@ export class ComputationCalculatorComponent implements OnInit {
     public advancedStateCalculatorButtons: any[][];
 
     public calculatorType: string = CALCULATOR_STATES.ADVANCED;
+    public shownCalculatorType: string = CALCULATOR_STATES.BASIC;
     public calculatorStates: any = {};
     public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
@@ -95,6 +95,8 @@ export class ComputationCalculatorComponent implements OnInit {
         this.calculatorStates[CALCULATOR_STATES.ADVANCED] = !this.calculatorStates[CALCULATOR_STATES.ADVANCED];
         this.calculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === false)
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
+        this.shownCalculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === true)
+            ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
     }
 
     /**
@@ -147,8 +149,16 @@ export class ComputationCalculatorComponent implements OnInit {
                 this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
                 break;
             case CALCULATOR_STATES.ADVANCED:
-                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS], this.TRIGONOMETRIC_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
-                this.initCalculatorButtons(this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS], this.MATHEMATICAL_FUNCTIONS, CALCULATOR_STATES.ADVANCED);
+                this.initCalculatorButtons(
+                    this.advancedStateCalculatorButtons[this.TRIGONOMETRIC_FUNCTIONS],
+                    this.TRIGONOMETRIC_FUNCTIONS,
+                    CALCULATOR_STATES.ADVANCED
+                );
+                this.initCalculatorButtons(
+                    this.advancedStateCalculatorButtons[this.MATHEMATICAL_FUNCTIONS],
+                    this.MATHEMATICAL_FUNCTIONS,
+                    CALCULATOR_STATES.ADVANCED
+                );
                 break;
             default:
                 this.initCalculatorButtons(this.basicStateCalculatorButtons, null, CALCULATOR_STATES.BASIC);
@@ -159,11 +169,14 @@ export class ComputationCalculatorComponent implements OnInit {
         let calculatorButtons: CalculatorButton[] = [];
         if (this.kernelService.classMatrix &&
             this.kernelService.classMatrix.buttons) {
-            calculatorButtons = (type === null) ? this.kernelService.classMatrix.buttons[state] : this.kernelService.classMatrix.buttons[state][type];
+            calculatorButtons = (type === null) ?
+                this.kernelService.classMatrix.buttons[state] : this.kernelService.classMatrix.buttons[state][type];
             for (let buttonId in calculatorButtons) {
-                buttonsList.push(
-                    this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
-                );
+                if (buttonId) {
+                    buttonsList.push(
+                        this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
+                    );
+                }
             }
         }
     }
@@ -173,7 +186,7 @@ export class ComputationCalculatorComponent implements OnInit {
         this.answerMathField = MQLibrary.MathField(answerSpan, {
             handlers: {
                 edit: function () {
-                    var enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
+                    const enteredMath = _this.answerMathField.latex(); // Get entered math in LaTeX format
                     this.enteredSymbols = enteredMath;
                 }
             }
@@ -199,12 +212,15 @@ export class ComputationCalculatorComponent implements OnInit {
         this.subscriptions.push(
             this.userSpaceService.triggerParserAction.subscribe(() => {
                 if (this.answerMathField) {
-                    this.httpService.sendToParser(this.PARSER_ENDPOINT, this.answerMathField.latex()).subscribe((result: ComputationResult) => {
-                        this.initResultFields(result);
-                        this.cdr.markForCheck();
-                        this.clearResultField();
-                        this.showResults();
-                    });
+                    this.httpService.sendToParser(
+                        this.PARSER_ENDPOINT,
+                        this.answerMathField.latex()).subscribe(
+                            (result: ComputationResult) => {
+                                this.initResultFields(result);
+                                this.cdr.markForCheck();
+                                this.clearResultField();
+                                this.showResults();
+                            });
                 }
             })
         );
