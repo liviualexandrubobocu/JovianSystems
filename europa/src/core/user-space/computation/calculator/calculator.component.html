@@ -10,18 +10,18 @@
         </div>
         <div class="calculator-body">
             <div class="basic-container">
-                <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of basicStateCalculatorButtons; let i = index;">
+                <button igxButton igxRipple="white" [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of basicStateCalculatorButtons; let i = index;">
                     <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                 </button>
             </div>
             <div class="advanced-container" *ngIf="calculatorStates['advanced']">
                 <div class="trigonometric">
-                    <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of advancedStateCalculatorButtons[TRIGONOMETRIC_FUNCTIONS]; let i = index;">
+                    <button igxButton igxRipple="white" [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of advancedStateCalculatorButtons[TRIGONOMETRIC_FUNCTIONS]; let i = index;">
                         <app-mathquill [symbols]="button.interfaceSymbol"></app-mathquill>
                     </button>
                 </div>
                 <div class="mathematic">
-                    <button [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of advancedStateCalculatorButtons[MATHEMATICAL_FUNCTIONS]; let i = index;">
+                    <button igxButton igxRipple="white" [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of advancedStateCalculatorButtons[MATHEMATICAL_FUNCTIONS]; let i = index;">
                         <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                     </button>
                 </div>
