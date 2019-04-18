@@ -5,6 +5,8 @@ button {
     outline: 0 none;
     font-weight: 300;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 .btn {
     color: $white;
