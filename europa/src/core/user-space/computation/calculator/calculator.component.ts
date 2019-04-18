@@ -290,6 +290,7 @@ export class ComputationCalculatorComponent implements OnInit {
                     this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
                     this.initMathField();
                 }
+                this.initRippleEffect();
             }
         });
     }
