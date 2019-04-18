@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 // Internal
 import { KernelService } from '../core/kernel/kernel.service';
+import { MenuService } from '../core/user-space/menu/menu.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,15 @@ import { KernelService } from '../core/kernel/kernel.service';
 })
 export class AppComponent {
   constructor(
-    private kernelService: KernelService
+    private kernelService: KernelService,
+    private menuService: MenuService
   ) { }
+
+  public menuStateChanged: boolean = false;
 
   ngOnInit() {
     this.initClassMatrix();
+    this.checkMenuChanges();
   }
 
   private initClassMatrix() {
@@ -23,6 +28,14 @@ export class AppComponent {
       if (classMatrix) {
         Reflect.defineProperty(this.kernelService, 'classMatrix', { value: classMatrix });
         this.kernelService.notifyUpdatedClassMatrix.next(true);
+      }
+    });
+  }
+
+  private checkMenuChanges() {
+    this.menuService.menuStateChanged.subscribe((value) => {
+      if (value) {
+        this.menuStateChanged = !this.menuStateChanged;
       }
     });
   }

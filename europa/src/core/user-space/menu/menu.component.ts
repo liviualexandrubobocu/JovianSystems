@@ -16,7 +16,6 @@ import { MenuService } from './menu.service';
 export class MenuComponent implements OnInit {
 
     @Output() themeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() menuStateChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public menuItems: MenuItem[] = [];
     public menuStateOpen: boolean = false;
@@ -37,7 +36,7 @@ export class MenuComponent implements OnInit {
     public toggleMenuState(event): void {
         event.preventDefault();
         this.menuStateOpen = !this.menuStateOpen;
-        this.menuStateChanged.emit(true);
+        this.menuService.menuStateChanged.next(true);
     }
 
     public toggleTheme(event): void {
