@@ -1,4 +1,4 @@
-<div class="global-container">
+<div [ngClass]="{'global-container' : true, 'menu-open': menuStateChanged}" class="global-container">
     <app-header></app-header>    
     <router-outlet></router-outlet>
 </div>
