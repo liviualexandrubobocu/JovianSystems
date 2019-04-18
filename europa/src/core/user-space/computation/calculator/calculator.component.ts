@@ -10,6 +10,7 @@ import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
 import { ComputationResult } from '../../../../shared/entities/computation-result';
 import { ComputationStep } from '../../../../shared/entities/computation-step';
 import { ComponentUtils } from '../../../../shared/libraries/component-utils';
+import { RippleUtils } from '../../../../shared/libraries/ripple-utils';
 import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states';
 import { CalculatorButton } from '../../../../shared/entities/calculator-button';
 import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
@@ -51,6 +52,7 @@ export class ComputationCalculatorComponent implements OnInit {
     // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
     private PARSER_ENDPOINT: string = '../assets/result.json';
     private editor: ElementRef;
+    public rippleLibrary: RippleUtils;
 
     @ViewChild('editor') set content(content: ElementRef) {
         this.editor = content;
@@ -66,12 +68,18 @@ export class ComputationCalculatorComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.rippleLibrary = new RippleUtils();
+
         this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
         this.initMainCalculator();
         this.initMathField();
         this.showCalculatorInterface();
+    }
+
+    ngAfterContentInit() {
+        this.initRippleEffect();
     }
 
     ngOnDestroy() {
@@ -97,6 +105,14 @@ export class ComputationCalculatorComponent implements OnInit {
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
         this.shownCalculatorType = (this.calculatorStates[CALCULATOR_STATES.BASIC] === true)
             ? CALCULATOR_STATES.BASIC : CALCULATOR_STATES.ADVANCED;
+
+        this.initRippleEffect();
+    }
+
+    initRippleEffect(){
+        setTimeout(() => {
+            this.rippleLibrary.initRippleEffect();
+        }, 0);
     }
 
     /**
@@ -214,13 +230,15 @@ export class ComputationCalculatorComponent implements OnInit {
                 if (this.answerMathField) {
                     this.httpService.sendToParser(
                         this.PARSER_ENDPOINT,
-                        this.answerMathField.latex()).subscribe(
-                            (result: ComputationResult) => {
-                                this.initResultFields(result);
-                                this.cdr.markForCheck();
-                                this.clearResultField();
-                                this.showResults();
-                            });
+                        this.answerMathField.latex()
+                    ).subscribe(
+                        (result: ComputationResult) => {
+                            this.initResultFields(result);
+                            this.cdr.markForCheck();
+                            this.clearResultField();
+                            this.showResults();
+                        }
+                        );
                 }
             })
         );
