@@ -40,3 +40,30 @@
     opacity: $opacity;
     filter: alpha(opacity=$opacity * 100);
 }
+
+// Transform
+@mixin transform($transforms) {
+    transform: $transforms;
+}
+
+    // Translate
+    @mixin translate($x, $y) {
+        @include transform(translate($x, $y));
+    }
+
+    // Rotate
+    @mixin rotate($deg) {
+        @include transform(rotate(#{$deg}deg));
+    }
+
+    // Scale
+    @mixin scale($scale) {
+        @include transform(scale($scale));
+    }
+
+// Keyframes
+@mixin keyframes($animation-name) {
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}

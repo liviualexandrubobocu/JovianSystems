@@ -61,6 +61,7 @@ header {
         padding: 30px 0;
         color: $black;
         background: $white;
+        z-index: 1;
         @include transition(#{$default-transition});
         ul {
             width: 746px;
