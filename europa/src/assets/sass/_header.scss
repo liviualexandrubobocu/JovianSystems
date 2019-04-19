@@ -1,8 +1,11 @@
 header {
     height: 90px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     padding: 0 27px;
     align-items: center;
+    .col {
+        z-index: 2;
+    }
 
     // Hamburger menu
     .hamburger-menu {

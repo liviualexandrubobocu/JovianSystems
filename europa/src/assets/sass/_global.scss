@@ -16,6 +16,13 @@ body {
     background: $black;
     color: $white;
     overflow: auto;
+    &.menu-open {
+        overflow: hidden;
+        .overlay {
+            z-index: 0;
+            @include opacity(0.8);
+        }
+    }
 }
 
 .main {
@@ -32,6 +39,18 @@ body {
            @include opacity(1);
         }
     }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: $black-white-13;
+    @include opacity(0);
+    @include transition(#{$default-transition});
 }
 
 .text {
