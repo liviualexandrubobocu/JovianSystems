@@ -19,9 +19,19 @@ body {
 }
 
 .main {
-    width: 786px;
     margin: 0 auto;
     padding: 20px;
+    @include transition(#{$calculator-transition});
+    &.basic {
+        width: 286px;
+    }
+    &.advanced {
+        width: 786px;
+        .advanced-container {
+           width: 492px;
+           @include opacity(1);
+        }
+    }
 }
 
 .text {

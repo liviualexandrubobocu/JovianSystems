@@ -1,6 +1,6 @@
-<section class="main" role="main">
+<section [ngClass]="['main', shownCalculatorType]" role="main">
 
-    <div [ngClass]="['calculator', shownCalculatorType]" *ngIf="showCalculator">
+    <div class="calculator" *ngIf="showCalculator">
         <div class="calculator-header">
             <div class="calculator-editor" #editor (keypress)="keyPress($event)"></div>
             <div class="calculator-actions">
@@ -14,7 +14,7 @@
                     <app-mathquill [symbols]="button.mathSymbol"></app-mathquill>
                 </button>
             </div>
-            <div class="advanced-container" *ngIf="calculatorStates['advanced']">
+            <div class="advanced-container">
                 <div class="trigonometric">
                     <button ripple="ripple" [ngClass]="button.cssClasses" (click)="onClick(button.mathSymbol)" *ngFor="let button of advancedStateCalculatorButtons[TRIGONOMETRIC_FUNCTIONS]; let i = index;">
                         <app-mathquill [symbols]="button.interfaceSymbol"></app-mathquill>
