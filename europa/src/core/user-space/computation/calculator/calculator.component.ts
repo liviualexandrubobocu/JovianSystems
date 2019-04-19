@@ -1,10 +1,10 @@
 // External
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import 'node-mathquill/build/mathquill';
 
-//Internal
+// Internal
 import { BASIC_OPERATIONS } from '../../../../shared/index';
 import { KEY_OPERATIONS } from '../../../../shared/entities/key-operations';
 import { ComputationResult } from '../../../../shared/entities/computation-result';
@@ -15,7 +15,7 @@ import { CALCULATOR_STATES } from '../../../../shared/entities/calculator-states
 import { CalculatorButton } from '../../../../shared/entities/calculator-button';
 import { HTML_ELEMENTS } from '../../../../shared/entities/user-space-elements';
 
-//Services
+// Services
 import { HttpService } from 'shared/services/http.service';
 import { KernelService } from 'core/kernel/kernel.service';
 import { UserSpaceService } from 'core/user-space/user-space.service';
@@ -26,7 +26,7 @@ declare var MathQuill: any;
     selector: 'app-computation-calculator',
     templateUrl: './calculator.component.html'
 })
-export class ComputationCalculatorComponent implements OnInit {
+export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterContentInit {
 
     public form: FormGroup;
     public clientX: number;
@@ -35,7 +35,7 @@ export class ComputationCalculatorComponent implements OnInit {
     public answerMathField;
     public resultFields: any[] = [];
     public subscriptions: Subscription[] = [];
-    public expressionToSolve: string = '\\int^b_a';
+    public expressionToSolve = '\\int^b_a';
     public basicStateCalculatorButtons: CalculatorButton[];
     public advancedStateCalculatorButtons: any[][];
 
@@ -44,13 +44,12 @@ export class ComputationCalculatorComponent implements OnInit {
     public calculatorStates: any = {};
     public TRIGONOMETRIC_FUNCTIONS = 'trigonometric';
     public MATHEMATICAL_FUNCTIONS = 'mathematic';
-    public showCalculator: boolean = true;
-    public clearInterfaceHighlight: boolean = false;
+    public showCalculator = true;
+    public clearInterfaceHighlight = false;
     public computationSteps: ComputationStep[];
 
-    private STEP_CLASS = 'step';
     // private PARSER_ENDPOINT: string = 'https://localhost:44340/api/steps/';
-    private PARSER_ENDPOINT: string = '../assets/result.json';
+    private PARSER_ENDPOINT = '../assets/result.json';
     private editor: ElementRef;
     public rippleLibrary: RippleUtils;
 
@@ -88,12 +87,12 @@ export class ComputationCalculatorComponent implements OnInit {
 
     /**
      * This method is used to initialize math editor field.
-     * 
+     *
      */
     initMathField() {
         const MQ = MathQuill.getInterface(2);
         if (this.editor && this.editor.nativeElement) {
-            var answerSpan = this.editor.nativeElement;
+            const answerSpan = this.editor.nativeElement;
             this.setResultField(MQ, answerSpan);
         }
     }
@@ -109,7 +108,7 @@ export class ComputationCalculatorComponent implements OnInit {
         this.initRippleEffect();
     }
 
-    initRippleEffect(){
+    initRippleEffect() {
         setTimeout(() => {
             this.rippleLibrary.initRippleEffect();
         }, 0);
@@ -117,7 +116,7 @@ export class ComputationCalculatorComponent implements OnInit {
 
     /**
      * This method is used to handle key press for latex field
-     * @param event 
+     * @param event
      */
     keyPress(event) {
         if (event && event.key) {
@@ -131,11 +130,32 @@ export class ComputationCalculatorComponent implements OnInit {
                     break;
                 default:
                     if (this.answerMathField) {
-                        this.answerMathField.write(event.key);
                         this.computationService.mathQuery = this.answerMathField.latex();
                     }
                     this.clearInterfaceHighlight = true;
             }
+        }
+    }
+
+    /**
+     * Method used to add symbol on editable math field cursor
+     * @param symbol
+     */
+    onClick(symbol) {
+        switch (symbol) {
+            case BASIC_OPERATIONS.EQUALS:
+                this.userSpaceService.triggerParserAction.next(true);
+                this.clearInterfaceHighlight = true;
+                break;
+            case BASIC_OPERATIONS.CLEAR:
+                this.clearResultField();
+                break;
+            default:
+                if (this.answerMathField) {
+                    this.answerMathField.write(symbol);
+                    this.computationService.mathQuery = this.answerMathField.latex();
+                }
+                this.clearInterfaceHighlight = true;
         }
     }
 
@@ -187,7 +207,7 @@ export class ComputationCalculatorComponent implements OnInit {
             this.kernelService.classMatrix.buttons) {
             calculatorButtons = (type === null) ?
                 this.kernelService.classMatrix.buttons[state] : this.kernelService.classMatrix.buttons[state][type];
-            for (let buttonId in calculatorButtons) {
+            for (const buttonId in calculatorButtons) {
                 if (buttonId) {
                     buttonsList.push(
                         this.kernelService.generateElement(calculatorButtons, HTML_ELEMENTS.CALCULATOR_BUTTON, buttonId)
@@ -238,7 +258,7 @@ export class ComputationCalculatorComponent implements OnInit {
                             this.clearResultField();
                             this.showResults();
                         }
-                        );
+                    );
                 }
             })
         );
@@ -256,29 +276,8 @@ export class ComputationCalculatorComponent implements OnInit {
             this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', '');
             this.initMathField();
         }
-        this.clearInterfaceHighlight = false;
-    }
 
-    /**
-     * Method used to add symbol on editable math field cursor
-     * @param symbol 
-     */
-    private onClick(symbol) {
-        switch (symbol) {
-            case BASIC_OPERATIONS.EQUALS:
-                this.userSpaceService.triggerParserAction.next(true);
-                this.clearInterfaceHighlight = true;
-                break;
-            case BASIC_OPERATIONS.CLEAR:
-                this.clearResultField();
-                break;
-            default:
-                if (this.answerMathField) {
-                    this.answerMathField.write(symbol);
-                    this.computationService.mathQuery = this.answerMathField.latex();
-                }
-                this.clearInterfaceHighlight = true;
-        }
+        this.clearInterfaceHighlight = false;
     }
 
     private showCalculatorInterface() {
@@ -286,10 +285,12 @@ export class ComputationCalculatorComponent implements OnInit {
             if (showCalculator) {
                 this.showCalculator = true;
                 this.cdr.detectChanges();
+
                 if (this.editor && this.editor.nativeElement) {
                     this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
                     this.initMathField();
                 }
+
                 this.initRippleEffect();
             }
         });
