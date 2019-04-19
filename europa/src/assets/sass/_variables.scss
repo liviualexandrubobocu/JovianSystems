@@ -24,8 +24,9 @@ $glyphicons-font-family: "JovianSystemsGlyphicons" !default;
 $glyphicons-font-path: "/assets/fonts/global-glyphicons" !default;
 
 // Transitions
-$default-transition: "all .25s ease-in-out";
-
-// Riiple
+$bezier: ".65,.07,.63,.95";
+$default-transition: "all .35s cubic-bezier(#{$bezier})";
 $ripple-name: "ripple";
 $ripple-duration: "1s";
+$calculator-transition: "all .35s cubic-bezier(#{$bezier})";
+

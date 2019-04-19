@@ -33,18 +33,28 @@
         }
     }
     &-body {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
         .basic-container,
         .advanced-container {
             margin: -1px;
             @extend %clearfix;
         }
         .basic-container {
-            float: right;
             width: 248px;
+            order: 1;
         }
         .advanced-container {
-            float: left;
-            width: 492px;
+            width: 0;
+            order: 0;
+            overflow: hidden;
+            @include opacity(0);
+            @include transition(#{$calculator-transition});
+            .trigonometric,
+            .mathematic {
+                width: 492px;
+            }
         }
         .btn {
             float: left;
