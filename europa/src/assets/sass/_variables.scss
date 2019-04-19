@@ -25,8 +25,8 @@ $glyphicons-font-path: "/assets/fonts/global-glyphicons" !default;
 
 // Transitions
 $bezier: ".65,.07,.63,.95";
-$default-transition: "all .35s cubic-bezier(#{$bezier})";
+$default-transition: "all .3s cubic-bezier(#{$bezier})";
 $ripple-name: "ripple";
 $ripple-duration: "1s";
-$calculator-transition: "all .35s cubic-bezier(#{$bezier})";
+$calculator-transition: "all .3s cubic-bezier(#{$bezier})";
 
