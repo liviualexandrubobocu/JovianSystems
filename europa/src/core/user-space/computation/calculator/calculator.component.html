@@ -5,7 +5,7 @@
             <div class="calculator-editor" #editor (keypress)="keyPress($event)"></div>
             <div class="calculator-actions">
                 <button class="btn btn-small pull-left" (click)="toggleCalculatorState()">{{ calculatorType | titlecase }}</button>
-                <button [ngClass]="{ 'btn btn-icon pull-right': true, 'highlight' : clearInterfaceHighlight }"><span class="glyph glyph-backspace"></span></button>
+                <button [ngClass]="{ 'btn btn-icon pull-right': true, 'highlight' : clearInterfaceHighlight }" (click)="removeCharacter()"><span class="glyph glyph-backspace"></span></button>
             </div>
         </div>
         <div class="calculator-body">

@@ -94,6 +94,7 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
         if (this.editor && this.editor.nativeElement) {
             const answerSpan = this.editor.nativeElement;
             this.setResultField(MQ, answerSpan);
+            this.answerMathField.focus();
         }
     }
 
@@ -135,6 +136,7 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
                     this.clearInterfaceHighlight = true;
             }
         }
+        this.answerMathField.focus();
     }
 
     /**
@@ -157,6 +159,22 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
                 }
                 this.clearInterfaceHighlight = true;
         }
+        this.answerMathField.focus();
+    }
+
+    removeCharacter() {
+        let subquery;
+        if (String.raw`${this.computationService.mathQuery}`.lastIndexOf("\\") >= 0) {
+            subquery = this.computationService.mathQuery.substring(0, String.raw`${this.computationService.mathQuery}`.lastIndexOf("\\"));
+        } else {
+            subquery = this.computationService.mathQuery.substring(0, this.computationService.mathQuery.length - 1);
+        }
+
+        this.computationService.mathQuery = subquery;
+        this.clearResultField();
+        this.answerMathField.write(subquery);
+        this.answerMathField.focus();
+        this.initMathField();
     }
 
     private initMainCalculator() {
