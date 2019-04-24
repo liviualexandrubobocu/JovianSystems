@@ -1,5 +1,6 @@
 // External
 import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import 'node-mathquill/build/mathquill';
@@ -63,21 +64,24 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
         private computationService: ComputationService,
         private httpService: HttpService,
         private renderer: Renderer2,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private router: Router
     ) { }
 
     ngOnInit() {
         this.rippleLibrary = new RippleUtils();
-
+        this.clearResultField();
         this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
         this.initMainCalculator();
         this.initMathField();
         this.showCalculatorInterface();
+        this.trackRouteChanges();
     }
 
     ngAfterContentInit() {
+        this.clearResultField();
         this.initRippleEffect();
     }
 
@@ -113,6 +117,16 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
         setTimeout(() => {
             this.rippleLibrary.initRippleEffect();
         }, 0);
+    }
+
+    trackRouteChanges() {
+        this.router.events.subscribe((event) => {
+            this.userSpaceService.showCalculator.next(true);
+            this.userSpaceService.showComputationResults.next(false);
+            this.clearResultField();
+            if (!this.cdr['destroyed'])
+                this.cdr.markForCheck();
+        });
     }
 
     /**
@@ -272,11 +286,13 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
                     ).subscribe(
                         (result: ComputationResult) => {
                             this.initResultFields(result);
-                            this.cdr.markForCheck();
+                            if (!this.cdr['destroyed']) {
+                                this.cdr.markForCheck();
+                            }
                             this.clearResultField();
                             this.showResults();
                         }
-                    );
+                        );
                 }
             })
         );
@@ -302,7 +318,9 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
         this.userSpaceService.showCalculator.subscribe((showCalculator) => {
             if (showCalculator) {
                 this.showCalculator = true;
-                this.cdr.detectChanges();
+                if (!this.cdr['destroyed']) {
+                    this.cdr.detectChanges();
+                }
 
                 if (this.editor && this.editor.nativeElement) {
                     this.renderer.setProperty(this.editor.nativeElement, 'innerHTML', this.computationService.mathQuery);
