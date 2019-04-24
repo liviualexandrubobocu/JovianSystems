@@ -1,18 +1,11 @@
-<div class="computation-steps-container" *ngIf="isShown">
-    <p>Steps</p>
-    <ul class="computation-steps">
-        <li *ngFor="let step of computationSteps; index as i">
-            <div class="mathematical-step" [ngClass]="{ 'open': step.isOpen }">
-                <app-mathquill [symbols]="step.step"></app-mathquill>
-            </div>
-            <button class="more" (click)="toggleStep(step)">X</button>
-            <ul class="children" [ngClass]="{ 'isOpen': step.isOpen }">
-                <li *ngFor="let childStep of step.children">
-                    <div class="mathematical-step child" [ngClass]="{ 'open': step.isOpen }">
-                        <app-mathquill [symbols]="childStep.step"></app-mathquill>
-                    </div>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<div class="steps" *ngIf="isShown">
+    <div class="step" *ngFor="let step of computationSteps; index as i" [ngClass]="{ 'open': step.isOpen }" (click)="toggleStep(step)">
+        <div class="step-title">Step {{ i + 1 }}</div>
+        <div class="step-parent">
+            <app-mathquill [symbols]="step.step"></app-mathquill>
+        </div>
+        <div class="step-child" *ngFor="let childStep of step.children">
+            <app-mathquill [symbols]="childStep.step"></app-mathquill>
+        </div>
+    </div>
 </div>

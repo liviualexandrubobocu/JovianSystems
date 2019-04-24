@@ -19,4 +19,61 @@
             }
         }
     }
+
+    // Body
+    &-body {
+        //Steps
+        .steps {
+            .step {
+                position: relative;
+                padding: 16px 20px 20px 20px;
+                background: $black-white-13;
+                @include border-radius(15px);
+                & + .step {
+                    margin-top: 15px;
+                }
+                &:after {
+                    content: '\e907';
+                    font: 22px '#{$glyphicons-font-family}';
+                    display: block;
+                    width: 24px;
+                    height: 24px;
+                    line-height: 24px;
+                    text-align: center;
+                    position: absolute;
+                    top: 13px;
+                    right: 13px;
+                    @include opacity(0.6);
+                }
+                .step-title {
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                    font-weight: 300;
+                    text-transform: uppercase;
+                    @include opacity(0.5);
+                }
+                .step-child {
+                    display: none;
+                    color: $black-white-20;
+                    padding: 15px;
+                    background: #FFF;
+                    @include border-radius(7px);
+                }
+                &.open {
+                    &:after {
+                        content: '\e906';
+                    }
+                    .step-parent {
+                        margin-bottom: 20px;
+                    }
+                    .step-child {
+                        display: inherit;
+                        & + .step-child {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
