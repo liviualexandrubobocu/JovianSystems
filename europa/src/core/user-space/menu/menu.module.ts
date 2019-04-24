@@ -1,6 +1,7 @@
 // External
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 // Internal
@@ -15,6 +16,7 @@ import { MenuService } from './menu.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     CommonModule
   ],
   providers: [MenuService],
