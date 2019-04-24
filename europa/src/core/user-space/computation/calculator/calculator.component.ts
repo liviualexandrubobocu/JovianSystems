@@ -70,7 +70,6 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
 
     ngOnInit() {
         this.rippleLibrary = new RippleUtils();
-        this.clearResultField();
         this.triggerParsingAction();
         this.initCalculatorStates();
         this.initCalculatorButtonsLists();
@@ -80,6 +79,9 @@ export class ComputationCalculatorComponent implements OnInit, OnDestroy, AfterC
         this.trackRouteChanges();
     }
 
+    /**
+     * When we initialize our content we first clear the result computed previously, then we initialize the ripple.
+     */
     ngAfterContentInit() {
         this.clearResultField();
         this.initRippleEffect();
