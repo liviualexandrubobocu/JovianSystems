@@ -1,5 +1,4 @@
 <div class="results" *ngIf="showComputationResultsInterface">
-    
     <div class="results-header">
         <div class="results-math">
             <app-mathquill [symbols]="computationResult"></app-mathquill>
@@ -10,7 +9,8 @@
             <button class="btn btn-small btn-orange pull-right" (click)="showCalculator()">Edit</button>
         </div>
     </div>
-
-    <app-computation-steps></app-computation-steps>
-    <app-computation-graph></app-computation-graph>
+    <div class="results-body">
+        <app-computation-steps></app-computation-steps>
+        <app-computation-graph></app-computation-graph>
+    </div>
 </div>
