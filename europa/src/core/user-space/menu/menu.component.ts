@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
 
     public menuItems: MenuItem[] = [];
     public menuStateOpen: boolean = false;
+    public darkModeSwitch: boolean = true;
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -42,6 +43,11 @@ export class MenuComponent implements OnInit {
     public toggleTheme(event): void {
         event.preventDefault();
         this.themeChanged.emit(true);
+    }
+
+    public changeLayoutTheme() : void {
+        this.darkModeSwitch = !this.darkModeSwitch;
+        this.menuService.applicationThemeChanged.next(true);
     }
 
     private getMenuItems(): void {

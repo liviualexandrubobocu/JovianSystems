@@ -11,9 +11,11 @@
         <li class="glyph-info">About us</li>
         <li class="glyph-faq">Faq</li>
         <li class="glyph-privacy">Privacy policy</li>
-        <li class="glyph-theme">Dark mode
+        <li (click)="changeLayoutTheme()" class="glyph-theme">Dark mode
             <div class="switch">
-                <input type="checkbox" id="switch" value="" checked>
+                <input type="checkbox" id="switch"
+                [(ngModel)]="darkModeSwitch"
+                [ngModelOptions]="{standalone: true}">
                 <label for="switch"></label>
             </div>
         </li>

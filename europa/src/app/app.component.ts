@@ -6,37 +6,48 @@ import { KernelService } from '../core/kernel/kernel.service';
 import { MenuService } from '../core/user-space/menu/menu.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+	selector: 'app-root',
+	templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(
-    private kernelService: KernelService,
-    private menuService: MenuService
-  ) { }
 
-  public menuStateChanged: boolean = false;
+	public themeSwitch = false;
+	public menuStateChanged = false;
 
-  ngOnInit() {
-    this.initClassMatrix();
-    this.checkMenuChanges();
-  }
+	constructor(
+		private kernelService: KernelService,
+		private menuService: MenuService
+	) { }
 
-  private initClassMatrix() {
-    this.kernelService.initClassMatrix().subscribe((classMatrix: string) => {
+	ngOnInit() {
+		this.initClassMatrix();
+		this.checkMenuChanges();
+		this.trackThemeChanges();
+	}
 
-      if (classMatrix) {
-        Reflect.defineProperty(this.kernelService, 'classMatrix', { value: classMatrix });
-        this.kernelService.notifyUpdatedClassMatrix.next(true);
-      }
-    });
-  }
+	private initClassMatrix() {
+		this.kernelService.initClassMatrix().subscribe((classMatrix: string) => {
 
-  private checkMenuChanges() {
-    this.menuService.menuStateChanged.subscribe((value) => {
-      if (value) {
-        this.menuStateChanged = !this.menuStateChanged;
-      }
-    });
-  }
+			if (classMatrix) {
+				Reflect.defineProperty(this.kernelService, 'classMatrix', { value: classMatrix });
+				this.kernelService.notifyUpdatedClassMatrix.next(true);
+			}
+		});
+	}
+
+	private checkMenuChanges() {
+		this.menuService.menuStateChanged.subscribe((value) => {
+			if (value) {
+				this.menuStateChanged = !this.menuStateChanged;
+			}
+		});
+	}
+
+	private trackThemeChanges() {
+		this.menuService.applicationThemeChanged.subscribe((value) => {
+			if (value) {
+				this.themeSwitch = !this.themeSwitch;
+			}
+		});
+	}
 }

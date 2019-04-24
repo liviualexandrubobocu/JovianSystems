@@ -1,4 +1,4 @@
-<div [ngClass]="{'global-container' : true, 'menu-open': menuStateChanged}" class="global-container">
+<div [ngClass]="{'global-container' : true, 'menu-open': menuStateChanged, 'dark-theme' : !themeSwitch, 'light-theme': themeSwitch}">
     <app-header></app-header>    
     <router-outlet></router-outlet>
     <div class="overlay"></div>

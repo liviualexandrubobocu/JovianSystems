@@ -1,6 +1,7 @@
 // Internal
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +33,7 @@ import { UserSpaceService } from 'core/user-space/user-space.service';
   imports: [
     AppRoutingModule,
     MenuModule,
+    FormsModule,
     ComputationModule,
     BrowserModule,
     RouterModule,
