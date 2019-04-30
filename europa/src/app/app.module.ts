@@ -1,15 +1,14 @@
-// Internal
+// External
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
 import { PlotlyModule } from 'angular-plotly.js';
 
-// External
+// Internal
 import { AppComponent } from './app.component';
 import { CameraComponent } from 'core/user-space/camera/camera.component';
 import { AttachFileComponent } from 'core/user-space/attach-file/attach-file.component';
@@ -23,29 +22,30 @@ import { KernelService } from 'core/kernel/kernel.service';
 import { UserSpaceService } from 'core/user-space/user-space.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    CameraComponent,
-    AttachFileComponent,
-    EntryScreenComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    MenuModule,
-    FormsModule,
-    ComputationModule,
-    BrowserModule,
-    RouterModule,
-    HttpClientModule,
-    MatChipsModule,
-    PlotlyModule
-  ],
-  providers: [KernelService, UserSpaceService],
-  bootstrap: [AppComponent],
-  schemas: [
-    NO_ERRORS_SCHEMA
-  ]
+	declarations: [
+		AppComponent,
+		HeaderComponent,
+		CameraComponent,
+		AttachFileComponent,
+		EntryScreenComponent,
+	],
+	imports: [
+		AppRoutingModule,
+		MenuModule,
+		FormsModule,
+		ComputationModule,
+		BrowserModule,
+		RouterModule,
+		HttpClientModule,
+		MatChipsModule,
+		PlotlyModule,
+		ReactiveFormsModule
+	],
+	providers: [KernelService, UserSpaceService],
+	bootstrap: [AppComponent],
+	schemas: [
+		NO_ERRORS_SCHEMA
+	]
 })
 export class AppModule { }
 
