@@ -1,1 +1,9 @@
-<div style="color:white;">HTML For Attach File Component</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="photo">Upload Document</label>
+      <input type="file" id="photo" (change)="onFileChange($event)" #fileInput>
+      <button type="button" class="btn btn-sm btn-default" (click)="removeFile()">Remove Document</button>
+    </div>
+    <div *ngIf="selectedFile" class="uploaded-image" [ngStyle]="{ 'background' : 'url(' + selectedFile.src + ');', 'height': '300px' }"></div>
+    <button type="submit" [disabled]="form.invalid" class="btn btn-success">Submit</button>
+</form>
